@@ -1,0 +1,7 @@
+{
+    "serviceGroup": "vpce",
+    "module": "github.com/telecom-cloud/telecomcloud-sdk-go",
+    "clients": [
+        "VpcEndpoint"
+    ]
+}
