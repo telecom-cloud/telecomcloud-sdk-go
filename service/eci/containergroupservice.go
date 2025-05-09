@@ -86,7 +86,7 @@ func NewContainerGroupClient(hostUrl string, ops ...Option) (ContainerGroupClien
 }
 
 func (s *containerGroupClient) CreateContainerGroup(ctx context.Context, req *containergroup.CreateContainerGroupRequest, reqOpt ...config.RequestOption) (resp *containergroup.CreateContainerGroupResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -108,7 +108,7 @@ func (s *containerGroupClient) CreateContainerGroup(ctx context.Context, req *co
 }
 
 func (s *containerGroupClient) DeleteContainerGroup(ctx context.Context, req *containergroup.DeleteContainerGroupRequest, reqOpt ...config.RequestOption) (resp *containergroup.DeleteContainerGroupResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -131,7 +131,7 @@ func (s *containerGroupClient) DeleteContainerGroup(ctx context.Context, req *co
 }
 
 func (s *containerGroupClient) UpdateContainerGroup(ctx context.Context, req *containergroup.UpdateContainerGroupRequest, reqOpt ...config.RequestOption) (resp *containergroup.UpdateContainerGroupResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -154,7 +154,7 @@ func (s *containerGroupClient) UpdateContainerGroup(ctx context.Context, req *co
 }
 
 func (s *containerGroupClient) RestartContainerGroup(ctx context.Context, req *containergroup.RestartContainerGroupRequest, reqOpt ...config.RequestOption) (resp *containergroup.RestartContainerGroupResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -177,7 +177,7 @@ func (s *containerGroupClient) RestartContainerGroup(ctx context.Context, req *c
 }
 
 func (s *containerGroupClient) GetContainerGroup(ctx context.Context, req *containergroup.GetContainerGroupRequest, reqOpt ...config.RequestOption) (resp *containergroup.GetContainerGroupResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -200,7 +200,7 @@ func (s *containerGroupClient) GetContainerGroup(ctx context.Context, req *conta
 }
 
 func (s *containerGroupClient) DescribeContainerGroups(ctx context.Context, req *containergroup.DescribeContainerGroupsRequest, reqOpt ...config.RequestOption) (resp *containergroup.DescribeContainerGroupsResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -220,7 +220,7 @@ func (s *containerGroupClient) DescribeContainerGroups(ctx context.Context, req 
 }
 
 func (s *containerGroupClient) ListContainerGroup(ctx context.Context, req *containergroup.ListContainerGroupRequest, reqOpt ...config.RequestOption) (resp *containergroup.ListContainerGroupResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -247,7 +247,7 @@ func (s *containerGroupClient) ListContainerGroup(ctx context.Context, req *cont
 }
 
 func (s *containerGroupClient) Event(ctx context.Context, req *containergroup.DescribeContainerGroupEventRequest, reqOpt ...config.RequestOption) (resp *containergroup.DescribeContainerGroupEventResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -267,7 +267,7 @@ func (s *containerGroupClient) Event(ctx context.Context, req *containergroup.De
 }
 
 func (s *containerGroupClient) Status(ctx context.Context, req *containergroup.DescribeContainerGroupStatusRequest, reqOpt ...config.RequestOption) (resp *containergroup.DescribeContainerGroupStatusResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -287,7 +287,7 @@ func (s *containerGroupClient) Status(ctx context.Context, req *containergroup.D
 }
 
 func (s *containerGroupClient) Websocket(ctx context.Context, req *containergroup.ConsoleWebsocketRequest, reqOpt ...config.RequestOption) (resp *containergroup.ConsoleWebsocketResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -317,7 +317,7 @@ func (s *containerGroupClient) Websocket(ctx context.Context, req *containergrou
 }
 
 func (s *containerGroupClient) ExecCommand(ctx context.Context, req *containergroup.ExecCommandRequest, reqOpt ...config.RequestOption) (resp *containergroup.ExecCommandResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -337,7 +337,7 @@ func (s *containerGroupClient) ExecCommand(ctx context.Context, req *containergr
 }
 
 func (s *containerGroupClient) ExecWebsocketUri(ctx context.Context, req *containergroup.ExecWebsocketRequest, reqOpt ...config.RequestOption) (resp *containergroup.ExecWebsocketResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -357,7 +357,7 @@ func (s *containerGroupClient) ExecWebsocketUri(ctx context.Context, req *contai
 }
 
 func (s *containerGroupClient) Log(ctx context.Context, req *containergroup.DescribeContainerLogRequest, reqOpt ...config.RequestOption) (resp *containergroup.DescribeContainerLogResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -389,7 +389,7 @@ func (s *containerGroupClient) Log(ctx context.Context, req *containergroup.Desc
 }
 
 func (s *containerGroupClient) Monitor(ctx context.Context, req *containergroup.DescribeContainerGroupMetricRequest, reqOpt ...config.RequestOption) (resp *containergroup.DescribeContainerGroupMetricResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -417,7 +417,7 @@ func (s *containerGroupClient) Monitor(ctx context.Context, req *containergroup.
 }
 
 func (s *containerGroupClient) MultiMonitor(ctx context.Context, req *containergroup.DescribeMultiContainerGroupMetricRequest, reqOpt ...config.RequestOption) (resp *containergroup.DescribeMultiContainerGroupMetricResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -444,7 +444,7 @@ func (s *containerGroupClient) MultiMonitor(ctx context.Context, req *containerg
 }
 
 func (s *containerGroupClient) ResizeContainerGroupVolume(ctx context.Context, req *containergroup.ResizeContainerGroupVolumeRequest, reqOpt ...config.RequestOption) (resp *containergroup.ResizeContainerGroupVolumeResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -464,7 +464,7 @@ func (s *containerGroupClient) ResizeContainerGroupVolume(ctx context.Context, r
 }
 
 func (s *containerGroupClient) CreateOpsTask(ctx context.Context, req *containergroup.CreateOpsTaskRequest, reqOpt ...config.RequestOption) (resp *containergroup.CreateOpsTaskResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -484,7 +484,7 @@ func (s *containerGroupClient) CreateOpsTask(ctx context.Context, req *container
 }
 
 func (s *containerGroupClient) DescribeOpsTask(ctx context.Context, req *containergroup.DescribeOpsTaskRequest, reqOpt ...config.RequestOption) (resp *containergroup.DescribeOpsTaskResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).

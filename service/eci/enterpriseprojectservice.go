@@ -52,7 +52,7 @@ func NewEnterpriseProjectClient(hostUrl string, ops ...Option) (EnterpriseProjec
 }
 
 func (s *enterpriseProjectClient) GetUserEpPolicy(ctx context.Context, req *iam.GetUserEpPolicyRequest, reqOpt ...config.RequestOption) (resp *iam.GetUserEpPolicyResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).

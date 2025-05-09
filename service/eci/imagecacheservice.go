@@ -58,7 +58,7 @@ func NewImageCacheClient(hostUrl string, ops ...Option) (ImageCacheClient, error
 }
 
 func (s *imageCacheClient) CreateImageCache(ctx context.Context, req *imagecache.CreateImageCacheRequest, reqOpt ...config.RequestOption) (resp *imagecache.CreateImageCacheResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -78,7 +78,7 @@ func (s *imageCacheClient) CreateImageCache(ctx context.Context, req *imagecache
 }
 
 func (s *imageCacheClient) DeleteImageCache(ctx context.Context, req *imagecache.DeleteImageCacheRequest, reqOpt ...config.RequestOption) (resp *imagecache.DeleteImageCacheResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -101,7 +101,7 @@ func (s *imageCacheClient) DeleteImageCache(ctx context.Context, req *imagecache
 }
 
 func (s *imageCacheClient) DescribeImageCache(ctx context.Context, req *imagecache.DescribeImageCacheRequest, reqOpt ...config.RequestOption) (resp *imagecache.DescribeImageCacheResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -121,7 +121,7 @@ func (s *imageCacheClient) DescribeImageCache(ctx context.Context, req *imagecac
 }
 
 func (s *imageCacheClient) UpdateImageCache(ctx context.Context, req *imagecache.UpdateImageCacheRequest, reqOpt ...config.RequestOption) (resp *imagecache.UpdateImageCacheResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).

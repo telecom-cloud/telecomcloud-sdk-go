@@ -58,7 +58,7 @@ func NewCommitContainerTaskClient(hostUrl string, ops ...Option) (CommitContaine
 }
 
 func (s *commitContainerTaskClient) DescribeCommitContainerTask(ctx context.Context, req *commitcontainer.DescribeCommitContainerTaskRequest, reqOpt ...config.RequestOption) (resp *commitcontainer.DescribeCommitContainerTaskResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -81,7 +81,7 @@ func (s *commitContainerTaskClient) DescribeCommitContainerTask(ctx context.Cont
 }
 
 func (s *commitContainerTaskClient) CreateCommitContainerTask(ctx context.Context, req *commitcontainer.CreateCommitContainerTaskRequest, reqOpt ...config.RequestOption) (resp *commitcontainer.CreateCommitContainerTaskResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -98,7 +98,7 @@ func (s *commitContainerTaskClient) CreateCommitContainerTask(ctx context.Contex
 }
 
 func (s *commitContainerTaskClient) UpdateCommitContainerTask(ctx context.Context, req *commitcontainer.UpdateCommitContainerTaskRequest, reqOpt ...config.RequestOption) (resp *commitcontainer.UpdateCommitContainerTaskResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -118,7 +118,7 @@ func (s *commitContainerTaskClient) UpdateCommitContainerTask(ctx context.Contex
 }
 
 func (s *commitContainerTaskClient) DeleteCommitContainerTask(ctx context.Context, req *commitcontainer.DeleteCommitContainerTaskRequest, reqOpt ...config.RequestOption) (resp *commitcontainer.DeleteCommitContainerTaskResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).

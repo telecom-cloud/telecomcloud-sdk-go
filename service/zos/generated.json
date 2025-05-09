@@ -1,0 +1,7 @@
+{
+    "serviceGroup": "zos",
+    "module": "github.com/telecom-cloud/telecomcloud-sdk-go",
+    "clients": [
+        "Zos"
+    ]
+}

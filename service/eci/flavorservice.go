@@ -52,7 +52,7 @@ func NewFlavorClient(hostUrl string, ops ...Option) (FlavorClient, error) {
 }
 
 func (s *flavorClient) DescribeAvailableResource(ctx context.Context, req *flavor.DescribeAvailableResourceRequest, reqOpt ...config.RequestOption) (resp *flavor.DescribeAvailableResourceResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).

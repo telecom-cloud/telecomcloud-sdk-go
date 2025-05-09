@@ -16,7 +16,6 @@
 package ecs
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
 	"encoding/xml"
@@ -619,54 +618,23 @@ func createHTTPRequest(c *HttpClient, r *request) (err error) {
 func silently(_ ...interface{}) {}
 
 func defaultResponseResultDecider(res *response) error {
-	// Handles only JSON or XML content type
-	ct := res.Header().Get(hdrContentTypeKey)
-	if res.StatusCode() <= 399 {
-		if isJSONType(ct) || isXMLType(ct) {
-			return unmarshalContent(ct, res.bodyByte, res.request.result)
+	openapiResp := openapi.Response{}
+	err := openapi.BindResponse(string(res.bodyByte), res.request.result)
+	if err != nil {
+		return err
+	}
+
+	if res.StatusCode() > 400 {
+		return &apiErr.StatusError{
+			ErrStatus: apiErr.Status{
+				Code:    int32(openapiResp.ParseStatusCode()),
+				Reason:  openapiResp.Error,
+				Message: openapiResp.Message,
+			},
 		}
 	}
 
-	var (
-		statusCode int
-		reason     string
-		message    string
-	)
-	if isCtapiResponse(res.bodyByte) {
-		ctapiResp := openapi.CtapiResponse{}
-		err := unmarshalContent(jsonContentType, res.bodyByte, &ctapiResp)
-		if err != nil {
-			return err
-		}
-		statusCode = res.StatusCode()
-		reason = ctapiResp.Error
-		message = ctapiResp.Message
-	} else {
-		openapiResp := openapi.OpenapiResponse{}
-		err := unmarshalContent(jsonContentType, res.bodyByte, &openapiResp)
-		if err != nil {
-			return err
-		}
-		statusCode = openapiResp.StatusCode
-		reason = openapiResp.Error
-		message = openapiResp.Message
-	}
-
-	statusErr := &apiErr.StatusError{
-		ErrStatus: apiErr.Status{
-			Code:    int32(statusCode),
-			Reason:  reason,
-			Message: message,
-		},
-	}
-
-	return statusErr
-}
-
-func isCtapiResponse(body []byte) bool {
-	keyword := []byte("CTAPI")
-	index := bytes.Index(body, keyword)
-	return index != -1
+	return nil
 }
 
 // IsJSONType method is to check JSON content type or not
@@ -718,15 +686,4 @@ func parseResponseBody(c *HttpClient, res *response) (err error) {
 		return
 	}
 	return c.responseResultDecider(res)
-}
-
-// unmarshalContent content into object from JSON or XML
-func unmarshalContent(ct string, b []byte, d interface{}) (err error) {
-	if isJSONType(ct) {
-		err = json.Unmarshal(b, d)
-	} else if isXMLType(ct) {
-		err = xml.Unmarshal(b, d)
-	}
-
-	return
 }

@@ -54,7 +54,7 @@ func NewPriceClient(hostUrl string, ops ...Option) (PriceClient, error) {
 }
 
 func (s *priceClient) DescribePrice(ctx context.Context, req *price.DescribeContainerGroupPriceRequest, reqOpt ...config.RequestOption) (resp *price.DescribeContainerGroupPriceResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -74,7 +74,7 @@ func (s *priceClient) DescribePrice(ctx context.Context, req *price.DescribeCont
 }
 
 func (s *priceClient) BatchDescribePrice(ctx context.Context, req *price.BatchDescribeContainerGroupPriceRequest, reqOpt ...config.RequestOption) (resp *price.BatchDescribeContainerGroupPriceResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).

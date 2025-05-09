@@ -52,7 +52,7 @@ func NewRegionClient(hostUrl string, ops ...Option) (RegionClient, error) {
 }
 
 func (s *regionClient) GetZones(ctx context.Context, req *region.GetZonesRequest, reqOpt ...config.RequestOption) (resp *region.GetZonesResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).

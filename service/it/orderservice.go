@@ -58,7 +58,7 @@ func NewOrderClient(hostUrl string, ops ...Option) (OrderClient, error) {
 }
 
 func (s *orderClient) PlaceOnDemandNewPurchaseOrder(ctx context.Context, req *order.PlaceOnDemandNewPurchaseOrderRequest, reqOpt ...config.RequestOption) (resp *order.PlaceOnDemandNewPurchaseOrderResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -78,7 +78,7 @@ func (s *orderClient) PlaceOnDemandNewPurchaseOrder(ctx context.Context, req *or
 }
 
 func (s *orderClient) PlaceRefundOrder(ctx context.Context, req *order.PlaceRefundOrderRequest, reqOpt ...config.RequestOption) (resp *order.PlaceRefundOrderResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -98,7 +98,7 @@ func (s *orderClient) PlaceRefundOrder(ctx context.Context, req *order.PlaceRefu
 }
 
 func (s *orderClient) QueryResourceInfoByMasterOrderId(ctx context.Context, req *order.QueryResourceInfoByMasterOrderIdRequest, reqOpt ...config.RequestOption) (resp *order.QueryResourceInfoByMasterOrderIdResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	resp = &order.QueryResourceInfoByMasterOrderIdResponse{
 		ResourceInfo: make([]*order.ResourceInfo, 0),
 	}
@@ -121,7 +121,7 @@ func (s *orderClient) QueryResourceInfoByMasterOrderId(ctx context.Context, req 
 }
 
 func (s *orderClient) QueryOrderDetail(ctx context.Context, req *order.QueryOrderDetailRequest, reqOpt ...config.RequestOption) (resp *order.QueryOrderDetailResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).

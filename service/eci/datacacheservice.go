@@ -62,7 +62,7 @@ func NewDataCacheClient(hostUrl string, ops ...Option) (DataCacheClient, error) 
 }
 
 func (s *dataCacheClient) CreateDataCache(ctx context.Context, req *datacache.CreateDataCacheRequest, reqOpt ...config.RequestOption) (resp *datacache.CreateDataCacheResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -82,7 +82,7 @@ func (s *dataCacheClient) CreateDataCache(ctx context.Context, req *datacache.Cr
 }
 
 func (s *dataCacheClient) DescribeDataCaches(ctx context.Context, req *datacache.DescribeDataCachesRequest, reqOpt ...config.RequestOption) (resp *datacache.DescribeDataCachesResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -102,7 +102,7 @@ func (s *dataCacheClient) DescribeDataCaches(ctx context.Context, req *datacache
 }
 
 func (s *dataCacheClient) UpdateDataCache(ctx context.Context, req *datacache.UpdateDataCacheRequest, reqOpt ...config.RequestOption) (resp *datacache.UpdateDataCacheResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -125,7 +125,7 @@ func (s *dataCacheClient) UpdateDataCache(ctx context.Context, req *datacache.Up
 }
 
 func (s *dataCacheClient) DeleteDataCache(ctx context.Context, req *datacache.DeleteDataCacheRequest, reqOpt ...config.RequestOption) (resp *datacache.DeleteDataCacheResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -148,7 +148,7 @@ func (s *dataCacheClient) DeleteDataCache(ctx context.Context, req *datacache.De
 }
 
 func (s *dataCacheClient) CopyDataCache(ctx context.Context, req *datacache.CopyDataCacheRequest, reqOpt ...config.RequestOption) (resp *datacache.CopyDataCacheResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -172,7 +172,7 @@ func (s *dataCacheClient) CopyDataCache(ctx context.Context, req *datacache.Copy
 }
 
 func (s *dataCacheClient) GetDataCache(ctx context.Context, req *datacache.GetDataCacheRequest, reqOpt ...config.RequestOption) (resp *datacache.GetDataCacheResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).

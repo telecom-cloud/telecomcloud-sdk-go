@@ -58,7 +58,7 @@ func NewVirtualNodeClient(hostUrl string, ops ...Option) (VirtualNodeClient, err
 }
 
 func (s *virtualNodeClient) CreateVirtualNode(ctx context.Context, req *virtualnode.CreateVirtualNodeRequest, reqOpt ...config.RequestOption) (resp *virtualnode.CreateVirtualNodeResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -78,7 +78,7 @@ func (s *virtualNodeClient) CreateVirtualNode(ctx context.Context, req *virtualn
 }
 
 func (s *virtualNodeClient) DeleteVirtualNode(ctx context.Context, req *virtualnode.DeleteVirtualNodeRequest, reqOpt ...config.RequestOption) (resp *virtualnode.DeleteVirtualNodeResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -101,7 +101,7 @@ func (s *virtualNodeClient) DeleteVirtualNode(ctx context.Context, req *virtualn
 }
 
 func (s *virtualNodeClient) UpdateVirtualNode(ctx context.Context, req *virtualnode.UpdateVirtualNodeRequest, reqOpt ...config.RequestOption) (resp *virtualnode.UpdateVirtualNodeResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
@@ -121,7 +121,7 @@ func (s *virtualNodeClient) UpdateVirtualNode(ctx context.Context, req *virtualn
 }
 
 func (s *virtualNodeClient) DescribeVirtualNodes(ctx context.Context, req *virtualnode.DescribeVirtualNodesRequest, reqOpt ...config.RequestOption) (resp *virtualnode.DescribeVirtualNodesResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.OpenapiResponse{}
+	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 	ret, err := s.client.R().
 		SetContext(ctx).
