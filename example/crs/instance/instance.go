@@ -13,10 +13,10 @@ import (
 )
 
 var (
-	accessKey     = "tempak49fa76350d8347f4be013eeeee"
-	secretKey     = "97ea3366672f413abb7447e2c94afd71"
-	baseDomain    = "https://crs-global.ctapi-test.ctyun.cn:21443"
-	regionId      = "b342b77ef26b11ecb0ac0242ac110002"
+	accessKey     = ""
+	secretKey     = ""
+	baseDomain    = ""
+	regionId      = ""
 	openapiConfig *config.OpenapiConfig
 	options       []crs.Option
 	client        crs.ClientSet
