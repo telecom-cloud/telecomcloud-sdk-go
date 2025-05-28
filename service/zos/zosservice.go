@@ -38,6 +38,8 @@ type ZosClient interface {
 	NewOssService(context context.Context, req *zos.NewOssServiceRequest, reqOpt ...config.RequestOption) (resp *zos.NewOssServiceResponse, rawResponse *protocol.Response, err error)
 
 	CreateBucket(context context.Context, req *zos.CreateBucketRequest, reqOpt ...config.RequestOption) (resp *zos.CreateBucketResponse, rawResponse *protocol.Response, err error)
+
+	GenerateObjectUploadLink(context context.Context, req *zos.GenerateObjectUploadLinkRequest, reqOpt ...config.RequestOption) (resp *zos.GenerateObjectUploadLinkResponse, rawResponse *protocol.Response, err error)
 }
 
 type zosClient struct {
@@ -109,6 +111,23 @@ func (s *zosClient) CreateBucket(ctx context.Context, req *zos.CreateBucketReque
 	return resp, rawResponse, nil
 }
 
+func (s *zosClient) GenerateObjectUploadLink(ctx context.Context, req *zos.GenerateObjectUploadLinkRequest, reqOpt ...config.RequestOption) (resp *zos.GenerateObjectUploadLinkResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodPost, "/v4/oss/generate-object-upload-link")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultZosClient, _ = NewZosClient(baseDomain)
 
 func ConfigDefaultZosClient(ops ...Option) (err error) {
@@ -126,4 +145,8 @@ func NewOssService(context context.Context, req *zos.NewOssServiceRequest, reqOp
 
 func CreateBucket(context context.Context, req *zos.CreateBucketRequest, reqOpt ...config.RequestOption) (resp *zos.CreateBucketResponse, rawResponse *protocol.Response, err error) {
 	return defaultZosClient.CreateBucket(context, req, reqOpt...)
+}
+
+func GenerateObjectUploadLink(context context.Context, req *zos.GenerateObjectUploadLinkRequest, reqOpt ...config.RequestOption) (resp *zos.GenerateObjectUploadLinkResponse, rawResponse *protocol.Response, err error) {
+	return defaultZosClient.GenerateObjectUploadLink(context, req, reqOpt...)
 }
