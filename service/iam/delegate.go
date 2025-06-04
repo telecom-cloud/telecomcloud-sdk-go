@@ -60,6 +60,7 @@ func NewDelegateClient(hostUrl string, ops ...Option) (DelegateClient, error) {
 func (s *delegateClient) CreateAutomateDelegateRole(ctx context.Context, req *delegate.CreateAutomateDelegateRoleRequest, reqOpt ...config.RequestOption) (resp *delegate.CreateAutomateDelegateRoleResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		SetBodyParam(req).
@@ -77,6 +78,7 @@ func (s *delegateClient) CreateAutomateDelegateRole(ctx context.Context, req *de
 func (s *delegateClient) SwitchDelegate(ctx context.Context, req *delegate.SwitchDelegateRequest, reqOpt ...config.RequestOption) (resp *delegate.SwitchDelegateResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		SetBodyParam(req).
@@ -94,12 +96,15 @@ func (s *delegateClient) SwitchDelegate(ctx context.Context, req *delegate.Switc
 func (s *delegateClient) CheckDelegateExist(ctx context.Context, req *delegate.CheckDelegateExistRequest, reqOpt ...config.RequestOption) (resp *delegate.CheckDelegateExistResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"name":      req.GetName(),
+		"accountId": req.GetAccountId(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"name":      req.GetName(),
-			"accountId": req.GetAccountId(),
-		}).
+		SetQueryParams(queryParams).
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
@@ -115,13 +120,16 @@ func (s *delegateClient) CheckDelegateExist(ctx context.Context, req *delegate.C
 func (s *delegateClient) QueryDelegateList(ctx context.Context, req *delegate.QueryDelegateListRequest, reqOpt ...config.RequestOption) (resp *delegate.QueryDelegateListResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"accountId": req.GetAccountId(),
+		"name":      req.GetName(),
+		"type":      req.GetType(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"accountId": req.GetAccountId(),
-			"name":      req.GetName(),
-			"type":      req.GetType(),
-		}).
+		SetQueryParams(queryParams).
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).

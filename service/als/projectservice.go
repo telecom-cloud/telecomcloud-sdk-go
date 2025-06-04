@@ -58,6 +58,7 @@ func NewProjectClient(hostUrl string, ops ...Option) (ProjectClient, error) {
 func (s *projectClient) CreateProject(ctx context.Context, req *project.CreateProjectRequest, reqOpt ...config.RequestOption) (resp *project.CreateProjectResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{
@@ -78,6 +79,7 @@ func (s *projectClient) CreateProject(ctx context.Context, req *project.CreatePr
 func (s *projectClient) DeleteProject(ctx context.Context, req *project.DeleteProjectRequest, reqOpt ...config.RequestOption) (resp *project.DeleteProjectResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{
@@ -98,11 +100,14 @@ func (s *projectClient) DeleteProject(ctx context.Context, req *project.DeletePr
 func (s *projectClient) GetProject(ctx context.Context, req *project.GetProjectRequest, reqOpt ...config.RequestOption) (resp *project.GetProjectResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"projectName": req.GetProjectName(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"projectName": req.GetProjectName(),
-		}).
+		SetQueryParams(queryParams).
 		AddHeaders(map[string]string{
 			"regionId": req.GetRegionId(),
 		}).

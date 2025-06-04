@@ -40,6 +40,10 @@ type RepositoryClient interface {
 	GetRepository(context context.Context, req *repository.GetRepositoryRequest, reqOpt ...config.RequestOption) (resp *repository.GetRepositoryResponse, rawResponse *protocol.Response, err error)
 
 	UpdateRepository(context context.Context, req *repository.UpdateRepositoryRequest, reqOpt ...config.RequestOption) (resp *repository.UpdateRepositoryResponse, rawResponse *protocol.Response, err error)
+
+	ListRepoTag(context context.Context, req *repository.ListRepoTagRequest, reqOpt ...config.RequestOption) (resp *repository.ListRepoTagResponse, rawResponse *protocol.Response, err error)
+
+	GetRepoTag(context context.Context, req *repository.GetRepoTagRequest, reqOpt ...config.RequestOption) (resp *repository.GetRepoTagResponse, rawResponse *protocol.Response, err error)
 }
 
 type repositoryClient struct {
@@ -60,6 +64,7 @@ func NewRepositoryClient(hostUrl string, ops ...Option) (RepositoryClient, error
 func (s *repositoryClient) CreateRepository(ctx context.Context, req *repository.CreateRepositoryRequest, reqOpt ...config.RequestOption) (resp *repository.CreateRepositoryResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{
@@ -80,18 +85,21 @@ func (s *repositoryClient) CreateRepository(ctx context.Context, req *repository
 func (s *repositoryClient) ListRepository(ctx context.Context, req *repository.ListRepositoryRequest, reqOpt ...config.RequestOption) (resp *repository.ListRepositoryResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"regionId":       req.GetRegionId(),
+		"instanceId":     req.GetInstanceId(),
+		"namespaceName":  req.GetNamespaceName(),
+		"repositoryName": req.GetRepositoryName(),
+		"pageNum":        req.GetPageNum(),
+		"pageSize":       req.GetPageSize(),
+		"orderBy":        req.GetOrderBy(),
+		"order":          req.GetOrder(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"regionId":       req.GetRegionId(),
-			"instanceId":     req.GetInstanceId(),
-			"namespaceName":  req.GetNamespaceName(),
-			"repositoryName": req.GetRepositoryName(),
-			"pageNum":        req.GetPageNum(),
-			"pageSize":       req.GetPageSize(),
-			"orderBy":        req.GetOrderBy(),
-			"order":          req.GetOrder(),
-		}).
+		SetQueryParams(queryParams).
 		AddHeaders(map[string]string{
 			"regionId": req.GetRegionId(),
 		}).
@@ -110,12 +118,15 @@ func (s *repositoryClient) ListRepository(ctx context.Context, req *repository.L
 func (s *repositoryClient) GetRepository(ctx context.Context, req *repository.GetRepositoryRequest, reqOpt ...config.RequestOption) (resp *repository.GetRepositoryResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"instanceId":   req.GetInstanceId(),
+		"repositoryId": req.GetRepositoryId(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"instanceId":   req.GetInstanceId(),
-			"repositoryId": req.GetRepositoryId(),
-		}).
+		SetQueryParams(queryParams).
 		AddHeaders(map[string]string{
 			"regionId": req.GetRegionId(),
 		}).
@@ -134,6 +145,7 @@ func (s *repositoryClient) GetRepository(ctx context.Context, req *repository.Ge
 func (s *repositoryClient) UpdateRepository(ctx context.Context, req *repository.UpdateRepositoryRequest, reqOpt ...config.RequestOption) (resp *repository.UpdateRepositoryResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{
@@ -143,6 +155,66 @@ func (s *repositoryClient) UpdateRepository(ctx context.Context, req *repository
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
 		Execute(http.MethodPost, "/v1/updateRepository")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
+func (s *repositoryClient) ListRepoTag(ctx context.Context, req *repository.ListRepoTagRequest, reqOpt ...config.RequestOption) (resp *repository.ListRepoTagResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"instanceId":   req.GetInstanceId(),
+		"repositoryId": req.GetRepositoryId(),
+		"tagName":      req.GetTagName(),
+		"pageSize":     req.GetPageSize(),
+		"pageNum":      req.GetPageNum(),
+		"orderBy":      req.GetOrderBy(),
+		"order":        req.GetOrder(),
+	}
+	OptimizeQueryParams(queryParams)
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetQueryParams(queryParams).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/v1/listRepoTag")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
+func (s *repositoryClient) GetRepoTag(ctx context.Context, req *repository.GetRepoTagRequest, reqOpt ...config.RequestOption) (resp *repository.GetRepoTagResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"instanceId":   req.GetInstanceId(),
+		"repositoryId": req.GetRepositoryId(),
+		"tagName":      req.GetTagName(),
+	}
+	OptimizeQueryParams(queryParams)
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetQueryParams(queryParams).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/v1/updateRepository")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -172,4 +244,12 @@ func GetRepository(context context.Context, req *repository.GetRepositoryRequest
 
 func UpdateRepository(context context.Context, req *repository.UpdateRepositoryRequest, reqOpt ...config.RequestOption) (resp *repository.UpdateRepositoryResponse, rawResponse *protocol.Response, err error) {
 	return defaultRepositoryClient.UpdateRepository(context, req, reqOpt...)
+}
+
+func ListRepoTag(context context.Context, req *repository.ListRepoTagRequest, reqOpt ...config.RequestOption) (resp *repository.ListRepoTagResponse, rawResponse *protocol.Response, err error) {
+	return defaultRepositoryClient.ListRepoTag(context, req, reqOpt...)
+}
+
+func GetRepoTag(context context.Context, req *repository.GetRepoTagRequest, reqOpt ...config.RequestOption) (resp *repository.GetRepoTagResponse, rawResponse *protocol.Response, err error) {
+	return defaultRepositoryClient.GetRepoTag(context, req, reqOpt...)
 }

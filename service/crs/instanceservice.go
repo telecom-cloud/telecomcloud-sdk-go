@@ -64,6 +64,7 @@ func NewInstanceClient(hostUrl string, ops ...Option) (InstanceClient, error) {
 func (s *instanceClient) SubscribeEnterpriseInstance(ctx context.Context, req *instance.SubscribeEnterpriseInstanceRequest, reqOpt ...config.RequestOption) (resp *instance.SubscribeEnterpriseInstanceResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{
@@ -84,14 +85,17 @@ func (s *instanceClient) SubscribeEnterpriseInstance(ctx context.Context, req *i
 func (s *instanceClient) ListEnterpriseInstance(ctx context.Context, req *instance.ListEnterpriseInstanceRequest, reqOpt ...config.RequestOption) (resp *instance.ListEnterpriseInstanceResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"regionId":     req.GetRegionId(),
+		"pageNum":      req.GetPageNum(),
+		"pageSize":     req.GetPageSize(),
+		"instanceName": req.GetInstanceName(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"regionId":     req.GetRegionId(),
-			"pageNum":      req.GetPageNum(),
-			"pageSize":     req.GetPageSize(),
-			"instanceName": req.GetInstanceName(),
-		}).
+		SetQueryParams(queryParams).
 		AddHeaders(map[string]string{
 			"regionId": req.GetRegionId(),
 		}).
@@ -110,11 +114,14 @@ func (s *instanceClient) ListEnterpriseInstance(ctx context.Context, req *instan
 func (s *instanceClient) GetEnterpriseInstance(ctx context.Context, req *instance.GetEnterpriseInstanceRequest, reqOpt ...config.RequestOption) (resp *instance.GetEnterpriseInstanceResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"instanceId": req.GetInstanceId(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"instanceId": req.GetInstanceId(),
-		}).
+		SetQueryParams(queryParams).
 		AddHeaders(map[string]string{
 			"regionId": req.GetRegionId(),
 		}).
@@ -133,11 +140,14 @@ func (s *instanceClient) GetEnterpriseInstance(ctx context.Context, req *instanc
 func (s *instanceClient) GetDelegateUsername(ctx context.Context, req *instance.GetDelegateUsernameRequest, reqOpt ...config.RequestOption) (resp *instance.GetDelegateUsernameResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"regionId": req.GetRegionId(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"regionId": req.GetRegionId(),
-		}).
+		SetQueryParams(queryParams).
 		AddHeaders(map[string]string{
 			"regionId": req.GetRegionId(),
 		}).
@@ -156,6 +166,7 @@ func (s *instanceClient) GetDelegateUsername(ctx context.Context, req *instance.
 func (s *instanceClient) ResetDelegateUserPassword(ctx context.Context, req *instance.ResetDelegateUserPasswordRequest, reqOpt ...config.RequestOption) (resp *instance.ResetDelegateUserPasswordResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{
@@ -176,6 +187,7 @@ func (s *instanceClient) ResetDelegateUserPassword(ctx context.Context, req *ins
 func (s *instanceClient) GetAuthorizationToken(ctx context.Context, req *instance.GetAuthorizationTokenRequest, reqOpt ...config.RequestOption) (resp *instance.GetAuthorizationTokenResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{

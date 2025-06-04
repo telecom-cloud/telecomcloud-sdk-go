@@ -58,6 +58,7 @@ func NewUnitClient(hostUrl string, ops ...Option) (UnitClient, error) {
 func (s *unitClient) CreateUnit(ctx context.Context, req *unit.CreateUnitRequest, reqOpt ...config.RequestOption) (resp *unit.CreateUnitResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{
@@ -78,6 +79,7 @@ func (s *unitClient) CreateUnit(ctx context.Context, req *unit.CreateUnitRequest
 func (s *unitClient) DeleteUnit(ctx context.Context, req *unit.DeleteUnitRequest, reqOpt ...config.RequestOption) (resp *unit.DeleteUnitResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{
@@ -98,12 +100,15 @@ func (s *unitClient) DeleteUnit(ctx context.Context, req *unit.DeleteUnitRequest
 func (s *unitClient) ListUnit(ctx context.Context, req *unit.ListUnitRequest, reqOpt ...config.RequestOption) (resp *unit.ListUnitResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"projectCode": req.GetProjectCode(),
+		"unitName":    req.GetUnitName(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"projectCode": req.GetProjectCode(),
-			"unitName":    req.GetUnitName(),
-		}).
+		SetQueryParams(queryParams).
 		AddHeaders(map[string]string{
 			"regionId": req.GetRegionId(),
 		}).

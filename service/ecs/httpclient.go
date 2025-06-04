@@ -40,6 +40,8 @@ import (
 	"github.com/telecom-cloud/client-go/pkg/protocol/client"
 )
 
+var OptimizeQueryParams = utils.OptimizeQueryParams
+
 type use interface {
 	Use(mws ...cli.Middleware)
 }

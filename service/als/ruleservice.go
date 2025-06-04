@@ -60,6 +60,7 @@ func NewRuleClient(hostUrl string, ops ...Option) (RuleClient, error) {
 func (s *ruleClient) CreateRule(ctx context.Context, req *rule.CreateRuleRequest, reqOpt ...config.RequestOption) (resp *rule.CreateRuleResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{
@@ -80,6 +81,7 @@ func (s *ruleClient) CreateRule(ctx context.Context, req *rule.CreateRuleRequest
 func (s *ruleClient) DeleteRule(ctx context.Context, req *rule.DeleteRuleRequest, reqOpt ...config.RequestOption) (resp *rule.DeleteRuleResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{
@@ -100,12 +102,15 @@ func (s *ruleClient) DeleteRule(ctx context.Context, req *rule.DeleteRuleRequest
 func (s *ruleClient) GetRule(ctx context.Context, req *rule.GetRuleRequest, reqOpt ...config.RequestOption) (resp *rule.GetRuleResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"ruleName": req.GetRuleName(),
+		"unitCode": req.GetUnitCode(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"ruleName": req.GetRuleName(),
-			"unitCode": req.GetUnitCode(),
-		}).
+		SetQueryParams(queryParams).
 		AddHeaders(map[string]string{
 			"regionId": req.GetRegionId(),
 		}).
@@ -124,6 +129,7 @@ func (s *ruleClient) GetRule(ctx context.Context, req *rule.GetRuleRequest, reqO
 func (s *ruleClient) ApplyRule(ctx context.Context, req *rule.RuleApplyRequest, reqOpt ...config.RequestOption) (resp *rule.RuleApplyResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{

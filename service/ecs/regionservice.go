@@ -54,11 +54,14 @@ func NewRegionClient(hostUrl string, ops ...Option) (RegionClient, error) {
 func (s *regionClient) GetZones(ctx context.Context, req *region.GetZonesRequest, reqOpt ...config.RequestOption) (resp *region.GetZonesResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"regionID": req.GetRegionID(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"regionID": req.GetRegionID(),
-		}).
+		SetQueryParams(queryParams).
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).

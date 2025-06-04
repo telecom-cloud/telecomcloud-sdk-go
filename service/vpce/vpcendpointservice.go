@@ -37,7 +37,9 @@ type VpcEndpointClient interface {
 
 	DeleteEndpoint(context context.Context, req *vpce.DeleteEndpointRequest, reqOpt ...config.RequestOption) (resp *vpce.DeleteEndpointResponse, rawResponse *protocol.Response, err error)
 
-	GetEndpoint(context context.Context, req *vpce.DeleteEndpointRequest, reqOpt ...config.RequestOption) (resp *vpce.GetEndpointResponse, rawResponse *protocol.Response, err error)
+	GetEndpoint(context context.Context, req *vpce.GetEndpointRequest, reqOpt ...config.RequestOption) (resp *vpce.GetEndpointResponse, rawResponse *protocol.Response, err error)
+
+	ListEndpoint(context context.Context, req *vpce.ListEndpointRequest, reqOpt ...config.RequestOption) (resp *vpce.ListEndpointResponse, rawResponse *protocol.Response, err error)
 
 	CreateEndpointWhitelist(context context.Context, req *vpce.CreateEndpointWhitelistRequest, reqOpt ...config.RequestOption) (resp *vpce.CreateEndpointWhitelistResponse, rawResponse *protocol.Response, err error)
 
@@ -64,6 +66,7 @@ func NewVpcEndpointClient(hostUrl string, ops ...Option) (VpcEndpointClient, err
 func (s *vpcEndpointClient) CreateEndpoint(ctx context.Context, req *vpce.CreateEndpointRequest, reqOpt ...config.RequestOption) (resp *vpce.CreateEndpointResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{
@@ -84,6 +87,7 @@ func (s *vpcEndpointClient) CreateEndpoint(ctx context.Context, req *vpce.Create
 func (s *vpcEndpointClient) DeleteEndpoint(ctx context.Context, req *vpce.DeleteEndpointRequest, reqOpt ...config.RequestOption) (resp *vpce.DeleteEndpointResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		SetBodyParam(req).
@@ -98,11 +102,15 @@ func (s *vpcEndpointClient) DeleteEndpoint(ctx context.Context, req *vpce.Delete
 	return resp, rawResponse, nil
 }
 
-func (s *vpcEndpointClient) GetEndpoint(ctx context.Context, req *vpce.DeleteEndpointRequest, reqOpt ...config.RequestOption) (resp *vpce.GetEndpointResponse, rawResponse *protocol.Response, err error) {
+func (s *vpcEndpointClient) GetEndpoint(ctx context.Context, req *vpce.GetEndpointRequest, reqOpt ...config.RequestOption) (resp *vpce.GetEndpointResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
+		AddHeaders(map[string]string{
+			"regionID": req.GetRegionID(),
+		}).
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
@@ -115,9 +123,38 @@ func (s *vpcEndpointClient) GetEndpoint(ctx context.Context, req *vpce.DeleteEnd
 	return resp, rawResponse, nil
 }
 
+func (s *vpcEndpointClient) ListEndpoint(ctx context.Context, req *vpce.ListEndpointRequest, reqOpt ...config.RequestOption) (resp *vpce.ListEndpointResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"regionID":     req.GetRegionID(),
+		"endpointName": req.GetEndpointName(),
+		"queryContent": req.GetQueryContent(),
+	}
+	OptimizeQueryParams(queryParams)
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetQueryParams(queryParams).
+		AddHeaders(map[string]string{
+			"regionID": req.GetRegionID(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/v4/vpce/new-list-endpoint")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 func (s *vpcEndpointClient) CreateEndpointWhitelist(ctx context.Context, req *vpce.CreateEndpointWhitelistRequest, reqOpt ...config.RequestOption) (resp *vpce.CreateEndpointWhitelistResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		SetBodyParam(req).
@@ -135,6 +172,7 @@ func (s *vpcEndpointClient) CreateEndpointWhitelist(ctx context.Context, req *vp
 func (s *vpcEndpointClient) DeleteEndpointWhitelist(ctx context.Context, req *vpce.DeleteEndpointWhitelistRequest, reqOpt ...config.RequestOption) (resp *vpce.DeleteEndpointWhitelistResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		SetBodyParam(req).
@@ -152,14 +190,17 @@ func (s *vpcEndpointClient) DeleteEndpointWhitelist(ctx context.Context, req *vp
 func (s *vpcEndpointClient) ListEndpointWhitelist(ctx context.Context, req *vpce.ListEndpointWhitelistRequest, reqOpt ...config.RequestOption) (resp *vpce.ListEndpointWhitelistResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"regionID":          req.GetRegionID(),
+		"endpointServiceID": req.GetEndpointServiceID(),
+		"pageNo":            req.GetPageNo(),
+		"pageSize":          req.GetPageSize(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"regionID":          req.GetRegionID(),
-			"endpointServiceID": req.GetEndpointServiceID(),
-			"pageNo":            req.GetPageNo(),
-			"pageSize":          req.GetPageSize(),
-		}).
+		SetQueryParams(queryParams).
 		AddHeaders(map[string]string{
 			"regionID": req.GetRegionID(),
 		}).
@@ -190,8 +231,12 @@ func DeleteEndpoint(context context.Context, req *vpce.DeleteEndpointRequest, re
 	return defaultVpcEndpointClient.DeleteEndpoint(context, req, reqOpt...)
 }
 
-func GetEndpoint(context context.Context, req *vpce.DeleteEndpointRequest, reqOpt ...config.RequestOption) (resp *vpce.GetEndpointResponse, rawResponse *protocol.Response, err error) {
+func GetEndpoint(context context.Context, req *vpce.GetEndpointRequest, reqOpt ...config.RequestOption) (resp *vpce.GetEndpointResponse, rawResponse *protocol.Response, err error) {
 	return defaultVpcEndpointClient.GetEndpoint(context, req, reqOpt...)
+}
+
+func ListEndpoint(context context.Context, req *vpce.ListEndpointRequest, reqOpt ...config.RequestOption) (resp *vpce.ListEndpointResponse, rawResponse *protocol.Response, err error) {
+	return defaultVpcEndpointClient.ListEndpoint(context, req, reqOpt...)
 }
 
 func CreateEndpointWhitelist(context context.Context, req *vpce.CreateEndpointWhitelistRequest, reqOpt ...config.RequestOption) (resp *vpce.CreateEndpointWhitelistResponse, rawResponse *protocol.Response, err error) {

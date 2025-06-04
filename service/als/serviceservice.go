@@ -56,6 +56,7 @@ func NewServiceClient(hostUrl string, ops ...Option) (ServiceClient, error) {
 func (s *serviceClient) CheckService(ctx context.Context, req *service.CheckServiceRequest, reqOpt ...config.RequestOption) (resp *service.CheckServiceResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{
@@ -76,6 +77,7 @@ func (s *serviceClient) CheckService(ctx context.Context, req *service.CheckServ
 func (s *serviceClient) OpenService(ctx context.Context, req *service.OpenServiceRequest, reqOpt ...config.RequestOption) (resp *service.OpenServiceResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{

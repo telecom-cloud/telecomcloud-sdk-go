@@ -60,6 +60,7 @@ func NewNamespaceClient(hostUrl string, ops ...Option) (NamespaceClient, error) 
 func (s *namespaceClient) CreateNamespace(ctx context.Context, req *namespace.CreateNamespaceRequest, reqOpt ...config.RequestOption) (resp *namespace.CreateNamespaceResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{
@@ -80,16 +81,19 @@ func (s *namespaceClient) CreateNamespace(ctx context.Context, req *namespace.Cr
 func (s *namespaceClient) ListNamespace(ctx context.Context, req *namespace.ListNamespaceRequest, reqOpt ...config.RequestOption) (resp *namespace.ListNamespaceResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"instanceId":    req.GetInstanceId(),
+		"namespaceName": req.GetNamespaceName(),
+		"pageNum":       req.GetPageNum(),
+		"pageSize":      req.GetPageSize(),
+		"orderBy":       req.GetOrderBy(),
+		"order":         req.GetOrder(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"instanceId":    req.GetInstanceId(),
-			"namespaceName": req.GetNamespaceName(),
-			"pageNum":       req.GetPageNum(),
-			"pageSize":      req.GetPageSize(),
-			"orderBy":       req.GetOrderBy(),
-			"order":         req.GetOrder(),
-		}).
+		SetQueryParams(queryParams).
 		AddHeaders(map[string]string{
 			"regionId": req.GetRegionId(),
 		}).
@@ -108,12 +112,15 @@ func (s *namespaceClient) ListNamespace(ctx context.Context, req *namespace.List
 func (s *namespaceClient) GetNamespace(ctx context.Context, req *namespace.GetNamespaceRequest, reqOpt ...config.RequestOption) (resp *namespace.GetNamespaceResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"instanceId":    req.GetInstanceId(),
+		"namespaceName": req.GetNamespaceName(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"instanceId":    req.GetInstanceId(),
-			"namespaceName": req.GetNamespaceName(),
-		}).
+		SetQueryParams(queryParams).
 		AddHeaders(map[string]string{
 			"regionId": req.GetRegionId(),
 		}).
@@ -132,6 +139,7 @@ func (s *namespaceClient) GetNamespace(ctx context.Context, req *namespace.GetNa
 func (s *namespaceClient) UpdateNamespace(ctx context.Context, req *namespace.UpdateNamespaceRequest, reqOpt ...config.RequestOption) (resp *namespace.UpdateNamespaceResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{

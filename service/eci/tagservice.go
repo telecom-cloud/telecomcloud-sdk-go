@@ -58,6 +58,7 @@ func NewTagClient(hostUrl string, ops ...Option) (TagClient, error) {
 func (s *tagClient) BindTag(ctx context.Context, req *tag.BindTagRequest, reqOpt ...config.RequestOption) (resp *tag.BindTagResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{
@@ -78,6 +79,7 @@ func (s *tagClient) BindTag(ctx context.Context, req *tag.BindTagRequest, reqOpt
 func (s *tagClient) ListTag(ctx context.Context, req *tag.ListTagRequest, reqOpt ...config.RequestOption) (resp *tag.ListTagResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{
@@ -98,6 +100,7 @@ func (s *tagClient) ListTag(ctx context.Context, req *tag.ListTagRequest, reqOpt
 func (s *tagClient) UnbindTag(ctx context.Context, req *tag.UnbindTagRequest, reqOpt ...config.RequestOption) (resp *tag.UnbindTagResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{

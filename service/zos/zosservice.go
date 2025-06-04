@@ -40,6 +40,12 @@ type ZosClient interface {
 	CreateBucket(context context.Context, req *zos.CreateBucketRequest, reqOpt ...config.RequestOption) (resp *zos.CreateBucketResponse, rawResponse *protocol.Response, err error)
 
 	GenerateObjectUploadLink(context context.Context, req *zos.GenerateObjectUploadLinkRequest, reqOpt ...config.RequestOption) (resp *zos.GenerateObjectUploadLinkResponse, rawResponse *protocol.Response, err error)
+
+	GetKeys(context context.Context, req *zos.GetKeysRequest, reqOpt ...config.RequestOption) (resp *zos.GetKeysResponse, rawResponse *protocol.Response, err error)
+
+	ListBuckets(context context.Context, req *zos.ListBucketsRequest, reqOpt ...config.RequestOption) (resp *zos.ListBucketsResponse, rawResponse *protocol.Response, err error)
+
+	GetBucket(context context.Context, req *zos.GetBucketRequest, reqOpt ...config.RequestOption) (resp *zos.GetBucketResponse, rawResponse *protocol.Response, err error)
 }
 
 type zosClient struct {
@@ -60,11 +66,14 @@ func NewZosClient(hostUrl string, ops ...Option) (ZosClient, error) {
 func (s *zosClient) GetOssServiceStatus(ctx context.Context, req *zos.GetOssServiceStatusRequest, reqOpt ...config.RequestOption) (resp *zos.GetOssServiceStatusResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"regionId": req.GetRegionId(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"regionId": req.GetRegionId(),
-		}).
+		SetQueryParams(queryParams).
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
@@ -80,6 +89,7 @@ func (s *zosClient) GetOssServiceStatus(ctx context.Context, req *zos.GetOssServ
 func (s *zosClient) NewOssService(ctx context.Context, req *zos.NewOssServiceRequest, reqOpt ...config.RequestOption) (resp *zos.NewOssServiceResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		SetBodyParam(req).
@@ -97,6 +107,7 @@ func (s *zosClient) NewOssService(ctx context.Context, req *zos.NewOssServiceReq
 func (s *zosClient) CreateBucket(ctx context.Context, req *zos.CreateBucketRequest, reqOpt ...config.RequestOption) (resp *zos.CreateBucketResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		SetBodyParam(req).
@@ -114,12 +125,86 @@ func (s *zosClient) CreateBucket(ctx context.Context, req *zos.CreateBucketReque
 func (s *zosClient) GenerateObjectUploadLink(ctx context.Context, req *zos.GenerateObjectUploadLinkRequest, reqOpt ...config.RequestOption) (resp *zos.GenerateObjectUploadLinkResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
 		Execute(http.MethodPost, "/v4/oss/generate-object-upload-link")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
+func (s *zosClient) GetKeys(ctx context.Context, req *zos.GetKeysRequest, reqOpt ...config.RequestOption) (resp *zos.GetKeysResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"regionID": req.GetRegionID(),
+	}
+	OptimizeQueryParams(queryParams)
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetQueryParams(queryParams).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/v4/oss/get-keys")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
+func (s *zosClient) ListBuckets(ctx context.Context, req *zos.ListBucketsRequest, reqOpt ...config.RequestOption) (resp *zos.ListBucketsResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"regionID":  req.GetRegionID(),
+		"projectID": req.GetProjectID(),
+		"pageSize":  req.GetPageSize(),
+		"pageNo":    req.GetPageNo(),
+	}
+	OptimizeQueryParams(queryParams)
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetQueryParams(queryParams).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/v4/oss/list-buckets")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
+func (s *zosClient) GetBucket(ctx context.Context, req *zos.GetBucketRequest, reqOpt ...config.RequestOption) (resp *zos.GetBucketResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"bucket":   req.GetBucket(),
+		"regionID": req.GetRegionID(),
+	}
+	OptimizeQueryParams(queryParams)
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetQueryParams(queryParams).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/v4/oss/get-bucket-info")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -149,4 +234,16 @@ func CreateBucket(context context.Context, req *zos.CreateBucketRequest, reqOpt 
 
 func GenerateObjectUploadLink(context context.Context, req *zos.GenerateObjectUploadLinkRequest, reqOpt ...config.RequestOption) (resp *zos.GenerateObjectUploadLinkResponse, rawResponse *protocol.Response, err error) {
 	return defaultZosClient.GenerateObjectUploadLink(context, req, reqOpt...)
+}
+
+func GetKeys(context context.Context, req *zos.GetKeysRequest, reqOpt ...config.RequestOption) (resp *zos.GetKeysResponse, rawResponse *protocol.Response, err error) {
+	return defaultZosClient.GetKeys(context, req, reqOpt...)
+}
+
+func ListBuckets(context context.Context, req *zos.ListBucketsRequest, reqOpt ...config.RequestOption) (resp *zos.ListBucketsResponse, rawResponse *protocol.Response, err error) {
+	return defaultZosClient.ListBuckets(context, req, reqOpt...)
+}
+
+func GetBucket(context context.Context, req *zos.GetBucketRequest, reqOpt ...config.RequestOption) (resp *zos.GetBucketResponse, rawResponse *protocol.Response, err error) {
+	return defaultZosClient.GetBucket(context, req, reqOpt...)
 }

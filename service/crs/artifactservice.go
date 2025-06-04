@@ -58,14 +58,17 @@ func NewArtifactClient(hostUrl string, ops ...Option) (ArtifactClient, error) {
 func (s *artifactClient) ListArtifact(ctx context.Context, req *artifact.ListArtifactRequest, reqOpt ...config.RequestOption) (resp *artifact.ListArtifactResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"instanceId":   req.GetInstanceId(),
+		"repositoryId": req.GetRepositoryId(),
+		"pageNum":      req.GetPageNum(),
+		"pageSize":     req.GetPageSize(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"instanceId":   req.GetInstanceId(),
-			"repositoryId": req.GetRepositoryId(),
-			"pageNum":      req.GetPageNum(),
-			"pageSize":     req.GetPageSize(),
-		}).
+		SetQueryParams(queryParams).
 		AddHeaders(map[string]string{
 			"regionId": req.GetRegionId(),
 		}).
@@ -84,13 +87,16 @@ func (s *artifactClient) ListArtifact(ctx context.Context, req *artifact.ListArt
 func (s *artifactClient) GetArtifact(ctx context.Context, req *artifact.GetArtifactRequest, reqOpt ...config.RequestOption) (resp *artifact.GetArtifactResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"instanceId":   req.GetInstanceId(),
+		"repositoryId": req.GetRepositoryId(),
+		"reference":    req.GetReference(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"instanceId":   req.GetInstanceId(),
-			"repositoryId": req.GetRepositoryId(),
-			"reference":    req.GetReference(),
-		}).
+		SetQueryParams(queryParams).
 		AddHeaders(map[string]string{
 			"regionId": req.GetRegionId(),
 		}).
@@ -109,13 +115,16 @@ func (s *artifactClient) GetArtifact(ctx context.Context, req *artifact.GetArtif
 func (s *artifactClient) DeleteArtifact(ctx context.Context, req *artifact.DeleteArtifactRequest, reqOpt ...config.RequestOption) (resp *artifact.DeleteArtifactResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"instanceId":   req.GetInstanceId(),
+		"repositoryId": req.GetRepositoryId(),
+		"reference":    req.GetReference(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"instanceId":   req.GetInstanceId(),
-			"repositoryId": req.GetRepositoryId(),
-			"reference":    req.GetReference(),
-		}).
+		SetQueryParams(queryParams).
 		AddHeaders(map[string]string{
 			"regionId": req.GetRegionId(),
 		}).

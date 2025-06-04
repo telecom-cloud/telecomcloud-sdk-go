@@ -54,12 +54,15 @@ func NewEnterpriseProjectClient(hostUrl string, ops ...Option) (EnterpriseProjec
 func (s *enterpriseProjectClient) GetUserEpPolicy(ctx context.Context, req *iam.GetUserEpPolicyRequest, reqOpt ...config.RequestOption) (resp *iam.GetUserEpPolicyResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"accountId": req.GetAccountId(),
+		"userId":    req.GetUserId(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetQueryParams(map[string]interface{}{
-			"accountId": req.GetAccountId(),
-			"userId":    req.GetUserId(),
-		}).
+		SetQueryParams(queryParams).
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).

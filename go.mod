@@ -4,7 +4,7 @@ go 1.22.10
 
 require (
 	github.com/gorilla/websocket v1.5.3
-	github.com/telecom-cloud/client-go v0.1.6
+	github.com/telecom-cloud/client-go v0.1.7
 	google.golang.org/protobuf v1.36.2
 )
 

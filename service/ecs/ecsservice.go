@@ -56,6 +56,7 @@ func NewEcsClient(hostUrl string, ops ...Option) (EcsClient, error) {
 func (s *ecsClient) CreateInstance(ctx context.Context, req *ecs.CreateInstanceRequest, reqOpt ...config.RequestOption) (resp *ecs.CreateInstanceResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		SetBodyParam(req).
@@ -73,6 +74,7 @@ func (s *ecsClient) CreateInstance(ctx context.Context, req *ecs.CreateInstanceR
 func (s *ecsClient) ListInstance(ctx context.Context, req *ecs.ListInstanceRequest, reqOpt ...config.RequestOption) (resp *ecs.ListInstanceResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
+
 	ret, err := s.client.R().
 		SetContext(ctx).
 		SetBodyParam(req).
