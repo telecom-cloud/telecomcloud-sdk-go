@@ -46,6 +46,10 @@ type ZosClient interface {
 	ListBuckets(context context.Context, req *zos.ListBucketsRequest, reqOpt ...config.RequestOption) (resp *zos.ListBucketsResponse, rawResponse *protocol.Response, err error)
 
 	GetBucket(context context.Context, req *zos.GetBucketRequest, reqOpt ...config.RequestOption) (resp *zos.GetBucketResponse, rawResponse *protocol.Response, err error)
+
+	GetBucketAcl(context context.Context, req *zos.GetBucketAclRequest, reqOpt ...config.RequestOption) (resp *zos.GetBucketAclResponse, rawResponse *protocol.Response, err error)
+
+	PutBucketAcl(context context.Context, req *zos.PutBucketAclRequest, reqOpt ...config.RequestOption) (resp *zos.PutBucketAclResponse, rawResponse *protocol.Response, err error)
 }
 
 type zosClient struct {
@@ -213,6 +217,48 @@ func (s *zosClient) GetBucket(ctx context.Context, req *zos.GetBucketRequest, re
 	return resp, rawResponse, nil
 }
 
+func (s *zosClient) GetBucketAcl(ctx context.Context, req *zos.GetBucketAclRequest, reqOpt ...config.RequestOption) (resp *zos.GetBucketAclResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"bucket":   req.GetBucket(),
+		"regionID": req.GetRegionID(),
+	}
+	OptimizeQueryParams(queryParams)
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetQueryParams(queryParams).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/v4/oss/get-bucket-info")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
+func (s *zosClient) PutBucketAcl(ctx context.Context, req *zos.PutBucketAclRequest, reqOpt ...config.RequestOption) (resp *zos.PutBucketAclResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodPost, "/v4/oss/put-bucket-acl")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultZosClient, _ = NewZosClient(baseDomain)
 
 func ConfigDefaultZosClient(ops ...Option) (err error) {
@@ -246,4 +292,12 @@ func ListBuckets(context context.Context, req *zos.ListBucketsRequest, reqOpt ..
 
 func GetBucket(context context.Context, req *zos.GetBucketRequest, reqOpt ...config.RequestOption) (resp *zos.GetBucketResponse, rawResponse *protocol.Response, err error) {
 	return defaultZosClient.GetBucket(context, req, reqOpt...)
+}
+
+func GetBucketAcl(context context.Context, req *zos.GetBucketAclRequest, reqOpt ...config.RequestOption) (resp *zos.GetBucketAclResponse, rawResponse *protocol.Response, err error) {
+	return defaultZosClient.GetBucketAcl(context, req, reqOpt...)
+}
+
+func PutBucketAcl(context context.Context, req *zos.PutBucketAclRequest, reqOpt ...config.RequestOption) (resp *zos.PutBucketAclResponse, rawResponse *protocol.Response, err error) {
+	return defaultZosClient.PutBucketAcl(context, req, reqOpt...)
 }
