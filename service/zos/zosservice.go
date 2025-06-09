@@ -50,6 +50,8 @@ type ZosClient interface {
 	GetBucketAcl(context context.Context, req *zos.GetBucketAclRequest, reqOpt ...config.RequestOption) (resp *zos.GetBucketAclResponse, rawResponse *protocol.Response, err error)
 
 	PutBucketAcl(context context.Context, req *zos.PutBucketAclRequest, reqOpt ...config.RequestOption) (resp *zos.PutBucketAclResponse, rawResponse *protocol.Response, err error)
+
+	PutBucketCors(context context.Context, req *zos.PutBucketCorsRequest, reqOpt ...config.RequestOption) (resp *zos.PutBucketCorsResponse, rawResponse *protocol.Response, err error)
 }
 
 type zosClient struct {
@@ -259,6 +261,24 @@ func (s *zosClient) PutBucketAcl(ctx context.Context, req *zos.PutBucketAclReque
 	return resp, rawResponse, nil
 }
 
+func (s *zosClient) PutBucketCors(ctx context.Context, req *zos.PutBucketCorsRequest, reqOpt ...config.RequestOption) (resp *zos.PutBucketCorsResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodPost, "/v4/oss/put-bucket-cors")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultZosClient, _ = NewZosClient(baseDomain)
 
 func ConfigDefaultZosClient(ops ...Option) (err error) {
@@ -300,4 +320,8 @@ func GetBucketAcl(context context.Context, req *zos.GetBucketAclRequest, reqOpt 
 
 func PutBucketAcl(context context.Context, req *zos.PutBucketAclRequest, reqOpt ...config.RequestOption) (resp *zos.PutBucketAclResponse, rawResponse *protocol.Response, err error) {
 	return defaultZosClient.PutBucketAcl(context, req, reqOpt...)
+}
+
+func PutBucketCors(context context.Context, req *zos.PutBucketCorsRequest, reqOpt ...config.RequestOption) (resp *zos.PutBucketCorsResponse, rawResponse *protocol.Response, err error) {
+	return defaultZosClient.PutBucketCors(context, req, reqOpt...)
 }
