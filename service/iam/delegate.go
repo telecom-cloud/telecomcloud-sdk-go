@@ -40,6 +40,8 @@ type DelegateClient interface {
 	CheckDelegateExist(context context.Context, req *delegate.CheckDelegateExistRequest, reqOpt ...config.RequestOption) (resp *delegate.CheckDelegateExistResponse, rawResponse *protocol.Response, err error)
 
 	QueryDelegateList(context context.Context, req *delegate.QueryDelegateListRequest, reqOpt ...config.RequestOption) (resp *delegate.QueryDelegateListResponse, rawResponse *protocol.Response, err error)
+
+	SetEpGroup(context context.Context, req *delegate.SetEpGroupRequest, reqOpt ...config.RequestOption) (resp *delegate.SetEpGroupResponse, rawResponse *protocol.Response, err error)
 }
 
 type delegateClient struct {
@@ -142,6 +144,24 @@ func (s *delegateClient) QueryDelegateList(ctx context.Context, req *delegate.Qu
 	return resp, rawResponse, nil
 }
 
+func (s *delegateClient) SetEpGroup(ctx context.Context, req *delegate.SetEpGroupRequest, reqOpt ...config.RequestOption) (resp *delegate.SetEpGroupResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodPost, "/v1/project/setEpGroupPloyIncreaseToB")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultDelegateClient, _ = NewDelegateClient(baseDomain)
 
 func ConfigDefaultDelegateClient(ops ...Option) (err error) {
@@ -163,4 +183,8 @@ func CheckDelegateExist(context context.Context, req *delegate.CheckDelegateExis
 
 func QueryDelegateList(context context.Context, req *delegate.QueryDelegateListRequest, reqOpt ...config.RequestOption) (resp *delegate.QueryDelegateListResponse, rawResponse *protocol.Response, err error) {
 	return defaultDelegateClient.QueryDelegateList(context, req, reqOpt...)
+}
+
+func SetEpGroup(context context.Context, req *delegate.SetEpGroupRequest, reqOpt ...config.RequestOption) (resp *delegate.SetEpGroupResponse, rawResponse *protocol.Response, err error) {
+	return defaultDelegateClient.SetEpGroup(context, req, reqOpt...)
 }

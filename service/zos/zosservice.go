@@ -74,7 +74,7 @@ func (s *zosClient) GetOssServiceStatus(ctx context.Context, req *zos.GetOssServ
 	openapiResp.ReturnObj = &resp
 
 	queryParams := map[string]interface{}{
-		"regionId": req.GetRegionId(),
+		"regionID": req.GetRegionId(),
 	}
 	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
