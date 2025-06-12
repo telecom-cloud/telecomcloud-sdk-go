@@ -234,7 +234,7 @@ func (s *zosClient) GetBucketAcl(ctx context.Context, req *zos.GetBucketAclReque
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/v4/oss/get-bucket-info")
+		Execute(http.MethodGet, "/v4/oss/get-bucket-acl")
 	if err != nil {
 		return nil, nil, err
 	}
