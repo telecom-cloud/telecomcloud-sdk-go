@@ -690,3 +690,8 @@ func parseResponseBody(c *HttpClient, res *response) (err error) {
 	}
 	return c.responseResultDecider(res)
 }
+
+func JsonMarshal(val interface{}) string {
+	data, _ := json.Marshal(val)
+	return string(data)
+}

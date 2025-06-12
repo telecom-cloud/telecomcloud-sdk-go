@@ -106,10 +106,17 @@ func (s *vpcEndpointClient) GetEndpoint(ctx context.Context, req *vpce.GetEndpoi
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 
+	queryParams := map[string]interface{}{
+		"endpointID": req.GetEndpointID(),
+		"regionID":   req.GetRegionID(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
+		SetQueryParams(queryParams).
 		AddHeaders(map[string]string{
-			"regionID": req.GetRegionID(),
+			"regionID":   req.GetRegionID(),
+			"customInfo": JsonMarshal(req.GetCustomInfo()),
 		}).
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
@@ -137,7 +144,8 @@ func (s *vpcEndpointClient) ListEndpoint(ctx context.Context, req *vpce.ListEndp
 		SetContext(ctx).
 		SetQueryParams(queryParams).
 		AddHeaders(map[string]string{
-			"regionID": req.GetRegionID(),
+			"regionID":   req.GetRegionID(),
+			"customInfo": JsonMarshal(req.GetCustomInfo()),
 		}).
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
@@ -201,9 +209,6 @@ func (s *vpcEndpointClient) ListEndpointWhitelist(ctx context.Context, req *vpce
 	ret, err := s.client.R().
 		SetContext(ctx).
 		SetQueryParams(queryParams).
-		AddHeaders(map[string]string{
-			"regionID": req.GetRegionID(),
-		}).
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).

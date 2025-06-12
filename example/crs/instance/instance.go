@@ -25,8 +25,8 @@ var (
 )
 
 func init() {
-	//accessKey = os.Getenv("CTAPI_AK")
-	//secretKey = os.Getenv("CTAPI_SK")
+	accessKey = os.Getenv("CTAPI_AK")
+	secretKey = os.Getenv("CTAPI_SK")
 	domain := os.Getenv("CTAPI_CRS_DOMAIN")
 	//regionId = os.Getenv("CRS_REGIONID")
 	if domain != "" {

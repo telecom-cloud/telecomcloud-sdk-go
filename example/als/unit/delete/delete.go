@@ -4,11 +4,12 @@ import (
 	"context"
 	"crypto/tls"
 	"fmt"
+	"os"
+
 	cli "github.com/telecom-cloud/client-go/pkg/client"
 	"github.com/telecom-cloud/client-go/pkg/openapi/config"
 	"github.com/telecom-cloud/telecomcloud-sdk-go/service/als"
 	"github.com/telecom-cloud/telecomcloud-sdk-go/service/als/types/unit"
-	"os"
 )
 
 var (
