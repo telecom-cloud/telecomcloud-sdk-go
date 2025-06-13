@@ -628,6 +628,10 @@ func defaultResponseResultDecider(res *response) error {
 	openapiResp := res.request.result.(*openapi.Response)
 
 	if res.StatusCode() > 400 || openapiResp.ErrorCode != "" || openapiResp.Error != "" {
+		if openapiResp.ParseStatusCode() == 800 {
+			return nil
+		}
+
 		reason := openapiResp.ErrorCode
 		if reason == "" {
 			reason = openapiResp.Error
