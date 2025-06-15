@@ -93,7 +93,7 @@ func (s *vpcEndpointClient) DeleteEndpoint(ctx context.Context, req *vpce.Delete
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/v4/paas/vpce/delete-endpoint")
+		Execute(http.MethodPost, "/v4/paas/vpce/delete-endpoint")
 	if err != nil {
 		return nil, nil, err
 	}
