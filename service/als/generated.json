@@ -1,0 +1,10 @@
+{
+    "serviceGroup": "als",
+    "module": "github.com/telecom-cloud/telecomcloud-sdk-go",
+    "clients": [
+        "Project",
+        "Unit",
+        "Rule",
+        "Service"
+    ]
+}

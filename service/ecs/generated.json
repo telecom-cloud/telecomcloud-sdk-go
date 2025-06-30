@@ -1,0 +1,8 @@
+{
+    "serviceGroup": "ecs",
+    "module": "github.com/telecom-cloud/telecomcloud-sdk-go",
+    "clients": [
+        "Ecs",
+        "Region"
+    ]
+}

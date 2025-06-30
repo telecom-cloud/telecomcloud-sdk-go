@@ -1,0 +1,16 @@
+{
+    "serviceGroup": "eci",
+    "module": "github.com/telecom-cloud/telecomcloud-sdk-go",
+    "clients": [
+        "ContainerGroup",
+        "ImageCache",
+        "DataCache",
+        "VirtualNode",
+        "Price",
+        "CommitContainerTask",
+        "Tag",
+        "Region",
+        "EnterpriseProject",
+        "Flavor"
+    ]
+}

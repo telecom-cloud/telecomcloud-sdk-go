@@ -1,0 +1,10 @@
+{
+    "serviceGroup": "crs",
+    "module": "github.com/telecom-cloud/telecomcloud-sdk-go",
+    "clients": [
+        "Instance",
+        "Namespace",
+        "Artifact",
+        "Repository"
+    ]
+}
