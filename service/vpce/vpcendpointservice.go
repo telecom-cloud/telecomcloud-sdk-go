@@ -46,8 +46,6 @@ type VpcEndpointClient interface {
 	DeleteEndpointWhitelist(context context.Context, req *vpce.DeleteEndpointWhitelistRequest, reqOpt ...config.RequestOption) (resp *vpce.DeleteEndpointWhitelistResponse, rawResponse *protocol.Response, err error)
 
 	ListEndpointWhitelist(context context.Context, req *vpce.ListEndpointWhitelistRequest, reqOpt ...config.RequestOption) (resp *vpce.ListEndpointWhitelistResponse, rawResponse *protocol.Response, err error)
-
-	ListEndpointNew(context context.Context, req *vpce.ListEndpointNewRequest, reqOpt ...config.RequestOption) (resp *vpce.ListEndpointNewResponse, rawResponse *protocol.Response, err error)
 }
 
 type vpcEndpointClient struct {
@@ -95,7 +93,7 @@ func (s *vpcEndpointClient) DeleteEndpoint(ctx context.Context, req *vpce.Delete
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/v4/paas/vpce/delete-endpoint")
+		Execute(http.MethodDelete, "/v4/paas/vpce/delete-endpoint")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -223,30 +221,6 @@ func (s *vpcEndpointClient) ListEndpointWhitelist(ctx context.Context, req *vpce
 	return resp, rawResponse, nil
 }
 
-func (s *vpcEndpointClient) ListEndpointNew(ctx context.Context, req *vpce.ListEndpointNewRequest, reqOpt ...config.RequestOption) (resp *vpce.ListEndpointNewResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.Response{}
-	openapiResp.ReturnObj = &resp
-
-	queryParams := map[string]interface{}{
-		"regionID":     req.GetRegionID(),
-		"endpointName": req.GetEndpointName(),
-	}
-	OptimizeQueryParams(queryParams)
-	ret, err := s.client.R().
-		SetContext(ctx).
-		SetQueryParams(queryParams).
-		SetBodyParam(req).
-		SetRequestOption(reqOpt...).
-		SetResult(openapiResp).
-		Execute(http.MethodGet, "/v4/vpce/new-list-endpoint")
-	if err != nil {
-		return nil, nil, err
-	}
-
-	rawResponse = ret.RawResponse
-	return resp, rawResponse, nil
-}
-
 var defaultVpcEndpointClient, _ = NewVpcEndpointClient(baseDomain)
 
 func ConfigDefaultVpcEndpointClient(ops ...Option) (err error) {
@@ -280,8 +254,4 @@ func DeleteEndpointWhitelist(context context.Context, req *vpce.DeleteEndpointWh
 
 func ListEndpointWhitelist(context context.Context, req *vpce.ListEndpointWhitelistRequest, reqOpt ...config.RequestOption) (resp *vpce.ListEndpointWhitelistResponse, rawResponse *protocol.Response, err error) {
 	return defaultVpcEndpointClient.ListEndpointWhitelist(context, req, reqOpt...)
-}
-
-func ListEndpointNew(context context.Context, req *vpce.ListEndpointNewRequest, reqOpt ...config.RequestOption) (resp *vpce.ListEndpointNewResponse, rawResponse *protocol.Response, err error) {
-	return defaultVpcEndpointClient.ListEndpointNew(context, req, reqOpt...)
 }

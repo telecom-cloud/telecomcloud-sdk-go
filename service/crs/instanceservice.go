@@ -44,6 +44,10 @@ type InstanceClient interface {
 	ResetDelegateUserPassword(context context.Context, req *instance.ResetDelegateUserPasswordRequest, reqOpt ...config.RequestOption) (resp *instance.ResetDelegateUserPasswordResponse, rawResponse *protocol.Response, err error)
 
 	GetAuthorizationToken(context context.Context, req *instance.GetAuthorizationTokenRequest, reqOpt ...config.RequestOption) (resp *instance.GetAuthorizationTokenResponse, rawResponse *protocol.Response, err error)
+
+	ValidateInstanceName(context context.Context, req *instance.ValidateInstanceNameRequest, reqOpt ...config.RequestOption) (resp *instance.ValidateInstanceNameResponse, rawResponse *protocol.Response, err error)
+
+	ValidateUserName(context context.Context, req *instance.ValidateUserNameRequest, reqOpt ...config.RequestOption) (resp *instance.ValidateUserNameResponse, rawResponse *protocol.Response, err error)
 }
 
 type instanceClient struct {
@@ -205,6 +209,48 @@ func (s *instanceClient) GetAuthorizationToken(ctx context.Context, req *instanc
 	return resp, rawResponse, nil
 }
 
+func (s *instanceClient) ValidateInstanceName(ctx context.Context, req *instance.ValidateInstanceNameRequest, reqOpt ...config.RequestOption) (resp *instance.ValidateInstanceNameResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	ret, err := s.client.R().
+		SetContext(ctx).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodPost, "/v1/validateInstanceName")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
+func (s *instanceClient) ValidateUserName(ctx context.Context, req *instance.ValidateUserNameRequest, reqOpt ...config.RequestOption) (resp *instance.ValidateUserNameResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	ret, err := s.client.R().
+		SetContext(ctx).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodPost, "/v1/validateUserName")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultInstanceClient, _ = NewInstanceClient(baseDomain)
 
 func ConfigDefaultInstanceClient(ops ...Option) (err error) {
@@ -234,4 +280,12 @@ func ResetDelegateUserPassword(context context.Context, req *instance.ResetDeleg
 
 func GetAuthorizationToken(context context.Context, req *instance.GetAuthorizationTokenRequest, reqOpt ...config.RequestOption) (resp *instance.GetAuthorizationTokenResponse, rawResponse *protocol.Response, err error) {
 	return defaultInstanceClient.GetAuthorizationToken(context, req, reqOpt...)
+}
+
+func ValidateInstanceName(context context.Context, req *instance.ValidateInstanceNameRequest, reqOpt ...config.RequestOption) (resp *instance.ValidateInstanceNameResponse, rawResponse *protocol.Response, err error) {
+	return defaultInstanceClient.ValidateInstanceName(context, req, reqOpt...)
+}
+
+func ValidateUserName(context context.Context, req *instance.ValidateUserNameRequest, reqOpt ...config.RequestOption) (resp *instance.ValidateUserNameResponse, rawResponse *protocol.Response, err error) {
+	return defaultInstanceClient.ValidateUserName(context, req, reqOpt...)
 }
