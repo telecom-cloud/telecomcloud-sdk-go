@@ -609,6 +609,9 @@ func createHTTPRequest(c *HttpClient, r *request) (err error) {
 		}
 		for key, values := range r.header {
 			for _, val := range values {
+				if val == "" {
+					continue
+				}
 				r.rawRequest.Header.Add(key, val)
 			}
 		}
@@ -701,6 +704,9 @@ func parseResponseBody(c *HttpClient, res *response) (err error) {
 }
 
 func JsonMarshal(val interface{}) string {
+	if reflect.ValueOf(val).IsNil() {
+		return ""
+	}
 	data, _ := json.Marshal(val)
 	return string(data)
 }

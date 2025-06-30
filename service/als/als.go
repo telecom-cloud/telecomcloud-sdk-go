@@ -28,13 +28,21 @@ type ClientSet interface {
 	Unit() UnitClient
 	Rule() RuleClient
 	Service() ServiceClient
+	HostGroup() HostGroupClient
+	VPCE() VPCEClient
+	Content() ContentClient
+	Index() IndexClient
 }
 
 type clientSet struct {
-	projectCli ProjectClient
-	unitCli    UnitClient
-	ruleCli    RuleClient
-	serviceCli ServiceClient
+	projectCli   ProjectClient
+	unitCli      UnitClient
+	ruleCli      RuleClient
+	serviceCli   ServiceClient
+	hostGroupCli HostGroupClient
+	vPCECli      VPCEClient
+	contentCli   ContentClient
+	indexCli     IndexClient
 }
 
 func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
@@ -60,12 +68,32 @@ func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
 	if err != nil {
 		return nil, err
 	}
+	hostGroupCli, err := NewHostGroupClient(baseDomain, options...)
+	if err != nil {
+		return nil, err
+	}
+	vPCECli, err := NewVPCEClient(baseDomain, options...)
+	if err != nil {
+		return nil, err
+	}
+	contentCli, err := NewContentClient(baseDomain, options...)
+	if err != nil {
+		return nil, err
+	}
+	indexCli, err := NewIndexClient(baseDomain, options...)
+	if err != nil {
+		return nil, err
+	}
 
 	return &clientSet{
-		projectCli: projectCli,
-		unitCli:    unitCli,
-		ruleCli:    ruleCli,
-		serviceCli: serviceCli,
+		projectCli:   projectCli,
+		unitCli:      unitCli,
+		ruleCli:      ruleCli,
+		serviceCli:   serviceCli,
+		hostGroupCli: hostGroupCli,
+		vPCECli:      vPCECli,
+		contentCli:   contentCli,
+		indexCli:     indexCli,
 	}, nil
 }
 
@@ -83,4 +111,20 @@ func (cs *clientSet) Rule() RuleClient {
 
 func (cs *clientSet) Service() ServiceClient {
 	return cs.serviceCli
+}
+
+func (cs *clientSet) HostGroup() HostGroupClient {
+	return cs.hostGroupCli
+}
+
+func (cs *clientSet) VPCE() VPCEClient {
+	return cs.vPCECli
+}
+
+func (cs *clientSet) Content() ContentClient {
+	return cs.contentCli
+}
+
+func (cs *clientSet) Index() IndexClient {
+	return cs.indexCli
 }

@@ -38,6 +38,8 @@ type ProjectClient interface {
 	DeleteProject(context context.Context, req *project.DeleteProjectRequest, reqOpt ...config.RequestOption) (resp *project.DeleteProjectResponse, rawResponse *protocol.Response, err error)
 
 	GetProject(context context.Context, req *project.GetProjectRequest, reqOpt ...config.RequestOption) (resp *project.GetProjectResponse, rawResponse *protocol.Response, err error)
+
+	ListProject(context context.Context, req *project.ListProjectRequest, reqOpt ...config.RequestOption) (resp *project.ListProjectResponse, rawResponse *protocol.Response, err error)
 }
 
 type projectClient struct {
@@ -123,6 +125,32 @@ func (s *projectClient) GetProject(ctx context.Context, req *project.GetProjectR
 	return resp, rawResponse, nil
 }
 
+func (s *projectClient) ListProject(ctx context.Context, req *project.ListProjectRequest, reqOpt ...config.RequestOption) (resp *project.ListProjectResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"projectName": req.GetProjectName(),
+	}
+	OptimizeQueryParams(queryParams)
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetQueryParams(queryParams).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/v1/project/list")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultProjectClient, _ = NewProjectClient(baseDomain)
 
 func ConfigDefaultProjectClient(ops ...Option) (err error) {
@@ -140,4 +168,8 @@ func DeleteProject(context context.Context, req *project.DeleteProjectRequest, r
 
 func GetProject(context context.Context, req *project.GetProjectRequest, reqOpt ...config.RequestOption) (resp *project.GetProjectResponse, rawResponse *protocol.Response, err error) {
 	return defaultProjectClient.GetProject(context, req, reqOpt...)
+}
+
+func ListProject(context context.Context, req *project.ListProjectRequest, reqOpt ...config.RequestOption) (resp *project.ListProjectResponse, rawResponse *protocol.Response, err error) {
+	return defaultProjectClient.ListProject(context, req, reqOpt...)
 }
