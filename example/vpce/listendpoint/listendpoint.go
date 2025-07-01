@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/telecom-cloud/telecomcloud-sdk-go/service/vpce/types/common"
-	"github.com/telecom-cloud/telecomcloud-sdk-go/test/middleware"
+	// "github.com/telecom-cloud/telecomcloud-sdk-go/test/middleware"
 
 	"github.com/telecom-cloud/client-go/pkg/openapi/config"
 	ve "github.com/telecom-cloud/telecomcloud-sdk-go/service/vpce"
@@ -40,7 +40,7 @@ func main() {
 
 	options := []ve.Option{
 		ve.WithClientConfig(openapiConfig),
-		ve.WithClientMiddleware(middleware.DumpHttpMiddleware),
+		// ve.WithClientMiddleware(middleware.DumpHttpMiddleware),
 	}
 	client, err := ve.NewClientSet(baseDomain, options...)
 	if err != nil {

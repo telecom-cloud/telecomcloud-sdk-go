@@ -5,6 +5,10 @@
         "Project",
         "Unit",
         "Rule",
-        "Service"
+        "Service",
+        "HostGroup",
+        "VPCE",
+        "Content",
+        "Index"
     ]
 }
