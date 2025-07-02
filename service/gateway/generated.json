@@ -1,7 +1,0 @@
-{
-    "serviceGroup": "gateway",
-    "module": "github.com/telecom-cloud/telecomcloud-sdk-go",
-    "clients": [
-        "Cluster"
-    ]
-}

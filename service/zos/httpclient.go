@@ -609,6 +609,9 @@ func createHTTPRequest(c *HttpClient, r *request) (err error) {
 		}
 		for key, values := range r.header {
 			for _, val := range values {
+				if val == "" {
+					continue
+				}
 				r.rawRequest.Header.Add(key, val)
 			}
 		}
@@ -627,11 +630,20 @@ func defaultResponseResultDecider(res *response) error {
 
 	openapiResp := res.request.result.(*openapi.Response)
 
-	if res.StatusCode() > 400 || openapiResp.Error != "" {
+	if res.StatusCode() > 400 || openapiResp.ErrorCode != "" || openapiResp.Error != "" {
+		if openapiResp.ParseStatusCode() == 800 {
+			return nil
+		}
+
+		reason := openapiResp.ErrorCode
+		if reason == "" {
+			reason = openapiResp.Error
+		}
+
 		return &apiErr.StatusError{
 			ErrStatus: apiErr.Status{
 				Code:    int32(openapiResp.ParseStatusCode()),
-				Reason:  openapiResp.Error,
+				Reason:  reason,
 				Message: openapiResp.Message,
 			},
 		}
@@ -692,6 +704,9 @@ func parseResponseBody(c *HttpClient, res *response) (err error) {
 }
 
 func JsonMarshal(val interface{}) string {
+	if reflect.ValueOf(val).IsNil() {
+		return ""
+	}
 	data, _ := json.Marshal(val)
 	return string(data)
 }
