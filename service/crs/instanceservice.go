@@ -48,6 +48,12 @@ type InstanceClient interface {
 	ValidateInstanceName(context context.Context, req *instance.ValidateInstanceNameRequest, reqOpt ...config.RequestOption) (resp *instance.ValidateInstanceNameResponse, rawResponse *protocol.Response, err error)
 
 	ValidateUserName(context context.Context, req *instance.ValidateUserNameRequest, reqOpt ...config.RequestOption) (resp *instance.ValidateUserNameResponse, rawResponse *protocol.Response, err error)
+
+	CreateInstanceEndpointAclPolicy(context context.Context, req *instance.CreateInstanceEndpointAclPolicyRequest, reqOpt ...config.RequestOption) (resp *instance.CreateInstanceEndpointAclPolicyResponse, rawResponse *protocol.Response, err error)
+
+	ListInstanceEndpointAclPolicy(context context.Context, req *instance.ListInstanceEndpointAclPolicyRequest, reqOpt ...config.RequestOption) (resp *instance.ListInstanceEndpointAclPolicyResponse, rawResponse *protocol.Response, err error)
+
+	DeleteInstanceEndpointAclPolicy(context context.Context, req *instance.DeleteInstanceEndpointAclPolicyRequest, reqOpt ...config.RequestOption) (resp *instance.DeleteInstanceEndpointAclPolicyResponse, rawResponse *protocol.Response, err error)
 }
 
 type instanceClient struct {
@@ -251,6 +257,76 @@ func (s *instanceClient) ValidateUserName(ctx context.Context, req *instance.Val
 	return resp, rawResponse, nil
 }
 
+func (s *instanceClient) CreateInstanceEndpointAclPolicy(ctx context.Context, req *instance.CreateInstanceEndpointAclPolicyRequest, reqOpt ...config.RequestOption) (resp *instance.CreateInstanceEndpointAclPolicyResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	ret, err := s.client.R().
+		SetContext(ctx).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodPost, "/v1/createInstanceEndpointAclPolicy")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
+func (s *instanceClient) ListInstanceEndpointAclPolicy(ctx context.Context, req *instance.ListInstanceEndpointAclPolicyRequest, reqOpt ...config.RequestOption) (resp *instance.ListInstanceEndpointAclPolicyResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"instanceId": req.GetInstanceId(),
+		"pageNum":    req.GetPageNum(),
+		"pageSize":   req.GetPageSize(),
+	}
+	OptimizeQueryParams(queryParams)
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetQueryParams(queryParams).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/v1/listInstanceEndpointAclPolicy")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
+func (s *instanceClient) DeleteInstanceEndpointAclPolicy(ctx context.Context, req *instance.DeleteInstanceEndpointAclPolicyRequest, reqOpt ...config.RequestOption) (resp *instance.DeleteInstanceEndpointAclPolicyResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	ret, err := s.client.R().
+		SetContext(ctx).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodPost, "/v1/deleteInstanceEndpointAclPolicy")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultInstanceClient, _ = NewInstanceClient(baseDomain)
 
 func ConfigDefaultInstanceClient(ops ...Option) (err error) {
@@ -288,4 +364,16 @@ func ValidateInstanceName(context context.Context, req *instance.ValidateInstanc
 
 func ValidateUserName(context context.Context, req *instance.ValidateUserNameRequest, reqOpt ...config.RequestOption) (resp *instance.ValidateUserNameResponse, rawResponse *protocol.Response, err error) {
 	return defaultInstanceClient.ValidateUserName(context, req, reqOpt...)
+}
+
+func CreateInstanceEndpointAclPolicy(context context.Context, req *instance.CreateInstanceEndpointAclPolicyRequest, reqOpt ...config.RequestOption) (resp *instance.CreateInstanceEndpointAclPolicyResponse, rawResponse *protocol.Response, err error) {
+	return defaultInstanceClient.CreateInstanceEndpointAclPolicy(context, req, reqOpt...)
+}
+
+func ListInstanceEndpointAclPolicy(context context.Context, req *instance.ListInstanceEndpointAclPolicyRequest, reqOpt ...config.RequestOption) (resp *instance.ListInstanceEndpointAclPolicyResponse, rawResponse *protocol.Response, err error) {
+	return defaultInstanceClient.ListInstanceEndpointAclPolicy(context, req, reqOpt...)
+}
+
+func DeleteInstanceEndpointAclPolicy(context context.Context, req *instance.DeleteInstanceEndpointAclPolicyRequest, reqOpt ...config.RequestOption) (resp *instance.DeleteInstanceEndpointAclPolicyResponse, rawResponse *protocol.Response, err error) {
+	return defaultInstanceClient.DeleteInstanceEndpointAclPolicy(context, req, reqOpt...)
 }
