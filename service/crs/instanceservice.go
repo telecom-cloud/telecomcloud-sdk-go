@@ -54,6 +54,10 @@ type InstanceClient interface {
 	ListInstanceEndpointAclPolicy(context context.Context, req *instance.ListInstanceEndpointAclPolicyRequest, reqOpt ...config.RequestOption) (resp *instance.ListInstanceEndpointAclPolicyResponse, rawResponse *protocol.Response, err error)
 
 	DeleteInstanceEndpointAclPolicy(context context.Context, req *instance.DeleteInstanceEndpointAclPolicyRequest, reqOpt ...config.RequestOption) (resp *instance.DeleteInstanceEndpointAclPolicyResponse, rawResponse *protocol.Response, err error)
+
+	CreateInstanceVpceLinkedVpcs(context context.Context, req *instance.CreateInstanceVpceLinkedVpcsRequest, reqOpt ...config.RequestOption) (resp *instance.CreateInstanceVpceLinkedVpcsResponse, rawResponse *protocol.Response, err error)
+
+	GetInstanceVpceLinkedVpcs(context context.Context, req *instance.GetInstanceVpceLinkedVpcsRequest, reqOpt ...config.RequestOption) (resp *instance.GetInstanceVpceLinkedVpcsResponse, rawResponse *protocol.Response, err error)
 }
 
 type instanceClient struct {
@@ -327,6 +331,53 @@ func (s *instanceClient) DeleteInstanceEndpointAclPolicy(ctx context.Context, re
 	return resp, rawResponse, nil
 }
 
+func (s *instanceClient) CreateInstanceVpceLinkedVpcs(ctx context.Context, req *instance.CreateInstanceVpceLinkedVpcsRequest, reqOpt ...config.RequestOption) (resp *instance.CreateInstanceVpceLinkedVpcsResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	ret, err := s.client.R().
+		SetContext(ctx).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodPost, "/v1/createInstanceVpceLinkedVpcs")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
+func (s *instanceClient) GetInstanceVpceLinkedVpcs(ctx context.Context, req *instance.GetInstanceVpceLinkedVpcsRequest, reqOpt ...config.RequestOption) (resp *instance.GetInstanceVpceLinkedVpcsResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"vpcIdList": req.GetVpcIdList(),
+	}
+	OptimizeQueryParams(queryParams)
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetQueryParams(queryParams).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/v1/getInstanceVpceLinkedVpcs")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultInstanceClient, _ = NewInstanceClient(baseDomain)
 
 func ConfigDefaultInstanceClient(ops ...Option) (err error) {
@@ -376,4 +427,12 @@ func ListInstanceEndpointAclPolicy(context context.Context, req *instance.ListIn
 
 func DeleteInstanceEndpointAclPolicy(context context.Context, req *instance.DeleteInstanceEndpointAclPolicyRequest, reqOpt ...config.RequestOption) (resp *instance.DeleteInstanceEndpointAclPolicyResponse, rawResponse *protocol.Response, err error) {
 	return defaultInstanceClient.DeleteInstanceEndpointAclPolicy(context, req, reqOpt...)
+}
+
+func CreateInstanceVpceLinkedVpcs(context context.Context, req *instance.CreateInstanceVpceLinkedVpcsRequest, reqOpt ...config.RequestOption) (resp *instance.CreateInstanceVpceLinkedVpcsResponse, rawResponse *protocol.Response, err error) {
+	return defaultInstanceClient.CreateInstanceVpceLinkedVpcs(context, req, reqOpt...)
+}
+
+func GetInstanceVpceLinkedVpcs(context context.Context, req *instance.GetInstanceVpceLinkedVpcsRequest, reqOpt ...config.RequestOption) (resp *instance.GetInstanceVpceLinkedVpcsResponse, rawResponse *protocol.Response, err error) {
+	return defaultInstanceClient.GetInstanceVpceLinkedVpcs(context, req, reqOpt...)
 }
