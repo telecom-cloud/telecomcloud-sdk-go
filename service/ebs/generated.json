@@ -1,0 +1,7 @@
+{
+    "serviceGroup": "ebs",
+    "module": "github.com/telecom-cloud/telecomcloud-sdk-go",
+    "clients": [
+        "Ebs"
+    ]
+}
