@@ -40,6 +40,8 @@ import (
 	"github.com/telecom-cloud/client-go/pkg/protocol/client"
 )
 
+var OptimizeQueryParams = utils.OptimizeQueryParams
+
 type use interface {
 	Use(mws ...cli.Middleware)
 }
@@ -607,6 +609,9 @@ func createHTTPRequest(c *HttpClient, r *request) (err error) {
 		}
 		for key, values := range r.header {
 			for _, val := range values {
+				if val == "" {
+					continue
+				}
 				r.rawRequest.Header.Add(key, val)
 			}
 		}
@@ -618,17 +623,27 @@ func createHTTPRequest(c *HttpClient, r *request) (err error) {
 func silently(_ ...interface{}) {}
 
 func defaultResponseResultDecider(res *response) error {
-	openapiResp := openapi.Response{}
 	err := openapi.BindResponse(string(res.bodyByte), res.request.result)
 	if err != nil {
 		return err
 	}
 
-	if res.StatusCode() > 400 {
+	openapiResp := res.request.result.(*openapi.Response)
+
+	if res.StatusCode() > 400 || openapiResp.ErrorCode != "" || openapiResp.Error != "" {
+		if openapiResp.ParseStatusCode() == 800 {
+			return nil
+		}
+
+		reason := openapiResp.ErrorCode
+		if reason == "" {
+			reason = openapiResp.Error
+		}
+
 		return &apiErr.StatusError{
 			ErrStatus: apiErr.Status{
 				Code:    int32(openapiResp.ParseStatusCode()),
-				Reason:  openapiResp.Error,
+				Reason:  reason,
 				Message: openapiResp.Message,
 			},
 		}
@@ -686,4 +701,12 @@ func parseResponseBody(c *HttpClient, res *response) (err error) {
 		return
 	}
 	return c.responseResultDecider(res)
+}
+
+func JsonMarshal(val interface{}) string {
+	if reflect.ValueOf(val).IsNil() {
+		return ""
+	}
+	data, _ := json.Marshal(val)
+	return string(data)
 }
