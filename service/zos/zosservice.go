@@ -52,6 +52,8 @@ type ZosClient interface {
 	PutBucketAcl(context context.Context, req *zos.PutBucketAclRequest, reqOpt ...config.RequestOption) (resp *zos.PutBucketAclResponse, rawResponse *protocol.Response, err error)
 
 	PutBucketCors(context context.Context, req *zos.PutBucketCorsRequest, reqOpt ...config.RequestOption) (resp *zos.PutBucketCorsResponse, rawResponse *protocol.Response, err error)
+
+	GetEndpoint(context context.Context, req *zos.GetEndpointRequest, reqOpt ...config.RequestOption) (resp *zos.GetEndpointResponse, rawResponse *protocol.Response, err error)
 }
 
 type zosClient struct {
@@ -279,6 +281,29 @@ func (s *zosClient) PutBucketCors(ctx context.Context, req *zos.PutBucketCorsReq
 	return resp, rawResponse, nil
 }
 
+func (s *zosClient) GetEndpoint(ctx context.Context, req *zos.GetEndpointRequest, reqOpt ...config.RequestOption) (resp *zos.GetEndpointResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"regionID": req.GetRegionID(),
+	}
+	OptimizeQueryParams(queryParams)
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetQueryParams(queryParams).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/v4/oss/get-endpoint")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultZosClient, _ = NewZosClient(baseDomain)
 
 func ConfigDefaultZosClient(ops ...Option) (err error) {
@@ -324,4 +349,8 @@ func PutBucketAcl(context context.Context, req *zos.PutBucketAclRequest, reqOpt 
 
 func PutBucketCors(context context.Context, req *zos.PutBucketCorsRequest, reqOpt ...config.RequestOption) (resp *zos.PutBucketCorsResponse, rawResponse *protocol.Response, err error) {
 	return defaultZosClient.PutBucketCors(context, req, reqOpt...)
+}
+
+func GetEndpoint(context context.Context, req *zos.GetEndpointRequest, reqOpt ...config.RequestOption) (resp *zos.GetEndpointResponse, rawResponse *protocol.Response, err error) {
+	return defaultZosClient.GetEndpoint(context, req, reqOpt...)
 }
