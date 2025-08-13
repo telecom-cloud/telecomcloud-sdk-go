@@ -37,6 +37,8 @@ type ElbClient interface {
 	CreateElbAcl(context context.Context, req *elb.CreateElbACLRequest, reqOpt ...config.RequestOption) (resp *elb.CreateElbACLResponse, rawResponse *protocol.Response, err error)
 
 	GetElbAcl(context context.Context, req *elb.GetElbACLRequest, reqOpt ...config.RequestOption) (resp *elb.GetElbACLResponse, rawResponse *protocol.Response, err error)
+
+	ListElbAcl(context context.Context, req *elb.ListElbACLRequest, reqOpt ...config.RequestOption) (resp *elb.ListElbACLResponse, rawResponse *protocol.Response, err error)
 }
 
 type elbClient struct {
@@ -97,6 +99,31 @@ func (s *elbClient) GetElbAcl(ctx context.Context, req *elb.GetElbACLRequest, re
 	return resp, rawResponse, nil
 }
 
+func (s *elbClient) ListElbAcl(ctx context.Context, req *elb.ListElbACLRequest, reqOpt ...config.RequestOption) (resp *elb.ListElbACLResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"regionID": req.GetRegionID(),
+		"IDs":      req.GetIDs(),
+		"name":     req.GetName(),
+	}
+	utils.OptimizeQueryParams(queryParams)
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetQueryParams(queryParams).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/v4/elb/list-access-control")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultElbClient, _ = NewElbClient(baseDomain)
 
 func ConfigDefaultElbClient(ops ...Option) (err error) {
@@ -110,4 +137,8 @@ func CreateElbAcl(context context.Context, req *elb.CreateElbACLRequest, reqOpt 
 
 func GetElbAcl(context context.Context, req *elb.GetElbACLRequest, reqOpt ...config.RequestOption) (resp *elb.GetElbACLResponse, rawResponse *protocol.Response, err error) {
 	return defaultElbClient.GetElbAcl(context, req, reqOpt...)
+}
+
+func ListElbAcl(context context.Context, req *elb.ListElbACLRequest, reqOpt ...config.RequestOption) (resp *elb.ListElbACLResponse, rawResponse *protocol.Response, err error) {
+	return defaultElbClient.ListElbAcl(context, req, reqOpt...)
 }

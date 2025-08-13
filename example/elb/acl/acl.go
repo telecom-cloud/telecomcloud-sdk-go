@@ -51,8 +51,9 @@ func main() {
 		return
 	}
 
-	createElbAcl()
+	// createElbAcl()
 	// getElbAcl("")
+	listElbAcl()
 }
 
 func createElbAcl() {
@@ -81,6 +82,18 @@ func getElbAcl(id string) {
 		Id:              id,
 	}
 	resp, raw, err := client.Elb().GetElbAcl(ctx, req)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Printf("raw: %v\nresp: %v\n", string(raw.Body()), resp)
+}
+
+func listElbAcl() {
+	req := &elbtypes.ListElbACLRequest{
+		RegionID: regionId,
+	}
+	resp, raw, err := client.Elb().ListElbAcl(ctx, req)
 	if err != nil {
 		fmt.Println(err)
 		return
