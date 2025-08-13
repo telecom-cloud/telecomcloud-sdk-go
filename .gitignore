@@ -27,5 +27,6 @@ go.work.sum
 go.sum
 
 .idea
+.vscode
 
 test
