@@ -55,8 +55,13 @@ func (s *regionClient) DescribeRegion(ctx context.Context, req *region.DescribeR
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 
+	queryParams := map[string]interface{}{
+		"regionId": req.GetRegionId(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
+		SetQueryParams(queryParams).
 		AddHeaders(map[string]string{
 			"regionId": req.GetRegionId(),
 		}).
