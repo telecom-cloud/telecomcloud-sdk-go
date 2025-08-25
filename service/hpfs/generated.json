@@ -1,0 +1,7 @@
+{
+    "serviceGroup": "hpfs",
+    "module": "github.com/telecom-cloud/telecomcloud-sdk-go",
+    "clients": [
+        "Hpfs"
+    ]
+}
