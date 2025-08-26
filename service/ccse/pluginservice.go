@@ -62,7 +62,10 @@ func (s *pluginClient) CheckPluginExist(ctx context.Context, req *plugin.CheckPl
 			"instanceName": req.GetInstanceName(),
 		}).
 		AddHeaders(map[string]string{
-			"regionId": req.GetRegionId(),
+			"regionId":       req.GetRegionId(),
+			"x-request-from": req.GetRequestFrom(),
+			"cceone-date":    req.GetCceOneDate(),
+			"cceone-sign":    req.GetCceOneSign(),
 		}).
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
