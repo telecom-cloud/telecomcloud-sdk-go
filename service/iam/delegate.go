@@ -42,6 +42,8 @@ type DelegateClient interface {
 	QueryDelegateList(context context.Context, req *delegate.QueryDelegateListRequest, reqOpt ...config.RequestOption) (resp *delegate.QueryDelegateListResponse, rawResponse *protocol.Response, err error)
 
 	SetEpGroup(context context.Context, req *delegate.SetEpGroupRequest, reqOpt ...config.RequestOption) (resp *delegate.SetEpGroupResponse, rawResponse *protocol.Response, err error)
+
+	QueryTmpAkByTicket(context context.Context, req *delegate.QueryTmpTicketRequest, reqOpt ...config.RequestOption) (resp *delegate.QueryTmpTicketResponse, rawResponse *protocol.Response, err error)
 }
 
 type delegateClient struct {
@@ -162,6 +164,24 @@ func (s *delegateClient) SetEpGroup(ctx context.Context, req *delegate.SetEpGrou
 	return resp, rawResponse, nil
 }
 
+func (s *delegateClient) QueryTmpAkByTicket(ctx context.Context, req *delegate.QueryTmpTicketRequest, reqOpt ...config.RequestOption) (resp *delegate.QueryTmpTicketResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodPost, "/v1/credential/queryTmpAkByTicket")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultDelegateClient, _ = NewDelegateClient(baseDomain)
 
 func ConfigDefaultDelegateClient(ops ...Option) (err error) {
@@ -187,4 +207,8 @@ func QueryDelegateList(context context.Context, req *delegate.QueryDelegateListR
 
 func SetEpGroup(context context.Context, req *delegate.SetEpGroupRequest, reqOpt ...config.RequestOption) (resp *delegate.SetEpGroupResponse, rawResponse *protocol.Response, err error) {
 	return defaultDelegateClient.SetEpGroup(context, req, reqOpt...)
+}
+
+func QueryTmpAkByTicket(context context.Context, req *delegate.QueryTmpTicketRequest, reqOpt ...config.RequestOption) (resp *delegate.QueryTmpTicketResponse, rawResponse *protocol.Response, err error) {
+	return defaultDelegateClient.QueryTmpAkByTicket(context, req, reqOpt...)
 }
