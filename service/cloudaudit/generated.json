@@ -1,0 +1,7 @@
+{
+    "serviceGroup": "cloudaudit",
+    "module": "github.com/telecom-cloud/telecomcloud-sdk-go",
+    "clients": [
+        "Manager"
+    ]
+}
