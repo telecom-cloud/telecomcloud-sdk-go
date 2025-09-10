@@ -3,6 +3,7 @@
     "module": "github.com/telecom-cloud/telecomcloud-sdk-go",
     "clients": [
         "Order",
-        "SalesEntry"
+        "SalesEntry",
+        "Price"
     ]
 }

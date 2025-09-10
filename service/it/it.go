@@ -21,16 +21,18 @@ import (
 	cli "github.com/telecom-cloud/client-go/pkg/client"
 )
 
-var baseDomain = "https://bss-global.ctapi-internal.ctyun.cn"
+var baseDomain = "https://apiproxy-global.ctapi-internal.ctyun.cn"
 
 type ClientSet interface {
 	Order() OrderClient
 	SalesEntry() SalesEntryClient
+	Price() PriceClient
 }
 
 type clientSet struct {
 	orderCli      OrderClient
 	salesEntryCli SalesEntryClient
+	priceCli      PriceClient
 }
 
 func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
@@ -48,10 +50,15 @@ func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
 	if err != nil {
 		return nil, err
 	}
+	priceCli, err := NewPriceClient(baseDomain, options...)
+	if err != nil {
+		return nil, err
+	}
 
 	return &clientSet{
 		orderCli:      orderCli,
 		salesEntryCli: salesEntryCli,
+		priceCli:      priceCli,
 	}, nil
 }
 
@@ -61,4 +68,8 @@ func (cs *clientSet) Order() OrderClient {
 
 func (cs *clientSet) SalesEntry() SalesEntryClient {
 	return cs.salesEntryCli
+}
+
+func (cs *clientSet) Price() PriceClient {
+	return cs.priceCli
 }

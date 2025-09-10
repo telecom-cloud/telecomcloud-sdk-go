@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/telecom-cloud/client-go/pkg/openapi/config"
@@ -17,12 +18,12 @@ var (
 )
 
 func init() {
-	//accessKey = os.Getenv("CTAPI_AK")
-	//secretKey = os.Getenv("CTAPI_SK")
-	//domain := os.Getenv("CTAPI_DOMAIN")
-	//if domain != "" {
-	//	baseDomain = domain
-	//}
+	accessKey = os.Getenv("CTAPI_AK")
+	secretKey = os.Getenv("CTAPI_SK")
+	domain := os.Getenv("CTAPI_DOMAIN")
+	if domain != "" {
+		baseDomain = domain
+	}
 }
 
 func main() {
