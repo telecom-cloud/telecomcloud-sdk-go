@@ -24,6 +24,7 @@ import (
 var baseDomain = "https://crs-global.ctapi.ctyun.cn"
 
 type ClientSet interface {
+	RepositorySyncTask() RepositorySyncTaskClient
 	Instance() InstanceClient
 	Namespace() NamespaceClient
 	Artifact() ArtifactClient
@@ -31,10 +32,11 @@ type ClientSet interface {
 }
 
 type clientSet struct {
-	instanceCli   InstanceClient
-	namespaceCli  NamespaceClient
-	artifactCli   ArtifactClient
-	repositoryCli RepositoryClient
+	repositorySyncTaskCli RepositorySyncTaskClient
+	instanceCli           InstanceClient
+	namespaceCli          NamespaceClient
+	artifactCli           ArtifactClient
+	repositoryCli         RepositoryClient
 }
 
 func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
@@ -44,6 +46,10 @@ func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
 		})),
 	}
 	options = append(defaultOpt, options...)
+	repositorySyncTaskCli, err := NewRepositorySyncTaskClient(baseDomain, options...)
+	if err != nil {
+		return nil, err
+	}
 	instanceCli, err := NewInstanceClient(baseDomain, options...)
 	if err != nil {
 		return nil, err
@@ -62,11 +68,16 @@ func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
 	}
 
 	return &clientSet{
-		instanceCli:   instanceCli,
-		namespaceCli:  namespaceCli,
-		artifactCli:   artifactCli,
-		repositoryCli: repositoryCli,
+		repositorySyncTaskCli: repositorySyncTaskCli,
+		instanceCli:           instanceCli,
+		namespaceCli:          namespaceCli,
+		artifactCli:           artifactCli,
+		repositoryCli:         repositoryCli,
 	}, nil
+}
+
+func (cs *clientSet) RepositorySyncTask() RepositorySyncTaskClient {
+	return cs.repositorySyncTaskCli
 }
 
 func (cs *clientSet) Instance() InstanceClient {
