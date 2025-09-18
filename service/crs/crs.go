@@ -24,19 +24,19 @@ import (
 var baseDomain = "https://crs-global.ctapi.ctyun.cn"
 
 type ClientSet interface {
-	RepositorySyncTask() RepositorySyncTaskClient
 	Instance() InstanceClient
 	Namespace() NamespaceClient
 	Artifact() ArtifactClient
 	Repository() RepositoryClient
+	RepositorySyncTask() RepositorySyncTaskClient
 }
 
 type clientSet struct {
-	repositorySyncTaskCli RepositorySyncTaskClient
 	instanceCli           InstanceClient
 	namespaceCli          NamespaceClient
 	artifactCli           ArtifactClient
 	repositoryCli         RepositoryClient
+	repositorySyncTaskCli RepositorySyncTaskClient
 }
 
 func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
@@ -46,10 +46,6 @@ func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
 		})),
 	}
 	options = append(defaultOpt, options...)
-	repositorySyncTaskCli, err := NewRepositorySyncTaskClient(baseDomain, options...)
-	if err != nil {
-		return nil, err
-	}
 	instanceCli, err := NewInstanceClient(baseDomain, options...)
 	if err != nil {
 		return nil, err
@@ -66,18 +62,18 @@ func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
 	if err != nil {
 		return nil, err
 	}
+	repositorySyncTaskCli, err := NewRepositorySyncTaskClient(baseDomain, options...)
+	if err != nil {
+		return nil, err
+	}
 
 	return &clientSet{
-		repositorySyncTaskCli: repositorySyncTaskCli,
 		instanceCli:           instanceCli,
 		namespaceCli:          namespaceCli,
 		artifactCli:           artifactCli,
 		repositoryCli:         repositoryCli,
+		repositorySyncTaskCli: repositorySyncTaskCli,
 	}, nil
-}
-
-func (cs *clientSet) RepositorySyncTask() RepositorySyncTaskClient {
-	return cs.repositorySyncTaskCli
 }
 
 func (cs *clientSet) Instance() InstanceClient {
@@ -94,4 +90,8 @@ func (cs *clientSet) Artifact() ArtifactClient {
 
 func (cs *clientSet) Repository() RepositoryClient {
 	return cs.repositoryCli
+}
+
+func (cs *clientSet) RepositorySyncTask() RepositorySyncTaskClient {
+	return cs.repositorySyncTaskCli
 }

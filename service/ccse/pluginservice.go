@@ -34,6 +34,8 @@ var (
 
 type PluginClient interface {
 	CheckPluginExist(context context.Context, req *plugin.CheckPluginExistRequest, reqOpt ...config.RequestOption) (resp *plugin.CheckPluginExistResponse, rawResponse *protocol.Response, err error)
+
+	InstallPlugin(context context.Context, req *plugin.InstallPluginRequest, reqOpt ...config.RequestOption) (resp *plugin.InstallPluginResponse, rawResponse *protocol.Response, err error)
 }
 
 type pluginClient struct {
@@ -79,6 +81,30 @@ func (s *pluginClient) CheckPluginExist(ctx context.Context, req *plugin.CheckPl
 	return resp, rawResponse, nil
 }
 
+func (s *pluginClient) InstallPlugin(ctx context.Context, req *plugin.InstallPluginRequest, reqOpt ...config.RequestOption) (resp *plugin.InstallPluginResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetPathParams(map[string]string{
+			"clusterId": req.GetClusterId(),
+		}).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodPost, "/v2/cce/clusters/:clusterId/plugininstance")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultPluginClient, _ = NewPluginClient(baseDomain)
 
 func ConfigDefaultPluginClient(ops ...Option) (err error) {
@@ -88,4 +114,8 @@ func ConfigDefaultPluginClient(ops ...Option) (err error) {
 
 func CheckPluginExist(context context.Context, req *plugin.CheckPluginExistRequest, reqOpt ...config.RequestOption) (resp *plugin.CheckPluginExistResponse, rawResponse *protocol.Response, err error) {
 	return defaultPluginClient.CheckPluginExist(context, req, reqOpt...)
+}
+
+func InstallPlugin(context context.Context, req *plugin.InstallPluginRequest, reqOpt ...config.RequestOption) (resp *plugin.InstallPluginResponse, rawResponse *protocol.Response, err error) {
+	return defaultPluginClient.InstallPlugin(context, req, reqOpt...)
 }
