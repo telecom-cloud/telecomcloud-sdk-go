@@ -1,0 +1,12 @@
+{
+    "serviceGroup": "isuite",
+    "module": "github.com/telecom-cloud/telecomcloud-sdk-go",
+    "clients": [
+        "Model",
+        "Dataset",
+        "Framework",
+        "Training",
+        "Inference",
+        "Queue"
+    ]
+}

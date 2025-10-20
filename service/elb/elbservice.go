@@ -21,7 +21,6 @@ import (
 	"net/http"
 
 	"github.com/telecom-cloud/client-go/pkg/common/config"
-	"github.com/telecom-cloud/client-go/pkg/common/utils"
 	"github.com/telecom-cloud/client-go/pkg/openapi"
 	"github.com/telecom-cloud/client-go/pkg/protocol"
 
@@ -83,7 +82,7 @@ func (s *elbClient) GetElbAcl(ctx context.Context, req *elb.GetElbACLRequest, re
 		"id":              req.GetId(),
 		"accessControlID": req.GetAccessControlID(),
 	}
-	utils.OptimizeQueryParams(queryParams)
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
 		SetQueryParams(queryParams).
@@ -108,7 +107,7 @@ func (s *elbClient) ListElbAcl(ctx context.Context, req *elb.ListElbACLRequest, 
 		"IDs":      req.GetIDs(),
 		"name":     req.GetName(),
 	}
-	utils.OptimizeQueryParams(queryParams)
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
 		SetQueryParams(queryParams).
