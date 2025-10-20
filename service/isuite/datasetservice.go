@@ -47,7 +47,7 @@ type DatasetClient interface {
 
 	CreateDatasetVersionLabels(context context.Context, req *dataset.CreateDatasetVersionLabelsRequest, reqOpt ...config.RequestOption) (resp *dataset.DeleteDatasetVersionLabelsResponse, rawResponse *protocol.Response, err error)
 
-	DeleteModelVersionLabels(context context.Context, req *dataset.DeleteDatasetVersionLabelsRequest, reqOpt ...config.RequestOption) (resp *dataset.DeleteDatasetVersionLabelsResponse, rawResponse *protocol.Response, err error)
+	DeleteDatasetVersionLabels(context context.Context, req *dataset.DeleteDatasetVersionLabelsRequest, reqOpt ...config.RequestOption) (resp *dataset.DeleteDatasetVersionLabelsResponse, rawResponse *protocol.Response, err error)
 }
 
 type datasetClient struct {
@@ -235,7 +235,7 @@ func (s *datasetClient) CreateDatasetVersionLabels(ctx context.Context, req *dat
 	return resp, rawResponse, nil
 }
 
-func (s *datasetClient) DeleteModelVersionLabels(ctx context.Context, req *dataset.DeleteDatasetVersionLabelsRequest, reqOpt ...config.RequestOption) (resp *dataset.DeleteDatasetVersionLabelsResponse, rawResponse *protocol.Response, err error) {
+func (s *datasetClient) DeleteDatasetVersionLabels(ctx context.Context, req *dataset.DeleteDatasetVersionLabelsRequest, reqOpt ...config.RequestOption) (resp *dataset.DeleteDatasetVersionLabelsResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 
@@ -295,6 +295,6 @@ func CreateDatasetVersionLabels(context context.Context, req *dataset.CreateData
 	return defaultDatasetClient.CreateDatasetVersionLabels(context, req, reqOpt...)
 }
 
-func DeleteModelVersionLabels(context context.Context, req *dataset.DeleteDatasetVersionLabelsRequest, reqOpt ...config.RequestOption) (resp *dataset.DeleteDatasetVersionLabelsResponse, rawResponse *protocol.Response, err error) {
-	return defaultDatasetClient.DeleteModelVersionLabels(context, req, reqOpt...)
+func DeleteDatasetVersionLabels(context context.Context, req *dataset.DeleteDatasetVersionLabelsRequest, reqOpt ...config.RequestOption) (resp *dataset.DeleteDatasetVersionLabelsResponse, rawResponse *protocol.Response, err error) {
+	return defaultDatasetClient.DeleteDatasetVersionLabels(context, req, reqOpt...)
 }
