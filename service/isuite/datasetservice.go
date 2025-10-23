@@ -101,7 +101,7 @@ func (s *datasetClient) DeleteDataset(ctx context.Context, req *dataset.DeleteDa
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/isuite/api/v1/datasets/{datasetId}")
+		Execute(http.MethodDelete, "/isuite/api/v1/datasets/:datasetId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -125,7 +125,7 @@ func (s *datasetClient) UpdateDataset(ctx context.Context, req *dataset.UpdateDa
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/api/v1/datasets/{datasetId}")
+		Execute(http.MethodPut, "/isuite/api/v1/datasets/:datasetId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -149,7 +149,7 @@ func (s *datasetClient) GetDataset(ctx context.Context, req *dataset.GetDatasetR
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/datasets/{datasetId}")
+		Execute(http.MethodGet, "/isuite/api/v1/datasets/:datasetId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -201,7 +201,7 @@ func (s *datasetClient) UpdateDatasetStatus(ctx context.Context, req *dataset.Up
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/internal/v1/datasets/{datasetId}/status")
+		Execute(http.MethodPut, "/isuite/internal/v1/datasets/:datasetId/status")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -226,7 +226,7 @@ func (s *datasetClient) CreateDatasetVersionLabels(ctx context.Context, req *dat
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/isuite/api/v1/datasets/{datasetId}/versions/{version}/labels")
+		Execute(http.MethodDelete, "/isuite/api/v1/datasets/:datasetId/versions/:version/labels")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -251,7 +251,7 @@ func (s *datasetClient) DeleteDatasetVersionLabels(ctx context.Context, req *dat
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/isuite/api/v1/datasets/{datasetId}/versions/{version}/labels")
+		Execute(http.MethodDelete, "/isuite/api/v1/datasets/:datasetId/versions/:version/labels")
 	if err != nil {
 		return nil, nil, err
 	}

@@ -198,7 +198,7 @@ func (s *queueClient) UpdateQueueStatus(ctx context.Context, req *queue.UpdateQu
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/internal/v1/queues/{queueId}/status")
+		Execute(http.MethodPut, "/isuite/internal/v1/queues/:queueId/status")
 	if err != nil {
 		return nil, nil, err
 	}

@@ -109,7 +109,7 @@ func (s *trainingClient) DeleteTraining(ctx context.Context, req *training.Delet
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/isuite/api/v1/trainings/{trainingId}")
+		Execute(http.MethodDelete, "/isuite/api/v1/trainings/:trainingId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -133,7 +133,7 @@ func (s *trainingClient) UpdateTraining(ctx context.Context, req *training.Updat
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/api/v1/trainings/{trainingId}")
+		Execute(http.MethodPut, "/isuite/api/v1/trainings/:trainingId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -154,7 +154,7 @@ func (s *trainingClient) UpdateTrainingStatus(ctx context.Context, req *training
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/internal/v1/trainings/{trainingId}/status")
+		Execute(http.MethodPut, "/isuite/internal/v1/trainings/:trainingId/status")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -178,7 +178,7 @@ func (s *trainingClient) GetTraining(ctx context.Context, req *training.GetTrain
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/trainings/{trainingId}")
+		Execute(http.MethodGet, "/isuite/api/v1/trainings/:trainingId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -239,7 +239,7 @@ func (s *trainingClient) StartTraining(ctx context.Context, req *training.StartT
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/trainings/{trainingId}/start")
+		Execute(http.MethodGet, "/isuite/api/v1/trainings/:trainingId/start")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -263,7 +263,7 @@ func (s *trainingClient) StopTraining(ctx context.Context, req *training.StopTra
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/trainings/{trainingId}/stop")
+		Execute(http.MethodGet, "/isuite/api/v1/trainings/:trainingId/stop")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -287,7 +287,7 @@ func (s *trainingClient) GetTrainingEvent(ctx context.Context, req *training.Get
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/trainings/{trainingId}/events")
+		Execute(http.MethodGet, "/isuite/api/v1/trainings/:trainingId/events")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -320,7 +320,7 @@ func (s *trainingClient) GetTrainingLogs(ctx context.Context, req *training.GetT
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/trainings/{trainingId}/pods/{podId}/logs")
+		Execute(http.MethodGet, "/isuite/api/v1/trainings/:trainingId/pods/:podId/logs")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -352,7 +352,7 @@ func (s *trainingClient) GetTrainingMetrics(ctx context.Context, req *training.G
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/trainings/{trainingId}/metrics")
+		Execute(http.MethodGet, "/isuite/api/v1/trainings/:trainingId/metrics")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -385,7 +385,7 @@ func (s *trainingClient) GetTrainingDashboard(ctx context.Context, req *training
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/trainings/{trainingId}/dashboard")
+		Execute(http.MethodGet, "/isuite/api/v1/trainings/:trainingId/dashboard")
 	if err != nil {
 		return nil, nil, err
 	}
