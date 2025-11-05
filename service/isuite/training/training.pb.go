@@ -139,15 +139,15 @@ type JobSpec struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	JobMode    string               `protobuf:"bytes,1,opt,name=jobMode,proto3" form:"jobMode" json:"jobMode,omitempty"`
-	Framework  *common.Framework    `protobuf:"bytes,2,opt,name=framework,proto3" form:"framework" json:"framework,omitempty"`
-	Dataset    *common.DatasetInfo  `protobuf:"bytes,3,opt,name=dataset,proto3" form:"dataset" json:"dataset,omitempty"`
-	Output     bool                 `protobuf:"varint,4,opt,name=output,proto3" form:"output" json:"output,omitempty"`
-	OutputInfo *OutputInfo          `protobuf:"bytes,5,opt,name=outputInfo,proto3" form:"outputInfo" json:"outputInfo,omitempty"`
-	Queue      string               `protobuf:"bytes,6,opt,name=queue,proto3" form:"queue" json:"queue,omitempty"`
-	Priority   string               `protobuf:"bytes,7,opt,name=priority,proto3" form:"priority" json:"priority,omitempty"`
-	Metadata   []*common.Metadata   `protobuf:"bytes,8,rep,name=metadata,proto3" form:"metadata" json:"metadata,omitempty"`
-	Tolerances []*common.Toleration `protobuf:"bytes,9,rep,name=tolerances,proto3" form:"tolerances" json:"tolerances,omitempty"`
+	JobMode    string                `protobuf:"bytes,1,opt,name=jobMode,proto3" form:"jobMode" json:"jobMode,omitempty"`
+	Framework  *common.Framework     `protobuf:"bytes,2,opt,name=framework,proto3" form:"framework" json:"framework,omitempty"`
+	Dataset    []*common.DatasetInfo `protobuf:"bytes,3,rep,name=dataset,proto3" form:"dataset" json:"dataset,omitempty"`
+	Output     bool                  `protobuf:"varint,4,opt,name=output,proto3" form:"output" json:"output,omitempty"`
+	OutputInfo *OutputInfo           `protobuf:"bytes,5,opt,name=outputInfo,proto3" form:"outputInfo" json:"outputInfo,omitempty"`
+	Queue      string                `protobuf:"bytes,6,opt,name=queue,proto3" form:"queue" json:"queue,omitempty"`
+	Priority   string                `protobuf:"bytes,7,opt,name=priority,proto3" form:"priority" json:"priority,omitempty"`
+	Metadata   []*common.Metadata    `protobuf:"bytes,8,rep,name=metadata,proto3" form:"metadata" json:"metadata,omitempty"`
+	Tolerances []*common.Toleration  `protobuf:"bytes,9,rep,name=tolerances,proto3" form:"tolerances" json:"tolerances,omitempty"`
 }
 
 func (x *JobSpec) Reset() {
@@ -196,7 +196,7 @@ func (x *JobSpec) GetFramework() *common.Framework {
 	return nil
 }
 
-func (x *JobSpec) GetDataset() *common.DatasetInfo {
+func (x *JobSpec) GetDataset() []*common.DatasetInfo {
 	if x != nil {
 		return x.Dataset
 	}
@@ -2351,7 +2351,7 @@ var file_training_proto_rawDesc = []byte{
 	0x01, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x46, 0x72, 0x61, 0x6d,
 	0x65, 0x77, 0x6f, 0x72, 0x6b, 0x42, 0x0d, 0xca, 0xbb, 0x18, 0x09, 0x66, 0x72, 0x61, 0x6d, 0x65,
 	0x77, 0x6f, 0x72, 0x6b, 0x52, 0x09, 0x66, 0x72, 0x61, 0x6d, 0x65, 0x77, 0x6f, 0x72, 0x6b, 0x12,
-	0x39, 0x0a, 0x07, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b,
+	0x39, 0x0a, 0x07, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x18, 0x03, 0x20, 0x03, 0x28, 0x0b,
 	0x32, 0x12, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74,
 	0x49, 0x6e, 0x66, 0x6f, 0x42, 0x0b, 0xca, 0xbb, 0x18, 0x07, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65,
 	0x74, 0x52, 0x07, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x12, 0x22, 0x0a, 0x06, 0x6f, 0x75,
