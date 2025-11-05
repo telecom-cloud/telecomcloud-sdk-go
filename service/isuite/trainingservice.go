@@ -39,8 +39,6 @@ type TrainingClient interface {
 
 	UpdateTraining(context context.Context, req *training.UpdateTrainingRequest, reqOpt ...config.RequestOption) (resp *training.UpdateTrainingResponse, rawResponse *protocol.Response, err error)
 
-	UpdateTrainingStatus(context context.Context, req *training.UpdateTrainingStatusRequest, reqOpt ...config.RequestOption) (resp *training.UpdateTrainingStatusResponse, rawResponse *protocol.Response, err error)
-
 	GetTraining(context context.Context, req *training.GetTrainingRequest, reqOpt ...config.RequestOption) (resp *training.GetTrainingResponse, rawResponse *protocol.Response, err error)
 
 	ListTraining(context context.Context, req *training.ListTrainingRequest, reqOpt ...config.RequestOption) (resp *training.ListTrainingResponse, rawResponse *protocol.Response, err error)
@@ -85,7 +83,7 @@ func (s *trainingClient) CreateTraining(ctx context.Context, req *training.Creat
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/isuite/api/v1/trainings")
+		Execute(http.MethodPost, "/ccse/isuite/api/v1/trainings")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -109,7 +107,7 @@ func (s *trainingClient) DeleteTraining(ctx context.Context, req *training.Delet
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/isuite/api/v1/trainings/:trainingId")
+		Execute(http.MethodDelete, "/ccse/isuite/api/v1/trainings/:trainingId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -133,28 +131,7 @@ func (s *trainingClient) UpdateTraining(ctx context.Context, req *training.Updat
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/api/v1/trainings/:trainingId")
-	if err != nil {
-		return nil, nil, err
-	}
-
-	rawResponse = ret.RawResponse
-	return resp, rawResponse, nil
-}
-
-func (s *trainingClient) UpdateTrainingStatus(ctx context.Context, req *training.UpdateTrainingStatusRequest, reqOpt ...config.RequestOption) (resp *training.UpdateTrainingStatusResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.Response{}
-	openapiResp.ReturnObj = &resp
-
-	ret, err := s.client.R().
-		SetContext(ctx).
-		SetPathParams(map[string]string{
-			"trainingId": req.GetTrainingId(),
-		}).
-		SetBodyParam(req).
-		SetRequestOption(reqOpt...).
-		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/internal/v1/trainings/:trainingId/status")
+		Execute(http.MethodPut, "/ccse/isuite/api/v1/trainings/:trainingId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -178,7 +155,7 @@ func (s *trainingClient) GetTraining(ctx context.Context, req *training.GetTrain
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/trainings/:trainingId")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/trainings/:trainingId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -215,7 +192,7 @@ func (s *trainingClient) ListTraining(ctx context.Context, req *training.ListTra
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/trainings")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/trainings")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -239,7 +216,7 @@ func (s *trainingClient) StartTraining(ctx context.Context, req *training.StartT
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/trainings/:trainingId/start")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/trainings/:trainingId/start")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -263,7 +240,7 @@ func (s *trainingClient) StopTraining(ctx context.Context, req *training.StopTra
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/trainings/:trainingId/stop")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/trainings/:trainingId/stop")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -287,7 +264,7 @@ func (s *trainingClient) GetTrainingEvent(ctx context.Context, req *training.Get
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/trainings/:trainingId/events")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/trainings/:trainingId/events")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -320,7 +297,7 @@ func (s *trainingClient) GetTrainingLogs(ctx context.Context, req *training.GetT
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/trainings/:trainingId/pods/:podId/logs")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/trainings/:trainingId/pods/:podId/logs")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -352,7 +329,7 @@ func (s *trainingClient) GetTrainingMetrics(ctx context.Context, req *training.G
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/trainings/:trainingId/metrics")
+		Execute(http.MethodGet, "/ccse/ccse/isuite/api/v1/trainings/:trainingId/metrics")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -385,7 +362,7 @@ func (s *trainingClient) GetTrainingDashboard(ctx context.Context, req *training
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/trainings/:trainingId/dashboard")
+		Execute(http.MethodGet, "/ccse/ccse/isuite/api/v1/trainings/:trainingId/dashboard")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -411,10 +388,6 @@ func DeleteTraining(context context.Context, req *training.DeleteTrainingRequest
 
 func UpdateTraining(context context.Context, req *training.UpdateTrainingRequest, reqOpt ...config.RequestOption) (resp *training.UpdateTrainingResponse, rawResponse *protocol.Response, err error) {
 	return defaultTrainingClient.UpdateTraining(context, req, reqOpt...)
-}
-
-func UpdateTrainingStatus(context context.Context, req *training.UpdateTrainingStatusRequest, reqOpt ...config.RequestOption) (resp *training.UpdateTrainingStatusResponse, rawResponse *protocol.Response, err error) {
-	return defaultTrainingClient.UpdateTrainingStatus(context, req, reqOpt...)
 }
 
 func GetTraining(context context.Context, req *training.GetTrainingRequest, reqOpt ...config.RequestOption) (resp *training.GetTrainingResponse, rawResponse *protocol.Response, err error) {

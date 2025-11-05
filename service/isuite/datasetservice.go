@@ -43,8 +43,6 @@ type DatasetClient interface {
 
 	ListDataset(context context.Context, req *dataset.ListDatasetRequest, reqOpt ...config.RequestOption) (resp *dataset.ListDatasetResponse, rawResponse *protocol.Response, err error)
 
-	UpdateDatasetStatus(context context.Context, req *dataset.UpdateDatasetStatusRequest, reqOpt ...config.RequestOption) (resp *dataset.UpdateDatasetStatusResponse, rawResponse *protocol.Response, err error)
-
 	CreateDatasetVersionLabels(context context.Context, req *dataset.CreateDatasetVersionLabelsRequest, reqOpt ...config.RequestOption) (resp *dataset.DeleteDatasetVersionLabelsResponse, rawResponse *protocol.Response, err error)
 
 	DeleteDatasetVersionLabels(context context.Context, req *dataset.DeleteDatasetVersionLabelsRequest, reqOpt ...config.RequestOption) (resp *dataset.DeleteDatasetVersionLabelsResponse, rawResponse *protocol.Response, err error)
@@ -77,7 +75,7 @@ func (s *datasetClient) CreateDataset(ctx context.Context, req *dataset.CreateDa
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/isuite/api/v1/datasets")
+		Execute(http.MethodPost, "/ccse/isuite/api/v1/datasets")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -101,7 +99,7 @@ func (s *datasetClient) DeleteDataset(ctx context.Context, req *dataset.DeleteDa
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/isuite/api/v1/datasets/:datasetId")
+		Execute(http.MethodDelete, "/ccse/isuite/api/v1/datasets/:datasetId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -125,7 +123,7 @@ func (s *datasetClient) UpdateDataset(ctx context.Context, req *dataset.UpdateDa
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/api/v1/datasets/:datasetId")
+		Execute(http.MethodPut, "/ccse/isuite/api/v1/datasets/:datasetId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -149,7 +147,7 @@ func (s *datasetClient) GetDataset(ctx context.Context, req *dataset.GetDatasetR
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/datasets/:datasetId")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/datasets/:datasetId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -179,29 +177,7 @@ func (s *datasetClient) ListDataset(ctx context.Context, req *dataset.ListDatase
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/datasets")
-	if err != nil {
-		return nil, nil, err
-	}
-
-	rawResponse = ret.RawResponse
-	return resp, rawResponse, nil
-}
-
-func (s *datasetClient) UpdateDatasetStatus(ctx context.Context, req *dataset.UpdateDatasetStatusRequest, reqOpt ...config.RequestOption) (resp *dataset.UpdateDatasetStatusResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.Response{}
-	openapiResp.ReturnObj = &resp
-
-	ret, err := s.client.R().
-		SetContext(ctx).
-		SetPathParams(map[string]string{
-			"datasetId": req.GetDatasetId(),
-			"version":   req.GetVersion(),
-		}).
-		SetBodyParam(req).
-		SetRequestOption(reqOpt...).
-		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/internal/v1/datasets/:datasetId/status")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/datasets")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -226,7 +202,7 @@ func (s *datasetClient) CreateDatasetVersionLabels(ctx context.Context, req *dat
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/isuite/api/v1/datasets/:datasetId/versions/:version/labels")
+		Execute(http.MethodDelete, "/ccse/isuite/api/v1/datasets/:datasetId/versions/:version/labels")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -251,7 +227,7 @@ func (s *datasetClient) DeleteDatasetVersionLabels(ctx context.Context, req *dat
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/isuite/api/v1/datasets/:datasetId/versions/:version/labels")
+		Execute(http.MethodDelete, "/ccse/isuite/api/v1/datasets/:datasetId/versions/:version/labels")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -285,10 +261,6 @@ func GetDataset(context context.Context, req *dataset.GetDatasetRequest, reqOpt 
 
 func ListDataset(context context.Context, req *dataset.ListDatasetRequest, reqOpt ...config.RequestOption) (resp *dataset.ListDatasetResponse, rawResponse *protocol.Response, err error) {
 	return defaultDatasetClient.ListDataset(context, req, reqOpt...)
-}
-
-func UpdateDatasetStatus(context context.Context, req *dataset.UpdateDatasetStatusRequest, reqOpt ...config.RequestOption) (resp *dataset.UpdateDatasetStatusResponse, rawResponse *protocol.Response, err error) {
-	return defaultDatasetClient.UpdateDatasetStatus(context, req, reqOpt...)
 }
 
 func CreateDatasetVersionLabels(context context.Context, req *dataset.CreateDatasetVersionLabelsRequest, reqOpt ...config.RequestOption) (resp *dataset.DeleteDatasetVersionLabelsResponse, rawResponse *protocol.Response, err error) {

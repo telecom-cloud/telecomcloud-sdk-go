@@ -21,7 +21,7 @@ import (
 	cli "github.com/telecom-cloud/client-go/pkg/client"
 )
 
-var baseDomain = "https://isuite-global.ctapi.ctyun.cn"
+var baseDomain = "https://ccse-global.ctapi.ctyun.cn"
 
 type ClientSet interface {
 	Model() ModelClient
