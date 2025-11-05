@@ -63,8 +63,6 @@ type ModelClient interface {
 
 	DeleteModelVersionLabels(context context.Context, req *model.DeleteModelVersionLabelsRequest, reqOpt ...config.RequestOption) (resp *model.DeleteModelVersionLabelsResponse, rawResponse *protocol.Response, err error)
 
-	UpdateModelStatus(context context.Context, req *model.UpdateModelStatusRequest, reqOpt ...config.RequestOption) (resp *model.UpdateModelStatusResponse, rawResponse *protocol.Response, err error)
-
 	GenerateObjectUploadLink(context context.Context, req *model.GenerateObjectUploadLinkRequest, reqOpt ...config.RequestOption) (resp *model.GenerateObjectUploadLinkResponse, rawResponse *protocol.Response, err error)
 }
 
@@ -95,7 +93,7 @@ func (s *modelClient) CreateModel(ctx context.Context, req *model.CreateModelReq
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/isuite/api/v1/models")
+		Execute(http.MethodPost, "/ccse/isuite/api/v1/models")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -119,7 +117,7 @@ func (s *modelClient) DeleteModel(ctx context.Context, req *model.DeleteModelReq
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/isuite/api/v1/models/:modelId")
+		Execute(http.MethodDelete, "/ccse/isuite/api/v1/models/:modelId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -143,7 +141,7 @@ func (s *modelClient) UpdateModel(ctx context.Context, req *model.UpdateModelReq
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/api/v1/models/:modelId")
+		Execute(http.MethodPut, "/ccse/isuite/api/v1/models/:modelId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -167,7 +165,7 @@ func (s *modelClient) GetModel(ctx context.Context, req *model.GetModelRequest, 
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/models/:modelId")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/models/:modelId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -197,7 +195,7 @@ func (s *modelClient) ListModel(ctx context.Context, req *model.ListModelRequest
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/models")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/models")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -221,7 +219,7 @@ func (s *modelClient) CreateModelPreheat(ctx context.Context, req *model.CreateM
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/isuite/api/v1/models/:modelId/preheat")
+		Execute(http.MethodPost, "/ccse/isuite/api/v1/models/:modelId/preheat")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -245,7 +243,7 @@ func (s *modelClient) CreateModelVersion(ctx context.Context, req *model.CreateM
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/isuite/api/v1/models/:modelId/versions")
+		Execute(http.MethodPost, "/ccse/isuite/api/v1/models/:modelId/versions")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -270,7 +268,7 @@ func (s *modelClient) DeleteModelVersion(ctx context.Context, req *model.DeleteM
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/isuite/api/v1/models/:modelId/versions/:version")
+		Execute(http.MethodDelete, "/ccse/isuite/api/v1/models/:modelId/versions/:version")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -295,7 +293,7 @@ func (s *modelClient) UpdateModelVersion(ctx context.Context, req *model.UpdateM
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/api/v1/models/:modelId/versions/:version")
+		Execute(http.MethodPut, "/ccse/isuite/api/v1/models/:modelId/versions/:version")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -320,7 +318,7 @@ func (s *modelClient) GetModelVersion(ctx context.Context, req *model.GetModelVe
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/models/:modelId/versions/:version")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/models/:modelId/versions/:version")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -350,7 +348,7 @@ func (s *modelClient) ListModelVersion(ctx context.Context, req *model.ListModel
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/models/:modelId/versions")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/models/:modelId/versions")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -374,7 +372,7 @@ func (s *modelClient) CreateModelLabels(ctx context.Context, req *model.CreateMo
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/isuite/api/v1/models/:modelId/labels")
+		Execute(http.MethodPost, "/ccse/isuite/api/v1/models/:modelId/labels")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -398,7 +396,7 @@ func (s *modelClient) DeleteModelLabels(ctx context.Context, req *model.DeleteMo
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/isuite/api/v1/models/:modelId/labels")
+		Execute(http.MethodDelete, "/ccse/isuite/api/v1/models/:modelId/labels")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -423,7 +421,7 @@ func (s *modelClient) CreateModelVersionLabels(ctx context.Context, req *model.C
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/isuite/api/v1/models/:modelId/versions/:version/labels")
+		Execute(http.MethodPost, "/ccse/isuite/api/v1/models/:modelId/versions/:version/labels")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -448,32 +446,7 @@ func (s *modelClient) DeleteModelVersionLabels(ctx context.Context, req *model.D
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/isuite/api/v1/models/:modelId/versions/:version/labels")
-	if err != nil {
-		return nil, nil, err
-	}
-
-	rawResponse = ret.RawResponse
-	return resp, rawResponse, nil
-}
-
-func (s *modelClient) UpdateModelStatus(ctx context.Context, req *model.UpdateModelStatusRequest, reqOpt ...config.RequestOption) (resp *model.UpdateModelStatusResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.Response{}
-	openapiResp.ReturnObj = &resp
-
-	ret, err := s.client.R().
-		SetContext(ctx).
-		SetPathParams(map[string]string{
-			"modelId": req.GetModelId(),
-			"version": req.GetVersion(),
-		}).
-		AddHeaders(map[string]string{
-			"clusterId": req.GetClusterId(),
-		}).
-		SetBodyParam(req).
-		SetRequestOption(reqOpt...).
-		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/internal/v1/models/:modelId/versions/:version/status")
+		Execute(http.MethodDelete, "/ccse/isuite/api/v1/models/:modelId/versions/:version/labels")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -502,7 +475,7 @@ func (s *modelClient) GenerateObjectUploadLink(ctx context.Context, req *model.G
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/models/:modelId/objectUploadLink")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/models/:modelId/objectUploadLink")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -576,10 +549,6 @@ func CreateModelVersionLabels(context context.Context, req *model.CreateModelVer
 
 func DeleteModelVersionLabels(context context.Context, req *model.DeleteModelVersionLabelsRequest, reqOpt ...config.RequestOption) (resp *model.DeleteModelVersionLabelsResponse, rawResponse *protocol.Response, err error) {
 	return defaultModelClient.DeleteModelVersionLabels(context, req, reqOpt...)
-}
-
-func UpdateModelStatus(context context.Context, req *model.UpdateModelStatusRequest, reqOpt ...config.RequestOption) (resp *model.UpdateModelStatusResponse, rawResponse *protocol.Response, err error) {
-	return defaultModelClient.UpdateModelStatus(context, req, reqOpt...)
 }
 
 func GenerateObjectUploadLink(context context.Context, req *model.GenerateObjectUploadLinkRequest, reqOpt ...config.RequestOption) (resp *model.GenerateObjectUploadLinkResponse, rawResponse *protocol.Response, err error) {

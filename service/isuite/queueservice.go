@@ -42,8 +42,6 @@ type QueueClient interface {
 	GetQueue(context context.Context, req *queue.GetQueueRequest, reqOpt ...config.RequestOption) (resp *queue.GetQueueResponse, rawResponse *protocol.Response, err error)
 
 	ListQueue(context context.Context, req *queue.ListQueueRequest, reqOpt ...config.RequestOption) (resp *queue.ListQueueResponse, rawResponse *protocol.Response, err error)
-
-	UpdateQueueStatus(context context.Context, req *queue.UpdateQueueStatusRequest, reqOpt ...config.RequestOption) (resp *queue.UpdateQueueStatusResponse, rawResponse *protocol.Response, err error)
 }
 
 type queueClient struct {
@@ -73,7 +71,7 @@ func (s *queueClient) CreateQueue(ctx context.Context, req *queue.CreateQueueReq
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/isuite/api/v1/queues")
+		Execute(http.MethodPost, "/ccse/isuite/api/v1/queues")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -97,7 +95,7 @@ func (s *queueClient) DeleteQueue(ctx context.Context, req *queue.DeleteQueueReq
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/isuite/api/v1/queues")
+		Execute(http.MethodDelete, "/ccse/isuite/api/v1/queues")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -121,7 +119,7 @@ func (s *queueClient) UpdateQueue(ctx context.Context, req *queue.UpdateQueueReq
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/api/v1/queues")
+		Execute(http.MethodPut, "/ccse/isuite/api/v1/queues")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -145,7 +143,7 @@ func (s *queueClient) GetQueue(ctx context.Context, req *queue.GetQueueRequest, 
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/queues")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/queues")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -177,28 +175,7 @@ func (s *queueClient) ListQueue(ctx context.Context, req *queue.ListQueueRequest
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/queues")
-	if err != nil {
-		return nil, nil, err
-	}
-
-	rawResponse = ret.RawResponse
-	return resp, rawResponse, nil
-}
-
-func (s *queueClient) UpdateQueueStatus(ctx context.Context, req *queue.UpdateQueueStatusRequest, reqOpt ...config.RequestOption) (resp *queue.UpdateQueueStatusResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.Response{}
-	openapiResp.ReturnObj = &resp
-
-	ret, err := s.client.R().
-		SetContext(ctx).
-		SetPathParams(map[string]string{
-			"queueId": req.GetQueueId(),
-		}).
-		SetBodyParam(req).
-		SetRequestOption(reqOpt...).
-		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/internal/v1/queues/:queueId/status")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/queues")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -232,8 +209,4 @@ func GetQueue(context context.Context, req *queue.GetQueueRequest, reqOpt ...con
 
 func ListQueue(context context.Context, req *queue.ListQueueRequest, reqOpt ...config.RequestOption) (resp *queue.ListQueueResponse, rawResponse *protocol.Response, err error) {
 	return defaultQueueClient.ListQueue(context, req, reqOpt...)
-}
-
-func UpdateQueueStatus(context context.Context, req *queue.UpdateQueueStatusRequest, reqOpt ...config.RequestOption) (resp *queue.UpdateQueueStatusResponse, rawResponse *protocol.Response, err error) {
-	return defaultQueueClient.UpdateQueueStatus(context, req, reqOpt...)
 }

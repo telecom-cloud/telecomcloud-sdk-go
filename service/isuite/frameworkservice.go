@@ -91,7 +91,7 @@ func (s *frameworkClient) CreateFramework(ctx context.Context, req *framework.Cr
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/isuite/api/v1/framework")
+		Execute(http.MethodPost, "/ccse/isuite/api/v1/framework")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -115,7 +115,7 @@ func (s *frameworkClient) DeleteFramework(ctx context.Context, req *framework.De
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/isuite/api/v1/frameworks")
+		Execute(http.MethodDelete, "/ccse/isuite/api/v1/frameworks")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -139,7 +139,7 @@ func (s *frameworkClient) UpdateFramework(ctx context.Context, req *framework.Up
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/api/v1/frameworks")
+		Execute(http.MethodPut, "/ccse/isuite/api/v1/frameworks")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -163,7 +163,7 @@ func (s *frameworkClient) GetFramework(ctx context.Context, req *framework.GetFr
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/frameworks")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/frameworks")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -197,7 +197,7 @@ func (s *frameworkClient) ListFramework(ctx context.Context, req *framework.List
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/frameworks")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/frameworks")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -223,7 +223,7 @@ func (s *frameworkClient) GetFrameworkUserGuide(ctx context.Context, req *framew
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/frameworks/userGuide")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/frameworks/userGuide")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -251,7 +251,7 @@ func (s *frameworkClient) ListFrameworkRepos(ctx context.Context, req *framework
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/frameworks/repos")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/frameworks/repos")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -282,7 +282,7 @@ func (s *frameworkClient) ListFrameworkTags(ctx context.Context, req *framework.
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/frameworks/tags")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/frameworks/tags")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -310,7 +310,7 @@ func (s *frameworkClient) GetFrameworkCommand(ctx context.Context, req *framewor
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/frameworks/command")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/frameworks/command")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -331,7 +331,7 @@ func (s *frameworkClient) GetFrameworkSupports(ctx context.Context, req *framewo
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/frameworks/supports")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/frameworks/supports")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -353,7 +353,7 @@ func (s *frameworkClient) CreateManagementFramework(ctx context.Context, req *fr
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/isuite/api/v1/frameworks/management")
+		Execute(http.MethodPost, "/ccse/isuite/api/v1/frameworks/management")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -382,7 +382,7 @@ func (s *frameworkClient) ListCRSInstance(ctx context.Context, req *framework.Li
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/frameworks/instances")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/frameworks/instances")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -414,7 +414,7 @@ func (s *frameworkClient) ListCRSNamespace(ctx context.Context, req *framework.L
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/frameworks/namespaces")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/frameworks/namespaces")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -447,7 +447,7 @@ func (s *frameworkClient) ListCRSRepository(ctx context.Context, req *framework.
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/frameworks/repositories")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/frameworks/repositories")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -468,7 +468,7 @@ func (s *frameworkClient) ResyncManagementFramework(ctx context.Context, req *fr
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/isuite/api/v1/frameworks/management/resync")
+		Execute(http.MethodPost, "/ccse/isuite/api/v1/frameworks/management/resync")
 	if err != nil {
 		return nil, nil, err
 	}

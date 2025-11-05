@@ -47,8 +47,6 @@ type InferenceClient interface {
 
 	StopInference(context context.Context, req *inference.StopInferenceRequest, reqOpt ...config.RequestOption) (resp *inference.StopInferenceResponse, rawResponse *protocol.Response, err error)
 
-	UpdateInferenceStatus(context context.Context, req *inference.UpdateInferenceStatusRequest, reqOpt ...config.RequestOption) (resp *inference.UpdateInferenceStatusResponse, rawResponse *protocol.Response, err error)
-
 	GetInferenceEvent(context context.Context, req *inference.GetInferenceEventRequest, reqOpt ...config.RequestOption) (resp *inference.GetInferenceEventResponse, rawResponse *protocol.Response, err error)
 
 	GetInferenceLogs(context context.Context, req *inference.GetInferenceLogsRequest, reqOpt ...config.RequestOption) (resp *inference.GetInferenceLogsResponse, rawResponse *protocol.Response, err error)
@@ -85,7 +83,7 @@ func (s *inferenceClient) CreateInference(ctx context.Context, req *inference.Cr
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/isuite/api/v1/inferences")
+		Execute(http.MethodPost, "/ccse/isuite/api/v1/inferences")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -109,7 +107,7 @@ func (s *inferenceClient) DeleteInference(ctx context.Context, req *inference.De
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/isuite/api/v1/inferences/:inferenceId")
+		Execute(http.MethodDelete, "/ccse/isuite/api/v1/inferences/:inferenceId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -133,7 +131,7 @@ func (s *inferenceClient) UpdateInference(ctx context.Context, req *inference.Up
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/api/v1/inferences/:inferenceId")
+		Execute(http.MethodPut, "/ccse/isuite/api/v1/inferences/:inferenceId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -157,7 +155,7 @@ func (s *inferenceClient) GetInference(ctx context.Context, req *inference.GetIn
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/inferences/:inferenceId")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/inferences/:inferenceId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -194,7 +192,7 @@ func (s *inferenceClient) ListInference(ctx context.Context, req *inference.List
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/inferences")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/inferences")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -218,7 +216,7 @@ func (s *inferenceClient) StartInference(ctx context.Context, req *inference.Sta
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/api/v1/inferences/:inferenceId/start")
+		Execute(http.MethodPut, "/ccse/isuite/api/v1/inferences/:inferenceId/start")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -242,31 +240,7 @@ func (s *inferenceClient) StopInference(ctx context.Context, req *inference.Stop
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/api/v1/inferences/:inferenceId/stop")
-	if err != nil {
-		return nil, nil, err
-	}
-
-	rawResponse = ret.RawResponse
-	return resp, rawResponse, nil
-}
-
-func (s *inferenceClient) UpdateInferenceStatus(ctx context.Context, req *inference.UpdateInferenceStatusRequest, reqOpt ...config.RequestOption) (resp *inference.UpdateInferenceStatusResponse, rawResponse *protocol.Response, err error) {
-	openapiResp := &openapi.Response{}
-	openapiResp.ReturnObj = &resp
-
-	ret, err := s.client.R().
-		SetContext(ctx).
-		SetPathParams(map[string]string{
-			"inferenceId": req.GetInferenceId(),
-		}).
-		AddHeaders(map[string]string{
-			"clusterId": req.GetClusterId(),
-		}).
-		SetBodyParam(req).
-		SetRequestOption(reqOpt...).
-		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/internal/v1/inferences/:inferenceId/status")
+		Execute(http.MethodPut, "/ccse/isuite/api/v1/inferences/:inferenceId/stop")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -290,7 +264,7 @@ func (s *inferenceClient) GetInferenceEvent(ctx context.Context, req *inference.
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/inferences/:inferenceId/events")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/inferences/:inferenceId/events")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -323,7 +297,7 @@ func (s *inferenceClient) GetInferenceLogs(ctx context.Context, req *inference.G
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/inferences/:inferenceId/pods/:podId/logs")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/inferences/:inferenceId/pods/:podId/logs")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -355,7 +329,7 @@ func (s *inferenceClient) GetInferenceMetrics(ctx context.Context, req *inferenc
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/inferences/:inferenceId/metrics")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/inferences/:inferenceId/metrics")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -388,7 +362,7 @@ func (s *inferenceClient) GetInferenceDashboard(ctx context.Context, req *infere
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/inferences/:inferenceId/dashboard")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/inferences/:inferenceId/dashboard")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -430,10 +404,6 @@ func StartInference(context context.Context, req *inference.StartInferenceReques
 
 func StopInference(context context.Context, req *inference.StopInferenceRequest, reqOpt ...config.RequestOption) (resp *inference.StopInferenceResponse, rawResponse *protocol.Response, err error) {
 	return defaultInferenceClient.StopInference(context, req, reqOpt...)
-}
-
-func UpdateInferenceStatus(context context.Context, req *inference.UpdateInferenceStatusRequest, reqOpt ...config.RequestOption) (resp *inference.UpdateInferenceStatusResponse, rawResponse *protocol.Response, err error) {
-	return defaultInferenceClient.UpdateInferenceStatus(context, req, reqOpt...)
 }
 
 func GetInferenceEvent(context context.Context, req *inference.GetInferenceEventRequest, reqOpt ...config.RequestOption) (resp *inference.GetInferenceEventResponse, rawResponse *protocol.Response, err error) {

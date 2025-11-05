@@ -17,7 +17,7 @@ import (
 var (
 	accessKey  = ""
 	secretKey  = ""
-	baseDomain = "https://ccse-global.ctapi.ctyun.cn/ccse"
+	baseDomain = "https://ccse-global.ctapi.ctyun.cn"
 )
 
 func init() {
