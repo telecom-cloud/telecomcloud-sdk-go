@@ -115,7 +115,7 @@ func (s *frameworkClient) DeleteFramework(ctx context.Context, req *framework.De
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/ccse/isuite/api/v1/frameworks")
+		Execute(http.MethodDelete, "/ccse/isuite/api/v1/frameworks/:frameworkId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -139,7 +139,7 @@ func (s *frameworkClient) UpdateFramework(ctx context.Context, req *framework.Up
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/ccse/isuite/api/v1/frameworks")
+		Execute(http.MethodPut, "/ccse/isuite/api/v1/frameworks/:frameworkId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -163,7 +163,7 @@ func (s *frameworkClient) GetFramework(ctx context.Context, req *framework.GetFr
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/ccse/isuite/api/v1/frameworks")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/frameworks/:frameworkId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -282,7 +282,7 @@ func (s *frameworkClient) ListFrameworkTags(ctx context.Context, req *framework.
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/ccse/isuite/api/v1/frameworks/tags")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/frameworks/:frameworkId/tags")
 	if err != nil {
 		return nil, nil, err
 	}
