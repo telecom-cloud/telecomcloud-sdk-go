@@ -91,7 +91,7 @@ func (s *frameworkClient) CreateFramework(ctx context.Context, req *framework.Cr
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/ccse/isuite/api/v1/framework")
+		Execute(http.MethodPost, "/ccse/isuite/api/v1/frameworks")
 	if err != nil {
 		return nil, nil, err
 	}
