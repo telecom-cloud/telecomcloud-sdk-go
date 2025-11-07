@@ -42,6 +42,85 @@ func dumpHttpMiddleware(next cli.Endpoint) cli.Endpoint {
 }
 
 func main() {
+	// start()
+	stop()
+}
+
+func start() {
+	config := &config.OpenapiConfig{
+		AccessKey: accessKey,
+		SecretKey: secretKey,
+	}
+
+	options := []isuite.Option{
+		isuite.WithClientConfig(config),
+		isuite.WithClientOption(cli.WithTLSConfig(&tls.Config{
+			InsecureSkipVerify: true,
+		})),
+		// isuite.WithClientMiddleware(dumpHttpMiddleware),
+	}
+
+	client, err := isuite.NewClientSet(baseDomain, options...)
+
+	if err != nil {
+		fmt.Printf("NewClientSet err: %v\n", err)
+		return
+	}
+
+	ctx := context.Background()
+
+	req := &training.StartTrainingRequest{
+		RegionId:   "bb9fdb42056f11eda1610242ac110002",
+		TrainingId: "train-hw6pxda2m2bvzrqu",
+	}
+
+	resp, raw, err := client.Training().StartTraining(ctx, req)
+	if err != nil {
+		fmt.Printf("start training err: %v\n", err)
+		return
+	}
+
+	fmt.Printf("raw: %v\nresp: %v\n", string(raw.Body()), resp)
+}
+
+func stop() {
+	config := &config.OpenapiConfig{
+		AccessKey: accessKey,
+		SecretKey: secretKey,
+	}
+
+	options := []isuite.Option{
+		isuite.WithClientConfig(config),
+		isuite.WithClientOption(cli.WithTLSConfig(&tls.Config{
+			InsecureSkipVerify: true,
+		})),
+		// isuite.WithClientMiddleware(dumpHttpMiddleware),
+	}
+
+	client, err := isuite.NewClientSet(baseDomain, options...)
+
+	if err != nil {
+		fmt.Printf("NewClientSet err: %v\n", err)
+		return
+	}
+
+	ctx := context.Background()
+
+	req := &training.StopTrainingRequest{
+		RegionId:   "bb9fdb42056f11eda1610242ac110002",
+		TrainingId: "train-hw6pxda2m2bvzrqu",
+	}
+
+	resp, raw, err := client.Training().StopTraining(ctx, req)
+	if err != nil {
+		fmt.Printf("stop training err: %v\n", err)
+		return
+	}
+
+	fmt.Printf("raw: %v\nresp: %v\n", string(raw.Body()), resp)
+}
+
+func list() {
 	config := &config.OpenapiConfig{
 		AccessKey: accessKey,
 		SecretKey: secretKey,

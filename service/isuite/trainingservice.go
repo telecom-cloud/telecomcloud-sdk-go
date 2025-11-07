@@ -216,7 +216,7 @@ func (s *trainingClient) StartTraining(ctx context.Context, req *training.StartT
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/ccse/isuite/api/v1/trainings/:trainingId/start")
+		Execute(http.MethodPost, "/ccse/isuite/api/v1/trainings/:trainingId/start")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -240,7 +240,7 @@ func (s *trainingClient) StopTraining(ctx context.Context, req *training.StopTra
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/ccse/isuite/api/v1/trainings/:trainingId/stop")
+		Execute(http.MethodPost, "/ccse/isuite/api/v1/trainings/:trainingId/stop")
 	if err != nil {
 		return nil, nil, err
 	}
