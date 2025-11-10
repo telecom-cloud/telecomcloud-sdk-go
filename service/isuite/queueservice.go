@@ -95,7 +95,7 @@ func (s *queueClient) DeleteQueue(ctx context.Context, req *queue.DeleteQueueReq
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/ccse/isuite/api/v1/queues")
+		Execute(http.MethodDelete, "/ccse/isuite/api/v1/queues/:queueId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -119,7 +119,7 @@ func (s *queueClient) UpdateQueue(ctx context.Context, req *queue.UpdateQueueReq
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/ccse/isuite/api/v1/queues")
+		Execute(http.MethodPut, "/ccse/isuite/api/v1/queues/:queueId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -143,7 +143,7 @@ func (s *queueClient) GetQueue(ctx context.Context, req *queue.GetQueueRequest, 
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/ccse/isuite/api/v1/queues")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/queues/:queueId")
 	if err != nil {
 		return nil, nil, err
 	}
