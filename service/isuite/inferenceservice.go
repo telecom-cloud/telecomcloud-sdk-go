@@ -362,7 +362,7 @@ func (s *inferenceClient) GetInferenceDashboard(ctx context.Context, req *infere
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/ccse/isuite/api/v1/inferences/:inferenceId/dashboard")
+		Execute(http.MethodGet, "/isuite/api/v1/inferences/{inferenceId}/dashboard")
 	if err != nil {
 		return nil, nil, err
 	}
