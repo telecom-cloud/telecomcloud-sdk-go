@@ -92,9 +92,7 @@ func (s *containerGroupClient) CreateContainerGroup(ctx context.Context, req *co
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{
-			"regionId":           req.GetRegionId(),
-			"dy-tob-accountInfo": req.GetAccountInfo(),
-			"tob-account-id":     req.GetAccountId(),
+			"regionId": req.GetRegionId(),
 		}).
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
