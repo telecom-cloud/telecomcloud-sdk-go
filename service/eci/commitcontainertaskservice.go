@@ -71,10 +71,13 @@ func (s *commitContainerTaskClient) DescribeCommitContainerTask(ctx context.Cont
 		SetPathParams(map[string]string{
 			"taskId": req.GetTaskId(),
 		}).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/eci/api/v1/commitcontainer/describeCommitContainerTask/:taskId")
+		Execute(http.MethodGet, "/eci/api/v1/containers/describeCommitContainerTask/:taskId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -89,10 +92,13 @@ func (s *commitContainerTaskClient) CreateCommitContainerTask(ctx context.Contex
 
 	ret, err := s.client.R().
 		SetContext(ctx).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/eci/api/v1/commitcontainer/createCommitContainerTask")
+		Execute(http.MethodPost, "/eci/api/v1/containers/createCommitContainerTask")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -113,7 +119,7 @@ func (s *commitContainerTaskClient) UpdateCommitContainerTask(ctx context.Contex
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/eci/api/v1/commitcontainer/updateCommitContainerTask/:taskId")
+		Execute(http.MethodPut, "/eci/api/v1/containers/updateCommitContainerTask/:taskId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -134,7 +140,7 @@ func (s *commitContainerTaskClient) DeleteCommitContainerTask(ctx context.Contex
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/eci/api/v1/commitcontainer/deleteCommitContainerTask/:taskId")
+		Execute(http.MethodDelete, "/eci/api/v1/containers/deleteCommitContainerTask/:taskId")
 	if err != nil {
 		return nil, nil, err
 	}
