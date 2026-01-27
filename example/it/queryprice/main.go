@@ -11,7 +11,6 @@ import (
 	"github.com/telecom-cloud/telecomcloud-sdk-go/service/it"
 	"github.com/telecom-cloud/telecomcloud-sdk-go/service/it/types/common"
 	"github.com/telecom-cloud/telecomcloud-sdk-go/service/it/types/price"
-	"github.com/telecom-cloud/telecomcloud-sdk-go/test/middleware"
 )
 
 var (
@@ -40,7 +39,7 @@ func main() {
 
 	options := []it.Option{
 		it.WithClientConfig(openapiConfig),
-		it.WithClientMiddleware(middleware.DumpHttpMiddleware),
+		// it.WithClientMiddleware(middleware.DumpHttpMiddleware),
 	}
 	client, err := it.NewClientSet(baseDomain, options...)
 	if err != nil {
