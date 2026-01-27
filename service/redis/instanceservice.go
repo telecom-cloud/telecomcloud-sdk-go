@@ -90,7 +90,7 @@ func (s *instanceClient) DescribeInstanceOverview(ctx context.Context, req *inst
 	openapiResp.ReturnObj = &resp
 
 	queryParams := map[string]interface{}{
-		"projectId": req.GetProjectId(),
+		"prodInstId": req.GetProdInstId(),
 	}
 	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
