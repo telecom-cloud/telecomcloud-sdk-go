@@ -34,6 +34,8 @@ var (
 
 type InstanceClient interface {
 	DescribeInstances(context context.Context, req *instance.DescribeInstancesRequest, reqOpt ...config.RequestOption) (resp *instance.DescribeInstancesResponse, rawResponse *protocol.Response, err error)
+
+	DescribeInstanceOverview(context context.Context, req *instance.DescribeInstanceOverviewRequest, reqOpt ...config.RequestOption) (resp *instance.DescribeInstanceOverviewResponse, rawResponse *protocol.Response, err error)
 }
 
 type instanceClient struct {
@@ -83,6 +85,32 @@ func (s *instanceClient) DescribeInstances(ctx context.Context, req *instance.De
 	return resp, rawResponse, nil
 }
 
+func (s *instanceClient) DescribeInstanceOverview(ctx context.Context, req *instance.DescribeInstanceOverviewRequest, reqOpt ...config.RequestOption) (resp *instance.DescribeInstanceOverviewResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"projectId": req.GetProjectId(),
+	}
+	OptimizeQueryParams(queryParams)
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetQueryParams(queryParams).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/v2/instanceManageMgrServant/describeInstancesOverview")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultInstanceClient, _ = NewInstanceClient(baseDomain)
 
 func ConfigDefaultInstanceClient(ops ...Option) (err error) {
@@ -92,4 +120,8 @@ func ConfigDefaultInstanceClient(ops ...Option) (err error) {
 
 func DescribeInstances(context context.Context, req *instance.DescribeInstancesRequest, reqOpt ...config.RequestOption) (resp *instance.DescribeInstancesResponse, rawResponse *protocol.Response, err error) {
 	return defaultInstanceClient.DescribeInstances(context, req, reqOpt...)
+}
+
+func DescribeInstanceOverview(context context.Context, req *instance.DescribeInstanceOverviewRequest, reqOpt ...config.RequestOption) (resp *instance.DescribeInstanceOverviewResponse, rawResponse *protocol.Response, err error) {
+	return defaultInstanceClient.DescribeInstanceOverview(context, req, reqOpt...)
 }

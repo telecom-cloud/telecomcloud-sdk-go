@@ -34,6 +34,8 @@ var (
 
 type AccountClient interface {
 	CreateAccount(context context.Context, req *account.CreateAccountRequest, reqOpt ...config.RequestOption) (resp *account.CreateAccountResponse, rawResponse *protocol.Response, err error)
+
+	DescribeAccount(context context.Context, req *account.DescribeAccountRequest, reqOpt ...config.RequestOption) (resp *account.DescribeAccountResponse, rawResponse *protocol.Response, err error)
 }
 
 type accountClient struct {
@@ -72,6 +74,32 @@ func (s *accountClient) CreateAccount(ctx context.Context, req *account.CreateAc
 	return resp, rawResponse, nil
 }
 
+func (s *accountClient) DescribeAccount(ctx context.Context, req *account.DescribeAccountRequest, reqOpt ...config.RequestOption) (resp *account.DescribeAccountResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"prodInstId": req.GetProdInstId(),
+	}
+	OptimizeQueryParams(queryParams)
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetQueryParams(queryParams).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/v2/userMgr/describeAccounts")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultAccountClient, _ = NewAccountClient(baseDomain)
 
 func ConfigDefaultAccountClient(ops ...Option) (err error) {
@@ -81,4 +109,8 @@ func ConfigDefaultAccountClient(ops ...Option) (err error) {
 
 func CreateAccount(context context.Context, req *account.CreateAccountRequest, reqOpt ...config.RequestOption) (resp *account.CreateAccountResponse, rawResponse *protocol.Response, err error) {
 	return defaultAccountClient.CreateAccount(context, req, reqOpt...)
+}
+
+func DescribeAccount(context context.Context, req *account.DescribeAccountRequest, reqOpt ...config.RequestOption) (resp *account.DescribeAccountResponse, rawResponse *protocol.Response, err error) {
+	return defaultAccountClient.DescribeAccount(context, req, reqOpt...)
 }
