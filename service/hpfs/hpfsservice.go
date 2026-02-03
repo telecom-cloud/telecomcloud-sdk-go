@@ -34,6 +34,8 @@ var (
 
 type HpfsClient interface {
 	ListSfs(context context.Context, req *hpfs.ListSfsRequest, reqOpt ...config.RequestOption) (resp *hpfs.ListSfsResponse, rawResponse *protocol.Response, err error)
+
+	InfoSfs(context context.Context, req *hpfs.InfoSfsRequest, reqOpt ...config.RequestOption) (resp *hpfs.SfsObject, rawResponse *protocol.Response, err error)
 }
 
 type hpfsClient struct {
@@ -80,6 +82,30 @@ func (s *hpfsClient) ListSfs(ctx context.Context, req *hpfs.ListSfsRequest, reqO
 	return resp, rawResponse, nil
 }
 
+func (s *hpfsClient) InfoSfs(ctx context.Context, req *hpfs.InfoSfsRequest, reqOpt ...config.RequestOption) (resp *hpfs.SfsObject, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"regionID": req.GetRegionID(),
+		"sfsUID":   req.GetSfsUID(),
+	}
+	OptimizeQueryParams(queryParams)
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetQueryParams(queryParams).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/v4/hpfs/info-sfs")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultHpfsClient, _ = NewHpfsClient(baseDomain)
 
 func ConfigDefaultHpfsClient(ops ...Option) (err error) {
@@ -89,4 +115,8 @@ func ConfigDefaultHpfsClient(ops ...Option) (err error) {
 
 func ListSfs(context context.Context, req *hpfs.ListSfsRequest, reqOpt ...config.RequestOption) (resp *hpfs.ListSfsResponse, rawResponse *protocol.Response, err error) {
 	return defaultHpfsClient.ListSfs(context, req, reqOpt...)
+}
+
+func InfoSfs(context context.Context, req *hpfs.InfoSfsRequest, reqOpt ...config.RequestOption) (resp *hpfs.SfsObject, rawResponse *protocol.Response, err error) {
+	return defaultHpfsClient.InfoSfs(context, req, reqOpt...)
 }
