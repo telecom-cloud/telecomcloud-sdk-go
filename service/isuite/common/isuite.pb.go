@@ -222,6 +222,52 @@ func (Order) EnumDescriptor() ([]byte, []int) {
 	return file_api_common_isuite_proto_rawDescGZIP(), []int{3}
 }
 
+type GatewayType int32
+
+const (
+	GatewayType_IGW  GatewayType = 0
+	GatewayType_AIGW GatewayType = 1
+)
+
+// Enum value maps for GatewayType.
+var (
+	GatewayType_name = map[int32]string{
+		0: "IGW",
+		1: "AIGW",
+	}
+	GatewayType_value = map[string]int32{
+		"IGW":  0,
+		"AIGW": 1,
+	}
+)
+
+func (x GatewayType) Enum() *GatewayType {
+	p := new(GatewayType)
+	*p = x
+	return p
+}
+
+func (x GatewayType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (GatewayType) Descriptor() protoreflect.EnumDescriptor {
+	return file_api_common_isuite_proto_enumTypes[4].Descriptor()
+}
+
+func (GatewayType) Type() protoreflect.EnumType {
+	return &file_api_common_isuite_proto_enumTypes[4]
+}
+
+func (x GatewayType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use GatewayType.Descriptor instead.
+func (GatewayType) EnumDescriptor() ([]byte, []int) {
+	return file_api_common_isuite_proto_rawDescGZIP(), []int{4}
+}
+
 type Label struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1430,6 +1476,218 @@ func (x *Dashboard) GetVersion() string {
 	return ""
 }
 
+type ResourceRequirements struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Cpu    string `protobuf:"bytes,1,opt,name=cpu,proto3" form:"cpu" json:"cpu,omitempty"`
+	Memory string `protobuf:"bytes,2,opt,name=memory,proto3" form:"memory" json:"memory,omitempty"`
+}
+
+func (x *ResourceRequirements) Reset() {
+	*x = ResourceRequirements{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_common_isuite_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ResourceRequirements) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ResourceRequirements) ProtoMessage() {}
+
+func (x *ResourceRequirements) ProtoReflect() protoreflect.Message {
+	mi := &file_api_common_isuite_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ResourceRequirements.ProtoReflect.Descriptor instead.
+func (*ResourceRequirements) Descriptor() ([]byte, []int) {
+	return file_api_common_isuite_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *ResourceRequirements) GetCpu() string {
+	if x != nil {
+		return x.Cpu
+	}
+	return ""
+}
+
+func (x *ResourceRequirements) GetMemory() string {
+	if x != nil {
+		return x.Memory
+	}
+	return ""
+}
+
+type Invoke struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ServiceAddress string `protobuf:"bytes,1,opt,name=serviceAddress,proto3" form:"serviceAddress" json:"serviceAddress,omitempty" query:"serviceAddress"`
+	Elb            *Elb   `protobuf:"bytes,2,opt,name=elb,proto3" form:"elb" json:"elb,omitempty" query:"elb"`
+}
+
+func (x *Invoke) Reset() {
+	*x = Invoke{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_common_isuite_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Invoke) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Invoke) ProtoMessage() {}
+
+func (x *Invoke) ProtoReflect() protoreflect.Message {
+	mi := &file_api_common_isuite_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Invoke.ProtoReflect.Descriptor instead.
+func (*Invoke) Descriptor() ([]byte, []int) {
+	return file_api_common_isuite_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *Invoke) GetServiceAddress() string {
+	if x != nil {
+		return x.ServiceAddress
+	}
+	return ""
+}
+
+func (x *Invoke) GetElb() *Elb {
+	if x != nil {
+		return x.Elb
+	}
+	return nil
+}
+
+type Elb struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InternalAddress string `protobuf:"bytes,1,opt,name=internalAddress,proto3" form:"internalAddress" json:"internalAddress,omitempty" query:"internalAddress"`
+	ExternalAddress string `protobuf:"bytes,2,opt,name=externalAddress,proto3" form:"externalAddress" json:"externalAddress,omitempty" query:"externalAddress"`
+}
+
+func (x *Elb) Reset() {
+	*x = Elb{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_common_isuite_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Elb) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Elb) ProtoMessage() {}
+
+func (x *Elb) ProtoReflect() protoreflect.Message {
+	mi := &file_api_common_isuite_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Elb.ProtoReflect.Descriptor instead.
+func (*Elb) Descriptor() ([]byte, []int) {
+	return file_api_common_isuite_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *Elb) GetInternalAddress() string {
+	if x != nil {
+		return x.InternalAddress
+	}
+	return ""
+}
+
+func (x *Elb) GetExternalAddress() string {
+	if x != nil {
+		return x.ExternalAddress
+	}
+	return ""
+}
+
+type PodInfo struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" form:"name" json:"name,omitempty" query:"name"`
+}
+
+func (x *PodInfo) Reset() {
+	*x = PodInfo{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_common_isuite_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PodInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PodInfo) ProtoMessage() {}
+
+func (x *PodInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_api_common_isuite_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PodInfo.ProtoReflect.Descriptor instead.
+func (*PodInfo) Descriptor() ([]byte, []int) {
+	return file_api_common_isuite_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *PodInfo) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
 var File_api_common_isuite_proto protoreflect.FileDescriptor
 
 var file_api_common_isuite_proto_rawDesc = []byte{
@@ -1624,25 +1882,45 @@ var file_api_common_isuite_proto_rawDesc = []byte{
 	0x09, 0x52, 0x03, 0x75, 0x72, 0x6c, 0x12, 0x10, 0x0a, 0x03, 0x75, 0x69, 0x64, 0x18, 0x05, 0x20,
 	0x01, 0x28, 0x09, 0x52, 0x03, 0x75, 0x69, 0x64, 0x12, 0x18, 0x0a, 0x07, 0x76, 0x65, 0x72, 0x73,
 	0x69, 0x6f, 0x6e, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69,
-	0x6f, 0x6e, 0x2a, 0x4c, 0x0a, 0x0a, 0x56, 0x6f, 0x6c, 0x75, 0x6d, 0x65, 0x54, 0x79, 0x70, 0x65,
-	0x12, 0x0c, 0x0a, 0x08, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x44, 0x69, 0x72, 0x10, 0x00, 0x12, 0x0c,
-	0x0a, 0x08, 0x48, 0x6f, 0x73, 0x74, 0x50, 0x61, 0x74, 0x68, 0x10, 0x01, 0x12, 0x07, 0x0a, 0x03,
-	0x50, 0x56, 0x43, 0x10, 0x02, 0x12, 0x0d, 0x0a, 0x09, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x4d,
-	0x61, 0x70, 0x10, 0x03, 0x12, 0x0a, 0x0a, 0x06, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x10, 0x04,
-	0x2a, 0x26, 0x0a, 0x07, 0x4a, 0x6f, 0x62, 0x4d, 0x6f, 0x64, 0x65, 0x12, 0x0a, 0x0a, 0x06, 0x53,
-	0x69, 0x6e, 0x67, 0x6c, 0x65, 0x10, 0x00, 0x12, 0x0f, 0x0a, 0x0b, 0x44, 0x69, 0x73, 0x74, 0x72,
-	0x69, 0x62, 0x75, 0x74, 0x65, 0x64, 0x10, 0x01, 0x2a, 0x3d, 0x0a, 0x06, 0x45, 0x66, 0x66, 0x65,
-	0x63, 0x74, 0x12, 0x0e, 0x0a, 0x0a, 0x4e, 0x6f, 0x53, 0x63, 0x68, 0x65, 0x64, 0x75, 0x6c, 0x65,
-	0x10, 0x00, 0x12, 0x14, 0x0a, 0x10, 0x50, 0x72, 0x65, 0x66, 0x65, 0x72, 0x4e, 0x6f, 0x53, 0x63,
-	0x68, 0x65, 0x64, 0x75, 0x6c, 0x65, 0x10, 0x01, 0x12, 0x0d, 0x0a, 0x09, 0x4e, 0x6f, 0x45, 0x78,
-	0x65, 0x63, 0x75, 0x74, 0x65, 0x10, 0x02, 0x2a, 0x1a, 0x0a, 0x05, 0x4f, 0x72, 0x64, 0x65, 0x72,
-	0x12, 0x07, 0x0a, 0x03, 0x61, 0x73, 0x63, 0x10, 0x00, 0x12, 0x08, 0x0a, 0x04, 0x64, 0x65, 0x73,
-	0x63, 0x10, 0x01, 0x42, 0x44, 0x5a, 0x42, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
-	0x6d, 0x2f, 0x74, 0x65, 0x6c, 0x65, 0x63, 0x6f, 0x6d, 0x2d, 0x63, 0x6c, 0x6f, 0x75, 0x64, 0x2f,
-	0x74, 0x65, 0x6c, 0x65, 0x63, 0x6f, 0x6d, 0x63, 0x6c, 0x6f, 0x75, 0x64, 0x2d, 0x73, 0x64, 0x6b,
-	0x2d, 0x67, 0x6f, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x69, 0x73, 0x75, 0x69,
-	0x74, 0x65, 0x2f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x6f, 0x6e, 0x22, 0x55, 0x0a, 0x14, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x52, 0x65,
+	0x71, 0x75, 0x69, 0x72, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x12, 0x19, 0x0a, 0x03, 0x63, 0x70,
+	0x75, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xca, 0xbb, 0x18, 0x03, 0x63, 0x70, 0x75,
+	0x52, 0x03, 0x63, 0x70, 0x75, 0x12, 0x22, 0x0a, 0x06, 0x6d, 0x65, 0x6d, 0x6f, 0x72, 0x79, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0a, 0xca, 0xbb, 0x18, 0x06, 0x6d, 0x65, 0x6d, 0x6f, 0x72,
+	0x79, 0x52, 0x06, 0x6d, 0x65, 0x6d, 0x6f, 0x72, 0x79, 0x22, 0x4e, 0x0a, 0x06, 0x49, 0x6e, 0x76,
+	0x6f, 0x6b, 0x65, 0x12, 0x26, 0x0a, 0x0e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x41, 0x64,
+	0x64, 0x72, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x73, 0x65, 0x72,
+	0x76, 0x69, 0x63, 0x65, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x12, 0x1c, 0x0a, 0x03, 0x65,
+	0x6c, 0x62, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0a, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2e, 0x45, 0x6c, 0x62, 0x52, 0x03, 0x65, 0x6c, 0x62, 0x22, 0x59, 0x0a, 0x03, 0x45, 0x6c, 0x62,
+	0x12, 0x28, 0x0a, 0x0f, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x41, 0x64, 0x64, 0x72,
+	0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0f, 0x69, 0x6e, 0x74, 0x65, 0x72,
+	0x6e, 0x61, 0x6c, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x12, 0x28, 0x0a, 0x0f, 0x65, 0x78,
+	0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x0f, 0x65, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x41, 0x64, 0x64,
+	0x72, 0x65, 0x73, 0x73, 0x22, 0x1d, 0x0a, 0x07, 0x50, 0x6f, 0x64, 0x49, 0x6e, 0x66, 0x6f, 0x12,
+	0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e,
+	0x61, 0x6d, 0x65, 0x2a, 0x4c, 0x0a, 0x0a, 0x56, 0x6f, 0x6c, 0x75, 0x6d, 0x65, 0x54, 0x79, 0x70,
+	0x65, 0x12, 0x0c, 0x0a, 0x08, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x44, 0x69, 0x72, 0x10, 0x00, 0x12,
+	0x0c, 0x0a, 0x08, 0x48, 0x6f, 0x73, 0x74, 0x50, 0x61, 0x74, 0x68, 0x10, 0x01, 0x12, 0x07, 0x0a,
+	0x03, 0x50, 0x56, 0x43, 0x10, 0x02, 0x12, 0x0d, 0x0a, 0x09, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67,
+	0x4d, 0x61, 0x70, 0x10, 0x03, 0x12, 0x0a, 0x0a, 0x06, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x10,
+	0x04, 0x2a, 0x26, 0x0a, 0x07, 0x4a, 0x6f, 0x62, 0x4d, 0x6f, 0x64, 0x65, 0x12, 0x0a, 0x0a, 0x06,
+	0x53, 0x69, 0x6e, 0x67, 0x6c, 0x65, 0x10, 0x00, 0x12, 0x0f, 0x0a, 0x0b, 0x44, 0x69, 0x73, 0x74,
+	0x72, 0x69, 0x62, 0x75, 0x74, 0x65, 0x64, 0x10, 0x01, 0x2a, 0x3d, 0x0a, 0x06, 0x45, 0x66, 0x66,
+	0x65, 0x63, 0x74, 0x12, 0x0e, 0x0a, 0x0a, 0x4e, 0x6f, 0x53, 0x63, 0x68, 0x65, 0x64, 0x75, 0x6c,
+	0x65, 0x10, 0x00, 0x12, 0x14, 0x0a, 0x10, 0x50, 0x72, 0x65, 0x66, 0x65, 0x72, 0x4e, 0x6f, 0x53,
+	0x63, 0x68, 0x65, 0x64, 0x75, 0x6c, 0x65, 0x10, 0x01, 0x12, 0x0d, 0x0a, 0x09, 0x4e, 0x6f, 0x45,
+	0x78, 0x65, 0x63, 0x75, 0x74, 0x65, 0x10, 0x02, 0x2a, 0x1a, 0x0a, 0x05, 0x4f, 0x72, 0x64, 0x65,
+	0x72, 0x12, 0x07, 0x0a, 0x03, 0x61, 0x73, 0x63, 0x10, 0x00, 0x12, 0x08, 0x0a, 0x04, 0x64, 0x65,
+	0x73, 0x63, 0x10, 0x01, 0x2a, 0x20, 0x0a, 0x0b, 0x47, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x54,
+	0x79, 0x70, 0x65, 0x12, 0x07, 0x0a, 0x03, 0x49, 0x47, 0x57, 0x10, 0x00, 0x12, 0x08, 0x0a, 0x04,
+	0x41, 0x49, 0x47, 0x57, 0x10, 0x01, 0x42, 0x44, 0x5a, 0x42, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62,
+	0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x74, 0x65, 0x6c, 0x65, 0x63, 0x6f, 0x6d, 0x2d, 0x63, 0x6c, 0x6f,
+	0x75, 0x64, 0x2f, 0x74, 0x65, 0x6c, 0x65, 0x63, 0x6f, 0x6d, 0x63, 0x6c, 0x6f, 0x75, 0x64, 0x2d,
+	0x73, 0x64, 0x6b, 0x2d, 0x67, 0x6f, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x69,
+	0x73, 0x75, 0x69, 0x74, 0x65, 0x2f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1657,45 +1935,51 @@ func file_api_common_isuite_proto_rawDescGZIP() []byte {
 	return file_api_common_isuite_proto_rawDescData
 }
 
-var file_api_common_isuite_proto_enumTypes = make([]protoimpl.EnumInfo, 4)
-var file_api_common_isuite_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+var file_api_common_isuite_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
+var file_api_common_isuite_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
 var file_api_common_isuite_proto_goTypes = []interface{}{
-	(VolumeType)(0),         // 0: proto.VolumeType
-	(JobMode)(0),            // 1: proto.JobMode
-	(Effect)(0),             // 2: proto.Effect
-	(Order)(0),              // 3: proto.Order
-	(*Label)(nil),           // 4: proto.Label
-	(*Annotation)(nil),      // 5: proto.Annotation
-	(*Env)(nil),             // 6: proto.Env
-	(*Framework)(nil),       // 7: proto.Framework
-	(*DatasetInfo)(nil),     // 8: proto.DatasetInfo
-	(*Metadata)(nil),        // 9: proto.Metadata
-	(*PodConfig)(nil),       // 10: proto.PodConfig
-	(*DeviceInfo)(nil),      // 11: proto.DeviceInfo
-	(*Volume)(nil),          // 12: proto.Volume
-	(*Taint)(nil),           // 13: proto.Taint
-	(*Toleration)(nil),      // 14: proto.Toleration
-	(*JobPod)(nil),          // 15: proto.JobPod
-	(*Event)(nil),           // 16: proto.Event
-	(*JobSettings)(nil),     // 17: proto.JobSettings
-	(*MetricsEndpoint)(nil), // 18: proto.metricsEndpoint
-	(*Dashboard)(nil),       // 19: proto.Dashboard
-	nil,                     // 20: proto.JobSettings.MetricsPodLabelsEntry
+	(VolumeType)(0),              // 0: proto.VolumeType
+	(JobMode)(0),                 // 1: proto.JobMode
+	(Effect)(0),                  // 2: proto.Effect
+	(Order)(0),                   // 3: proto.Order
+	(GatewayType)(0),             // 4: proto.GatewayType
+	(*Label)(nil),                // 5: proto.Label
+	(*Annotation)(nil),           // 6: proto.Annotation
+	(*Env)(nil),                  // 7: proto.Env
+	(*Framework)(nil),            // 8: proto.Framework
+	(*DatasetInfo)(nil),          // 9: proto.DatasetInfo
+	(*Metadata)(nil),             // 10: proto.Metadata
+	(*PodConfig)(nil),            // 11: proto.PodConfig
+	(*DeviceInfo)(nil),           // 12: proto.DeviceInfo
+	(*Volume)(nil),               // 13: proto.Volume
+	(*Taint)(nil),                // 14: proto.Taint
+	(*Toleration)(nil),           // 15: proto.Toleration
+	(*JobPod)(nil),               // 16: proto.JobPod
+	(*Event)(nil),                // 17: proto.Event
+	(*JobSettings)(nil),          // 18: proto.JobSettings
+	(*MetricsEndpoint)(nil),      // 19: proto.metricsEndpoint
+	(*Dashboard)(nil),            // 20: proto.Dashboard
+	(*ResourceRequirements)(nil), // 21: proto.ResourceRequirements
+	(*Invoke)(nil),               // 22: proto.Invoke
+	(*Elb)(nil),                  // 23: proto.Elb
+	(*PodInfo)(nil),              // 24: proto.PodInfo
+	nil,                          // 25: proto.JobSettings.MetricsPodLabelsEntry
 }
 var file_api_common_isuite_proto_depIdxs = []int32{
-	10, // 0: proto.Metadata.podConfig:type_name -> proto.PodConfig
-	6,  // 1: proto.PodConfig.envs:type_name -> proto.Env
-	11, // 2: proto.PodConfig.devices:type_name -> proto.DeviceInfo
-	12, // 3: proto.PodConfig.volumes:type_name -> proto.Volume
+	11, // 0: proto.Metadata.podConfig:type_name -> proto.PodConfig
+	7,  // 1: proto.PodConfig.envs:type_name -> proto.Env
+	12, // 2: proto.PodConfig.devices:type_name -> proto.DeviceInfo
+	13, // 3: proto.PodConfig.volumes:type_name -> proto.Volume
 	0,  // 4: proto.Volume.type:type_name -> proto.VolumeType
 	2,  // 5: proto.Taint.effect:type_name -> proto.Effect
-	20, // 6: proto.JobSettings.metricsPodLabels:type_name -> proto.JobSettings.MetricsPodLabelsEntry
-	18, // 7: proto.JobSettings.metricsPodEndpoints:type_name -> proto.metricsEndpoint
-	8,  // [8:8] is the sub-list for method output_type
-	8,  // [8:8] is the sub-list for method input_type
-	8,  // [8:8] is the sub-list for extension type_name
-	8,  // [8:8] is the sub-list for extension extendee
-	0,  // [0:8] is the sub-list for field type_name
+	25, // 6: proto.JobSettings.metricsPodLabels:type_name -> proto.JobSettings.MetricsPodLabelsEntry
+	19, // 7: proto.JobSettings.metricsPodEndpoints:type_name -> proto.metricsEndpoint
+	23, // 8: proto.Invoke.elb:type_name -> proto.Elb
+	9,  // [9:9] is the sub-list for method output_type
+	9,  // [9:9] is the sub-list for method input_type
+	9,  // [9:9] is the sub-list for extension type_name
+	9,  // [9:9] is the sub-list for extension extendee
+	0,  // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_api_common_isuite_proto_init() }
@@ -1896,14 +2180,62 @@ func file_api_common_isuite_proto_init() {
 				return nil
 			}
 		}
+		file_api_common_isuite_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ResourceRequirements); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_api_common_isuite_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Invoke); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_api_common_isuite_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Elb); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_api_common_isuite_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PodInfo); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_api_common_isuite_proto_rawDesc,
-			NumEnums:      4,
-			NumMessages:   17,
+			NumEnums:      5,
+			NumMessages:   21,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -30,15 +30,19 @@ type ClientSet interface {
 	Training() TrainingClient
 	Inference() InferenceClient
 	Queue() QueueClient
+	Gateway() GatewayClient
+	IntelligentRouter() IntelligentRouterClient
 }
 
 type clientSet struct {
-	modelCli     ModelClient
-	datasetCli   DatasetClient
-	frameworkCli FrameworkClient
-	trainingCli  TrainingClient
-	inferenceCli InferenceClient
-	queueCli     QueueClient
+	modelCli             ModelClient
+	datasetCli           DatasetClient
+	frameworkCli         FrameworkClient
+	trainingCli          TrainingClient
+	inferenceCli         InferenceClient
+	queueCli             QueueClient
+	gatewayCli           GatewayClient
+	intelligentRouterCli IntelligentRouterClient
 }
 
 func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
@@ -72,14 +76,24 @@ func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
 	if err != nil {
 		return nil, err
 	}
+	gatewayCli, err := NewGatewayClient(baseDomain, options...)
+	if err != nil {
+		return nil, err
+	}
+	intelligentRouterCli, err := NewIntelligentRouterClient(baseDomain, options...)
+	if err != nil {
+		return nil, err
+	}
 
 	return &clientSet{
-		modelCli:     modelCli,
-		datasetCli:   datasetCli,
-		frameworkCli: frameworkCli,
-		trainingCli:  trainingCli,
-		inferenceCli: inferenceCli,
-		queueCli:     queueCli,
+		modelCli:             modelCli,
+		datasetCli:           datasetCli,
+		frameworkCli:         frameworkCli,
+		trainingCli:          trainingCli,
+		inferenceCli:         inferenceCli,
+		queueCli:             queueCli,
+		gatewayCli:           gatewayCli,
+		intelligentRouterCli: intelligentRouterCli,
 	}, nil
 }
 
@@ -105,4 +119,12 @@ func (cs *clientSet) Inference() InferenceClient {
 
 func (cs *clientSet) Queue() QueueClient {
 	return cs.queueCli
+}
+
+func (cs *clientSet) Gateway() GatewayClient {
+	return cs.gatewayCli
+}
+
+func (cs *clientSet) IntelligentRouter() IntelligentRouterClient {
+	return cs.intelligentRouterCli
 }

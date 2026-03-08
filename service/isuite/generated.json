@@ -7,6 +7,8 @@
         "Framework",
         "Training",
         "Inference",
-        "Queue"
+        "Queue",
+        "Gateway",
+        "IntelligentRouter"
     ]
 }
