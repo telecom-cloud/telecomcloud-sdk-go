@@ -145,7 +145,7 @@ func (s *intelligentRouterClient) OverviewIntelligentRouter(ctx context.Context,
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/irs/:inferenceId/overview")
+		Execute(http.MethodGet, "/isuite/api/v1/irs/:inferenceId")
 	if err != nil {
 		return nil, nil, err
 	}
