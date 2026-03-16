@@ -88,11 +88,11 @@ func BuildCreateContainerGroupRequest() *cg.CreateContainerGroupRequest {
 			{
 				Name: "test-volume",
 				/*EmptyDirVolume*/
-				Type: "EmptyDirVolume",
-				EmptyDirVolume: &cg.EmptyDirVolume{
-					Medium:    "Memory",
-					SizeLimit: 100,
-				},
+				//Type: "EmptyDirVolume",
+				//EmptyDirVolume: &cg.EmptyDirVolume{
+				//	Medium:    "Memory",
+				//	SizeLimit: 100,
+				//},
 				/*ConfigFileVolume*/
 				//Type: "ConfigFileVolume",
 				//ConfigFileVolume: &cg.ConfigFileVolume{
@@ -125,6 +125,12 @@ func BuildCreateContainerGroupRequest() *cg.CreateContainerGroupRequest {
 				//	Credential: "YWs6c2s=",
 				//	ReadOnly:   true,
 				//},
+				/*HpfsVolume*/
+				Type: "HpfsVolume",
+				HpfsVolume: &cg.HpfsVolume{
+					SourcePath: "127.0.0.1:/mnt/sfs_cap",
+					ReadOnly:   true,
+				},
 			},
 		},
 		HostName: "eci-test",
