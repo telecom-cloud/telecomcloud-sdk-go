@@ -21,6 +21,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -224,11 +225,13 @@ func (c *HttpClient) Execute(req *request) (*response, error) {
 	}
 
 	if err != nil {
+		log.Printf("do request --- err: %v", err)
 		return response, err
 	}
 
 	body, err := resp.BodyE()
 	if err != nil {
+		log.Printf("BodyE --- err: %v", err)
 		return nil, err
 	}
 
@@ -258,6 +261,9 @@ func (c *HttpClient) R() *request {
 	if c.header == nil {
 		c.header = http.Header{}
 	}
+
+	log.Printf("clent header: %v", c.header)
+
 	return &request{
 		queryParam:     url.Values{},
 		header:         c.header,
@@ -434,6 +440,8 @@ func (r *request) SetRequestOption(option ...config.RequestOption) *request {
 func (r *request) Execute(method, url string) (*response, error) {
 	r.method = method
 	r.url = url
+	log.Printf("request.header: %+v", r.header)
+
 	return r.client.Execute(r)
 }
 
