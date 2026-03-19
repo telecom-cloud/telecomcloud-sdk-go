@@ -21,6 +21,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -216,6 +217,13 @@ func (c *HttpClient) Execute(req *request) (*response, error) {
 
 	resp := protocol.Response{}
 
+	log.Printf("request.header: %+v", req.header)
+	log.Printf("request.queryParam: %+v", req.queryParam)
+	log.Printf("request.pathParam: %+v", req.pathParam)
+	log.Printf("request.formParam: %+v", req.formParam)
+	log.Printf("request.fileParam: %+v", req.fileParam)
+	log.Printf("request.bodyParam: %+v", req.bodyParam)
+
 	err = c.doer.Do(req.ctx, req.rawRequest, &resp)
 
 	response := &response{
@@ -223,14 +231,20 @@ func (c *HttpClient) Execute(req *request) (*response, error) {
 		RawResponse: &resp,
 	}
 
+	log.Printf("--- 1 ----")
+
 	if err != nil {
+		log.Printf("do request --- err: %v", err)
 		return response, err
 	}
 
 	body, err := resp.BodyE()
 	if err != nil {
+		log.Printf("BodyE --- err: %v", err)
 		return nil, err
 	}
+
+	log.Printf("--- 2 ----: %s", string(body))
 
 	if strings.EqualFold(resp.Header.Get(hdrContentEncodingKey), "gzip") && resp.Header.ContentLength() != 0 {
 		body, err = resp.BodyGunzip()
@@ -258,6 +272,8 @@ func (c *HttpClient) R() *request {
 	if c.header == nil {
 		c.header = http.Header{}
 	}
+
+	log.Printf("wentao client header: %+v", c.header)
 	return &request{
 		queryParam:     url.Values{},
 		header:         c.header,
@@ -434,6 +450,7 @@ func (r *request) SetRequestOption(option ...config.RequestOption) *request {
 func (r *request) Execute(method, url string) (*response, error) {
 	r.method = method
 	r.url = url
+
 	return r.client.Execute(r)
 }
 
@@ -485,6 +502,8 @@ func parseRequestURL(c *HttpClient, r *request) error {
 	}
 
 	r.url = reqURL.String()
+
+	log.Printf("url %s", r.url)
 
 	return nil
 }
@@ -597,6 +616,8 @@ func isPayloadSupported(m string) bool {
 }
 
 func createHTTPRequest(c *HttpClient, r *request) (err error) {
+
+	// 设置contentType
 	contentType, body, err := c.bindRequestBody(c, r)
 	if !isStringEmpty(contentType) {
 		r.header.Set(hdrContentTypeKey, contentType)
@@ -619,6 +640,8 @@ func createHTTPRequest(c *HttpClient, r *request) (err error) {
 			}
 		}
 		r.rawRequest.SetOptions(r.requestOptions...)
+
+		log.Printf("raw request %s", r.rawRequest)
 	}
 	return err
 }
@@ -626,8 +649,10 @@ func createHTTPRequest(c *HttpClient, r *request) (err error) {
 func silently(_ ...interface{}) {}
 
 func defaultResponseResultDecider(res *response) error {
+	log.Printf("response %s", res.bodyByte)
 	err := openapi.BindResponse(string(res.bodyByte), res.request.result)
 	if err != nil {
+		log.Printf("bind response error: %v", err)
 		return err
 	}
 
@@ -704,6 +729,7 @@ func convertToURLValues(bodyParam interface{}) []byte {
 
 func parseResponseBody(c *HttpClient, res *response) (err error) {
 	if res.StatusCode() == http.StatusNoContent {
+		log.Printf("response status code %d", res.StatusCode())
 		return
 	}
 	return c.responseResultDecider(res)

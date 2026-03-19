@@ -258,6 +258,7 @@ func (c *HttpClient) R() *request {
 	if c.header == nil {
 		c.header = http.Header{}
 	}
+
 	return &request{
 		queryParam:     url.Values{},
 		header:         c.header,
