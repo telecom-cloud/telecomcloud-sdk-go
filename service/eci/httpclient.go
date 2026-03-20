@@ -264,6 +264,8 @@ func (c *HttpClient) R() *request {
 
 	log.Printf("clent header: %v", c.header)
 
+	// c.header.Del("regionId")
+
 	return &request{
 		queryParam:     url.Values{},
 		header:         c.header,
@@ -505,11 +507,17 @@ func parseRequestHeader(c *HttpClient, r *request) error {
 	hdr := make(http.Header)
 	if c.header != nil {
 		for k := range c.header {
+			if k == "regionId" {
+				log.Printf("parseRequestHeader: request header regionId %s", c.header[k])
+			}
 			hdr[k] = append(hdr[k], c.header[k]...)
 		}
 	}
 
 	for k, v := range r.header {
+		if k == "regionId" {
+			log.Printf("parseRequestHeader: request header regionId %s", v)
+		}
 		hdr.Del(k)
 		if len(v) == 0 || v[0] == "" {
 			continue
