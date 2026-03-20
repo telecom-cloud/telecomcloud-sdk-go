@@ -507,7 +507,7 @@ func parseRequestHeader(c *HttpClient, r *request) error {
 	hdr := make(http.Header)
 	if c.header != nil {
 		for k := range c.header {
-			if k == "regionId" {
+			if k == "Regionid" {
 				log.Printf("parseRequestHeader: request header regionId %s", c.header[k])
 			}
 			hdr[k] = append(hdr[k], c.header[k]...)
@@ -515,7 +515,7 @@ func parseRequestHeader(c *HttpClient, r *request) error {
 	}
 
 	for k, v := range r.header {
-		if k == "regionId" {
+		if k == "Regionid" {
 			log.Printf("parseRequestHeader: request header regionId %s", v)
 		}
 		hdr.Del(k)
