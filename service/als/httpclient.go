@@ -255,12 +255,13 @@ func (c *HttpClient) Execute(req *request) (*response, error) {
 
 // R get request
 func (c *HttpClient) R() *request {
-	if c.header == nil {
-		c.header = http.Header{}
+	header := http.Header{}
+	if c.header != nil {
+		header = c.header.Clone()
 	}
 	return &request{
 		queryParam:     url.Values{},
-		header:         c.header,
+		header:         header,
 		pathParam:      map[string]string{},
 		formParam:      map[string]string{},
 		fileParam:      map[string]string{},
