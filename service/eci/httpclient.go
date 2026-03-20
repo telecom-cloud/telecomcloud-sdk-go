@@ -258,17 +258,18 @@ func (c *HttpClient) Execute(req *request) (*response, error) {
 
 // R get request
 func (c *HttpClient) R() *request {
-	if c.header == nil {
-		c.header = http.Header{}
+
+	header := http.Header{}
+	if c.header != nil {
+		header = c.header.Clone()
 	}
 
-	log.Printf("clent header: %v", c.header)
-
-	// c.header.Del("regionId")
+	log.Printf("client header: %v", c.header)
+	log.Printf("request header: %v", header)
 
 	return &request{
 		queryParam:     url.Values{},
-		header:         c.header,
+		header:         header,
 		pathParam:      map[string]string{},
 		formParam:      map[string]string{},
 		fileParam:      map[string]string{},
