@@ -73,7 +73,7 @@ func (s *intelligentRouterClient) CreateIntelligentRouter(ctx context.Context, r
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/isuite/api/v1/irs")
+		Execute(http.MethodPost, "/ccse/isuite/api/v1/irs")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -97,7 +97,7 @@ func (s *intelligentRouterClient) DeleteIntelligentRouter(ctx context.Context, r
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/isuite/api/v1/irs/:inferenceId")
+		Execute(http.MethodDelete, "/ccse/isuite/api/v1/irs/:inferenceId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -121,7 +121,7 @@ func (s *intelligentRouterClient) UpdateIntelligentRouter(ctx context.Context, r
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/api/v1/irs/:inferenceId")
+		Execute(http.MethodPut, "/ccse/isuite/api/v1/irs/:inferenceId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -145,7 +145,7 @@ func (s *intelligentRouterClient) OverviewIntelligentRouter(ctx context.Context,
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/irs/:inferenceId")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/irs/:inferenceId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -169,7 +169,7 @@ func (s *intelligentRouterClient) ExistIntelligentRouter(ctx context.Context, re
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/irs/:inferenceId/exist")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/irs/:inferenceId/exist")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -195,7 +195,7 @@ func (s *intelligentRouterClient) RedisDropdownList(ctx context.Context, req *ir
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/droplist/redis")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/droplist/redis")
 	if err != nil {
 		return nil, nil, err
 	}

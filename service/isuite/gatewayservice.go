@@ -71,7 +71,7 @@ func (s *gatewayClient) CreateGateway(ctx context.Context, req *gateway.CreateGa
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/isuite/api/v1/gateways")
+		Execute(http.MethodPost, "/ccse/isuite/api/v1/gateways")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -95,7 +95,7 @@ func (s *gatewayClient) DeleteGateway(ctx context.Context, req *gateway.DeleteGa
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/isuite/api/v1/gateways/:gatewayId")
+		Execute(http.MethodDelete, "/ccse/isuite/api/v1/gateways/:gatewayId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -119,7 +119,7 @@ func (s *gatewayClient) UpdateGateway(ctx context.Context, req *gateway.UpdateGa
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/isuite/api/v1/gateways/:gatewayId")
+		Execute(http.MethodPut, "/ccse/isuite/api/v1/gateways/:gatewayId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -143,7 +143,7 @@ func (s *gatewayClient) GetGateway(ctx context.Context, req *gateway.GetGatewayR
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/gateways/:gatewayId")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/gateways/:gatewayId")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -176,7 +176,7 @@ func (s *gatewayClient) ListGateway(ctx context.Context, req *gateway.ListGatewa
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/isuite/api/v1/gateways")
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/gateways")
 	if err != nil {
 		return nil, nil, err
 	}
