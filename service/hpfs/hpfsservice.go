@@ -36,6 +36,8 @@ type HpfsClient interface {
 	ListSfs(context context.Context, req *hpfs.ListSfsRequest, reqOpt ...config.RequestOption) (resp *hpfs.ListSfsResponse, rawResponse *protocol.Response, err error)
 
 	InfoSfs(context context.Context, req *hpfs.InfoSfsRequest, reqOpt ...config.RequestOption) (resp *hpfs.SfsObject, rawResponse *protocol.Response, err error)
+
+	ListProtocolService(context context.Context, req *hpfs.ListProtocolServiceRequest, reqOpt ...config.RequestOption) (resp *hpfs.ListProtocolServiceResponse, rawResponse *protocol.Response, err error)
 }
 
 type hpfsClient struct {
@@ -106,6 +108,36 @@ func (s *hpfsClient) InfoSfs(ctx context.Context, req *hpfs.InfoSfsRequest, reqO
 	return resp, rawResponse, nil
 }
 
+func (s *hpfsClient) ListProtocolService(ctx context.Context, req *hpfs.ListProtocolServiceRequest, reqOpt ...config.RequestOption) (resp *hpfs.ListProtocolServiceResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"regionID":              req.GetRegionID(),
+		"azName":                req.GetAzName(),
+		"sfsUID":                req.GetSfsUID(),
+		"protocolServiceStatus": req.GetProtocolServiceStatus(),
+		"protocolSpec":          req.GetProtocolSpec(),
+		"protocolType":          req.GetProtocolType(),
+		"pageSize":              req.GetPageSize(),
+		"pageNo":                req.GetPageNo(),
+	}
+	OptimizeQueryParams(queryParams)
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetQueryParams(queryParams).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/v4/hpfs/list-protocol-service")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultHpfsClient, _ = NewHpfsClient(baseDomain)
 
 func ConfigDefaultHpfsClient(ops ...Option) (err error) {
@@ -119,4 +151,8 @@ func ListSfs(context context.Context, req *hpfs.ListSfsRequest, reqOpt ...config
 
 func InfoSfs(context context.Context, req *hpfs.InfoSfsRequest, reqOpt ...config.RequestOption) (resp *hpfs.SfsObject, rawResponse *protocol.Response, err error) {
 	return defaultHpfsClient.InfoSfs(context, req, reqOpt...)
+}
+
+func ListProtocolService(context context.Context, req *hpfs.ListProtocolServiceRequest, reqOpt ...config.RequestOption) (resp *hpfs.ListProtocolServiceResponse, rawResponse *protocol.Response, err error) {
+	return defaultHpfsClient.ListProtocolService(context, req, reqOpt...)
 }
