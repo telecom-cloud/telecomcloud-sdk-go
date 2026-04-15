@@ -17,8 +17,6 @@ package iam
 
 import (
 	"context"
-	"crypto/md5"
-	"encoding/hex"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
@@ -437,22 +435,7 @@ func (r *request) SetRequestOption(option ...config.RequestOption) *request {
 func (r *request) Execute(method, url string) (*response, error) {
 	r.method = method
 	r.url = url
-	r.addTobSign()
 	return r.client.Execute(r)
-}
-
-func (r *request) addTobSign() {
-	info := r.header.Get("dy-tob-accountInfo")
-	if info != "" {
-		r.queryParam.Set("dyTobSign", MD5([]byte(info)))
-	}
-}
-
-func MD5(data []byte) string {
-	hash := md5.New()
-	hash.Write(data)
-	hashBytes := hash.Sum(nil)
-	return hex.EncodeToString(hashBytes)
 }
 
 func parseRequestURL(c *HttpClient, r *request) error {

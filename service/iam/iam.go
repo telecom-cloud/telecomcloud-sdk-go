@@ -25,10 +25,12 @@ var baseDomain = "https://ctiam-global.ctapi.ctyun.cn"
 
 type ClientSet interface {
 	Delegate() DelegateClient
+	Policy() PolicyClient
 }
 
 type clientSet struct {
 	delegateCli DelegateClient
+	policyCli   PolicyClient
 }
 
 func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
@@ -42,12 +44,21 @@ func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
 	if err != nil {
 		return nil, err
 	}
+	policyCli, err := NewPolicyClient(baseDomain, options...)
+	if err != nil {
+		return nil, err
+	}
 
 	return &clientSet{
 		delegateCli: delegateCli,
+		policyCli:   policyCli,
 	}, nil
 }
 
 func (cs *clientSet) Delegate() DelegateClient {
 	return cs.delegateCli
+}
+
+func (cs *clientSet) Policy() PolicyClient {
+	return cs.policyCli
 }
