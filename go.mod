@@ -7,7 +7,7 @@ toolchain go1.24.3
 require (
 	github.com/emmansun/gmsm v0.30.1
 	github.com/gorilla/websocket v1.5.3
-	github.com/telecom-cloud/client-go v0.1.8-0.20251224134423-016e03d77af0
+	github.com/telecom-cloud/client-go v0.1.8-0.20260415091455-5cc06416017e
 	google.golang.org/protobuf v1.36.2
 )
 
