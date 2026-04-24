@@ -1,0 +1,10 @@
+{
+    "serviceGroup": "aigw",
+    "module": "github.com/telecom-cloud/telecomcloud-sdk-go",
+    "clients": [
+        "ModelApi",
+        "GatewayInstance",
+        "Upstream",
+        "UpstreamSource"
+    ]
+}
