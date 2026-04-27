@@ -39,6 +39,8 @@ type UpstreamClient interface {
 
 	DeleteISuiteUpstream(context context.Context, req *upstream.DeleteISuiteUpstreamRequest, reqOpt ...config.RequestOption) (resp *upstream.DeleteISuiteUpstreamResponse, rawResponse *protocol.Response, err error)
 
+	OfflineISuiteUpstream(context context.Context, req *upstream.OfflineISuiteUpstreamRequest, reqOpt ...config.RequestOption) (resp *upstream.OfflineISuiteUpstreamResponse, rawResponse *protocol.Response, err error)
+
 	GetISuiteUpstream(context context.Context, req *upstream.GetISuiteUpstreamRequest, reqOpt ...config.RequestOption) (resp *upstream.GetISuiteUpstreamResponse, rawResponse *protocol.Response, err error)
 }
 
@@ -122,6 +124,27 @@ func (s *upstreamClient) DeleteISuiteUpstream(ctx context.Context, req *upstream
 	return resp, rawResponse, nil
 }
 
+func (s *upstreamClient) OfflineISuiteUpstream(ctx context.Context, req *upstream.OfflineISuiteUpstreamRequest, reqOpt ...config.RequestOption) (resp *upstream.OfflineISuiteUpstreamResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	ret, err := s.client.R().
+		SetContext(ctx).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodPost, "/v1/upstream/offline-isuite")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 func (s *upstreamClient) GetISuiteUpstream(ctx context.Context, req *upstream.GetISuiteUpstreamRequest, reqOpt ...config.RequestOption) (resp *upstream.GetISuiteUpstreamResponse, rawResponse *protocol.Response, err error) {
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
@@ -167,6 +190,10 @@ func UpdateISuiteUpstream(context context.Context, req *upstream.UpdateISuiteUps
 
 func DeleteISuiteUpstream(context context.Context, req *upstream.DeleteISuiteUpstreamRequest, reqOpt ...config.RequestOption) (resp *upstream.DeleteISuiteUpstreamResponse, rawResponse *protocol.Response, err error) {
 	return defaultUpstreamClient.DeleteISuiteUpstream(context, req, reqOpt...)
+}
+
+func OfflineISuiteUpstream(context context.Context, req *upstream.OfflineISuiteUpstreamRequest, reqOpt ...config.RequestOption) (resp *upstream.OfflineISuiteUpstreamResponse, rawResponse *protocol.Response, err error) {
+	return defaultUpstreamClient.OfflineISuiteUpstream(context, req, reqOpt...)
 }
 
 func GetISuiteUpstream(context context.Context, req *upstream.GetISuiteUpstreamRequest, reqOpt ...config.RequestOption) (resp *upstream.GetISuiteUpstreamResponse, rawResponse *protocol.Response, err error) {
