@@ -104,10 +104,8 @@ func (s *upstreamSourceClient) GetUpstreamSource(ctx context.Context, req *upstr
 	openapiResp.ReturnObj = &resp
 
 	queryParams := map[string]interface{}{
-		"gatewayType":                req.GetGatewayType(),
 		"instanceCode":               req.GetInstanceCode(),
 		"upstreamSourceInstanceCode": req.GetUpstreamSourceInstanceCode(),
-		"type":                       req.GetType(),
 	}
 	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
@@ -119,7 +117,7 @@ func (s *upstreamSourceClient) GetUpstreamSource(ctx context.Context, req *upstr
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/v1/upstream-source/query-one")
+		Execute(http.MethodGet, "/v1/upstream-source/one-for-isuite")
 	if err != nil {
 		return nil, nil, err
 	}

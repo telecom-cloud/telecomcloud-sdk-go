@@ -86,7 +86,7 @@ func (s *gatewayInstanceClient) ListGatewayInstance(ctx context.Context, req *ga
 	queryParams := map[string]interface{}{
 		"gatewayType": req.GetGatewayType(),
 		"bizState":    req.GetBizState(),
-		"vpcId":       req.GetVpcId(),
+		"vpcUuid":     req.GetVpcId(),
 		"regionCode":  req.GetRegionCode(),
 	}
 	OptimizeQueryParams(queryParams)

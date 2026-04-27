@@ -170,7 +170,7 @@ func (s *modelApiClient) ListModelApi(ctx context.Context, req *modelapi.ListMod
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/v1/model/api/list")
+		Execute(http.MethodGet, "/v1/model/api/all-for-isuite")
 	if err != nil {
 		return nil, nil, err
 	}
