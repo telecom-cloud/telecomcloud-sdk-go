@@ -111,9 +111,6 @@ func (s *modelApiClient) UpdateModelApi(ctx context.Context, req *modelapi.Updat
 
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetPathParams(map[string]string{
-			"modelApiCode": req.GetApiCode(),
-		}).
 		AddHeaders(map[string]string{
 			"regionId": req.GetRegionId(),
 		}).
@@ -135,9 +132,6 @@ func (s *modelApiClient) DeleteModelApi(ctx context.Context, req *modelapi.Delet
 
 	ret, err := s.client.R().
 		SetContext(ctx).
-		SetPathParams(map[string]string{
-			"apiCode": req.GetApiCode(),
-		}).
 		AddHeaders(map[string]string{
 			"regionId": req.GetRegionId(),
 		}).
@@ -190,6 +184,7 @@ func (s *modelApiClient) ListModelApiRoute(ctx context.Context, req *modelapi.Li
 	openapiResp.ReturnObj = &resp
 
 	queryParams := map[string]interface{}{
+		"apiCode":   req.GetApiCode(),
 		"routeName": req.GetRouteName(),
 		"path":      req.GetPath(),
 	}
@@ -197,9 +192,6 @@ func (s *modelApiClient) ListModelApiRoute(ctx context.Context, req *modelapi.Li
 	ret, err := s.client.R().
 		SetContext(ctx).
 		SetQueryParams(queryParams).
-		SetPathParams(map[string]string{
-			"apiCode": req.GetApiCode(),
-		}).
 		AddHeaders(map[string]string{
 			"regionId": req.GetRegionId(),
 		}).
