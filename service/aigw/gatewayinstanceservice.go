@@ -88,6 +88,7 @@ func (s *gatewayInstanceClient) ListGatewayInstance(ctx context.Context, req *ga
 		"bizState":    req.GetBizState(),
 		"vpcUuid":     req.GetVpcId(),
 		"regionCode":  req.GetRegionCode(),
+		"minVersion":  req.GetMinVersion(),
 	}
 	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
