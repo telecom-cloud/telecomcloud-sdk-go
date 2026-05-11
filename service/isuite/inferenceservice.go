@@ -54,6 +54,8 @@ type InferenceClient interface {
 	GetInferenceMetrics(context context.Context, req *inference.GetInferenceMetricsRequest, reqOpt ...config.RequestOption) (resp *inference.GetInferenceMetricsResponse, rawResponse *protocol.Response, err error)
 
 	GetInferenceDashboard(context context.Context, req *inference.GetInferenceDashboardRequest, reqOpt ...config.RequestOption) (resp *inference.GetInferenceDashboardResponse, rawResponse *protocol.Response, err error)
+
+	DroplistInference(context context.Context, req *inference.DroplistInferenceRequest, reqOpt ...config.RequestOption) (resp *inference.DroplistInferenceResponse, rawResponse *protocol.Response, err error)
 }
 
 type inferenceClient struct {
@@ -371,6 +373,33 @@ func (s *inferenceClient) GetInferenceDashboard(ctx context.Context, req *infere
 	return resp, rawResponse, nil
 }
 
+func (s *inferenceClient) DroplistInference(ctx context.Context, req *inference.DroplistInferenceRequest, reqOpt ...config.RequestOption) (resp *inference.DroplistInferenceResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	queryParams := map[string]interface{}{
+		"clusterId": req.GetClusterId(),
+		"namespace": req.GetNamespace(),
+	}
+	OptimizeQueryParams(queryParams)
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetQueryParams(queryParams).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/ccse/isuite/api/v1/droplist/inference-infos")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultInferenceClient, _ = NewInferenceClient(baseDomain)
 
 func ConfigDefaultInferenceClient(ops ...Option) (err error) {
@@ -420,4 +449,8 @@ func GetInferenceMetrics(context context.Context, req *inference.GetInferenceMet
 
 func GetInferenceDashboard(context context.Context, req *inference.GetInferenceDashboardRequest, reqOpt ...config.RequestOption) (resp *inference.GetInferenceDashboardResponse, rawResponse *protocol.Response, err error) {
 	return defaultInferenceClient.GetInferenceDashboard(context, req, reqOpt...)
+}
+
+func DroplistInference(context context.Context, req *inference.DroplistInferenceRequest, reqOpt ...config.RequestOption) (resp *inference.DroplistInferenceResponse, rawResponse *protocol.Response, err error) {
+	return defaultInferenceClient.DroplistInference(context, req, reqOpt...)
 }

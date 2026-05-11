@@ -9,6 +9,7 @@
         "Inference",
         "Queue",
         "Gateway",
-        "IntelligentRouter"
+        "IntelligentRouter",
+        "Overview"
     ]
 }

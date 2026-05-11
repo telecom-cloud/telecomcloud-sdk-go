@@ -32,6 +32,7 @@ type ClientSet interface {
 	Queue() QueueClient
 	Gateway() GatewayClient
 	IntelligentRouter() IntelligentRouterClient
+	Overview() OverviewClient
 }
 
 type clientSet struct {
@@ -43,6 +44,7 @@ type clientSet struct {
 	queueCli             QueueClient
 	gatewayCli           GatewayClient
 	intelligentRouterCli IntelligentRouterClient
+	overviewCli          OverviewClient
 }
 
 func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
@@ -84,6 +86,10 @@ func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
 	if err != nil {
 		return nil, err
 	}
+	overviewCli, err := NewOverviewClient(baseDomain, options...)
+	if err != nil {
+		return nil, err
+	}
 
 	return &clientSet{
 		modelCli:             modelCli,
@@ -94,6 +100,7 @@ func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
 		queueCli:             queueCli,
 		gatewayCli:           gatewayCli,
 		intelligentRouterCli: intelligentRouterCli,
+		overviewCli:          overviewCli,
 	}, nil
 }
 
@@ -127,4 +134,8 @@ func (cs *clientSet) Gateway() GatewayClient {
 
 func (cs *clientSet) IntelligentRouter() IntelligentRouterClient {
 	return cs.intelligentRouterCli
+}
+
+func (cs *clientSet) Overview() OverviewClient {
+	return cs.overviewCli
 }
