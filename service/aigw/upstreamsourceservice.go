@@ -68,7 +68,7 @@ func (s *upstreamSourceClient) CreateUpstreamSource(ctx context.Context, req *up
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/agw/v1/upstream-source/create")
+		Execute(http.MethodPost, "/agw/v1/upstream-source/create-isuite")
 	if err != nil {
 		return nil, nil, err
 	}
