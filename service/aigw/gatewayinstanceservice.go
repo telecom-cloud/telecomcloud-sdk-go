@@ -70,7 +70,7 @@ func (s *gatewayInstanceClient) GetExposedAddress(ctx context.Context, req *gate
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/v1/instance/exposed-address")
+		Execute(http.MethodGet, "/agw/v1/instance/exposed-address")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -100,7 +100,7 @@ func (s *gatewayInstanceClient) ListGatewayInstance(ctx context.Context, req *ga
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/v1/instance/list-base-info")
+		Execute(http.MethodGet, "/agw/v1/instance/list-base-info")
 	if err != nil {
 		return nil, nil, err
 	}

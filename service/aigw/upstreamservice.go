@@ -72,7 +72,7 @@ func (s *upstreamClient) CreateISuiteUpstream(ctx context.Context, req *upstream
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/v1/upstream/create-isuite")
+		Execute(http.MethodPost, "/agw/v1/upstream/create-isuite")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -94,7 +94,7 @@ func (s *upstreamClient) UpdateISuiteUpstream(ctx context.Context, req *upstream
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/v1/upstream/update-isuite")
+		Execute(http.MethodPost, "/agw/v1/upstream/update-isuite")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -115,7 +115,7 @@ func (s *upstreamClient) DeleteISuiteUpstream(ctx context.Context, req *upstream
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/v1/upstream/delete")
+		Execute(http.MethodPost, "/agw/v1/upstream/delete")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -136,7 +136,7 @@ func (s *upstreamClient) OfflineISuiteUpstream(ctx context.Context, req *upstrea
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/v1/upstream/offline-isuite")
+		Execute(http.MethodPost, "/agw/v1/upstream/offline-isuite")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -164,7 +164,7 @@ func (s *upstreamClient) GetISuiteUpstream(ctx context.Context, req *upstream.Ge
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/v1/upstream/isuite/one")
+		Execute(http.MethodGet, "/agw/v1/upstream/isuite/one")
 	if err != nil {
 		return nil, nil, err
 	}

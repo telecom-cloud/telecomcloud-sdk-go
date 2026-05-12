@@ -75,7 +75,7 @@ func (s *modelApiClient) CreateModelApi(ctx context.Context, req *modelapi.Creat
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPost, "/v1/model/api/create")
+		Execute(http.MethodPost, "/agw/v1/model/api/create")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -96,7 +96,7 @@ func (s *modelApiClient) PreCheckModelApi(ctx context.Context, req *modelapi.Cre
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/v1/model/api/create/pre-check")
+		Execute(http.MethodGet, "/agw/v1/model/api/create/pre-check")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -117,7 +117,7 @@ func (s *modelApiClient) UpdateModelApi(ctx context.Context, req *modelapi.Updat
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/v1/model/api/update")
+		Execute(http.MethodPut, "/agw/v1/model/api/update")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -138,7 +138,7 @@ func (s *modelApiClient) DeleteModelApi(ctx context.Context, req *modelapi.Delet
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/v1/model/api/delete")
+		Execute(http.MethodDelete, "/agw/v1/model/api/delete")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -170,7 +170,7 @@ func (s *modelApiClient) ListModelApi(ctx context.Context, req *modelapi.ListMod
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/v1/model/api/all-for-isuite")
+		Execute(http.MethodGet, "/agw/v1/model/api/all-for-isuite")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -198,7 +198,7 @@ func (s *modelApiClient) ListModelApiRoute(ctx context.Context, req *modelapi.Li
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/v1/model/api/route-list")
+		Execute(http.MethodGet, "/agw/v1/model/api/route-list")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -225,7 +225,7 @@ func (s *modelApiClient) GetRouteNames(ctx context.Context, req *modelapi.GetRou
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/v1/model/api/list-route-name")
+		Execute(http.MethodGet, "/agw/v1/model/api/list-route-name")
 	if err != nil {
 		return nil, nil, err
 	}
