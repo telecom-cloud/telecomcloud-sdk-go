@@ -96,7 +96,7 @@ func (s *modelApiClient) PreCheckModelApi(ctx context.Context, req *modelapi.Cre
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodGet, "/agw/v1/model/api/create/pre-check")
+		Execute(http.MethodPost, "/agw/v1/model/api/create/pre-check")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -117,7 +117,7 @@ func (s *modelApiClient) UpdateModelApi(ctx context.Context, req *modelapi.Updat
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodPut, "/agw/v1/model/api/update")
+		Execute(http.MethodPost, "/agw/v1/model/api/update")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -138,7 +138,7 @@ func (s *modelApiClient) DeleteModelApi(ctx context.Context, req *modelapi.Delet
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
 		SetResult(openapiResp).
-		Execute(http.MethodDelete, "/agw/v1/model/api/delete")
+		Execute(http.MethodPost, "/agw/v1/model/api/delete")
 	if err != nil {
 		return nil, nil, err
 	}

@@ -84,8 +84,7 @@ func (s *upstreamSourceClient) DeleteUpstreamSource(ctx context.Context, req *up
 	ret, err := s.client.R().
 		SetContext(ctx).
 		AddHeaders(map[string]string{
-			"regionId":    req.GetRegionId(),
-			"clientToken": req.GetClientToken(),
+			"regionId": req.GetRegionId(),
 		}).
 		SetBodyParam(req).
 		SetRequestOption(reqOpt...).
