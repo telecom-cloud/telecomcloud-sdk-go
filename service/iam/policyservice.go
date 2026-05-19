@@ -34,6 +34,14 @@ var (
 
 type PolicyClient interface {
 	GetUserPolicy(context context.Context, req *policy.GetUserPolicyRequest, reqOpt ...config.RequestOption) (resp *policy.GetUserPolicyResponse, rawResponse *protocol.Response, err error)
+
+	GetUserEpPloyByAction(context context.Context, req *policy.GetUserEpPloyByActionRequest, reqOpt ...config.RequestOption) (resp *policy.GetUserEpPloyByActionResponse, rawResponse *protocol.Response, err error)
+
+	ResourceEventReport(context context.Context, req *policy.ResourceEventReportRequest, reqOpt ...config.RequestOption) (resp *policy.ResourceEventReportResponse, rawResponse *protocol.Response, err error)
+
+	GetEpPageList(context context.Context, req *policy.GetEpPageListRequest, reqOpt ...config.RequestOption) (resp *policy.GetEpPageListResponse, rawResponse *protocol.Response, err error)
+
+	GetEpList(context context.Context, req *policy.GetEpListRequest, reqOpt ...config.RequestOption) (resp *policy.GetEpListResponse, rawResponse *protocol.Response, err error)
 }
 
 type policyClient struct {
@@ -69,6 +77,78 @@ func (s *policyClient) GetUserPolicy(ctx context.Context, req *policy.GetUserPol
 	return resp, rawResponse, nil
 }
 
+func (s *policyClient) GetUserEpPloyByAction(ctx context.Context, req *policy.GetUserEpPloyByActionRequest, reqOpt ...config.RequestOption) (resp *policy.GetUserEpPloyByActionResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodPost, "/v1/perm/getUserEpPloyByAction")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
+func (s *policyClient) ResourceEventReport(ctx context.Context, req *policy.ResourceEventReportRequest, reqOpt ...config.RequestOption) (resp *policy.ResourceEventReportResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodPost, "/v1/resource/resourceEventReport")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
+func (s *policyClient) GetEpPageList(ctx context.Context, req *policy.GetEpPageListRequest, reqOpt ...config.RequestOption) (resp *policy.GetEpPageListResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodPost, "/v1/project/getEpPageList")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
+func (s *policyClient) GetEpList(ctx context.Context, req *policy.GetEpListRequest, reqOpt ...config.RequestOption) (resp *policy.GetEpListResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodPost, "/v1/project/getEpList")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultPolicyClient, _ = NewPolicyClient(baseDomain)
 
 func ConfigDefaultPolicyClient(ops ...Option) (err error) {
@@ -78,4 +158,20 @@ func ConfigDefaultPolicyClient(ops ...Option) (err error) {
 
 func GetUserPolicy(context context.Context, req *policy.GetUserPolicyRequest, reqOpt ...config.RequestOption) (resp *policy.GetUserPolicyResponse, rawResponse *protocol.Response, err error) {
 	return defaultPolicyClient.GetUserPolicy(context, req, reqOpt...)
+}
+
+func GetUserEpPloyByAction(context context.Context, req *policy.GetUserEpPloyByActionRequest, reqOpt ...config.RequestOption) (resp *policy.GetUserEpPloyByActionResponse, rawResponse *protocol.Response, err error) {
+	return defaultPolicyClient.GetUserEpPloyByAction(context, req, reqOpt...)
+}
+
+func ResourceEventReport(context context.Context, req *policy.ResourceEventReportRequest, reqOpt ...config.RequestOption) (resp *policy.ResourceEventReportResponse, rawResponse *protocol.Response, err error) {
+	return defaultPolicyClient.ResourceEventReport(context, req, reqOpt...)
+}
+
+func GetEpPageList(context context.Context, req *policy.GetEpPageListRequest, reqOpt ...config.RequestOption) (resp *policy.GetEpPageListResponse, rawResponse *protocol.Response, err error) {
+	return defaultPolicyClient.GetEpPageList(context, req, reqOpt...)
+}
+
+func GetEpList(context context.Context, req *policy.GetEpListRequest, reqOpt ...config.RequestOption) (resp *policy.GetEpListResponse, rawResponse *protocol.Response, err error) {
+	return defaultPolicyClient.GetEpList(context, req, reqOpt...)
 }

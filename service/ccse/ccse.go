@@ -25,10 +25,12 @@ var baseDomain = "https://ccse-global.ctapi.ctyun.cn"
 
 type ClientSet interface {
 	Plugin() PluginClient
+	Cluster() ClusterClient
 }
 
 type clientSet struct {
-	pluginCli PluginClient
+	pluginCli  PluginClient
+	clusterCli ClusterClient
 }
 
 func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
@@ -42,12 +44,21 @@ func NewClientSet(baseDomain string, options ...Option) (ClientSet, error) {
 	if err != nil {
 		return nil, err
 	}
+	clusterCli, err := NewClusterClient(baseDomain, options...)
+	if err != nil {
+		return nil, err
+	}
 
 	return &clientSet{
-		pluginCli: pluginCli,
+		pluginCli:  pluginCli,
+		clusterCli: clusterCli,
 	}, nil
 }
 
 func (cs *clientSet) Plugin() PluginClient {
 	return cs.pluginCli
+}
+
+func (cs *clientSet) Cluster() ClusterClient {
+	return cs.clusterCli
 }
