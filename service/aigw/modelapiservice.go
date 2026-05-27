@@ -46,6 +46,8 @@ type ModelApiClient interface {
 	ListModelApiRoute(context context.Context, req *modelapi.ListModelApiRouteRequest, reqOpt ...config.RequestOption) (resp *modelapi.ListModelApiRouteResponse, rawResponse *protocol.Response, err error)
 
 	GetRouteNames(context context.Context, req *modelapi.GetRouteNamesRequest, reqOpt ...config.RequestOption) (resp *modelapi.GetRouteNamesResponse, rawResponse *protocol.Response, err error)
+
+	BatchDeleteModelApi(context context.Context, req *modelapi.BatchDeleteModelApiRequest, reqOpt ...config.RequestOption) (resp *modelapi.BatchDeleteModelApiResponse, rawResponse *protocol.Response, err error)
 }
 
 type modelApiClient struct {
@@ -234,6 +236,27 @@ func (s *modelApiClient) GetRouteNames(ctx context.Context, req *modelapi.GetRou
 	return resp, rawResponse, nil
 }
 
+func (s *modelApiClient) BatchDeleteModelApi(ctx context.Context, req *modelapi.BatchDeleteModelApiRequest, reqOpt ...config.RequestOption) (resp *modelapi.BatchDeleteModelApiResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	ret, err := s.client.R().
+		SetContext(ctx).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodPost, "/agw/v1/model/api/batch-delete")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultModelApiClient, _ = NewModelApiClient(baseDomain)
 
 func ConfigDefaultModelApiClient(ops ...Option) (err error) {
@@ -267,4 +290,8 @@ func ListModelApiRoute(context context.Context, req *modelapi.ListModelApiRouteR
 
 func GetRouteNames(context context.Context, req *modelapi.GetRouteNamesRequest, reqOpt ...config.RequestOption) (resp *modelapi.GetRouteNamesResponse, rawResponse *protocol.Response, err error) {
 	return defaultModelApiClient.GetRouteNames(context, req, reqOpt...)
+}
+
+func BatchDeleteModelApi(context context.Context, req *modelapi.BatchDeleteModelApiRequest, reqOpt ...config.RequestOption) (resp *modelapi.BatchDeleteModelApiResponse, rawResponse *protocol.Response, err error) {
+	return defaultModelApiClient.BatchDeleteModelApi(context, req, reqOpt...)
 }
