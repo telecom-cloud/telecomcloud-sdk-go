@@ -217,6 +217,7 @@ func (c *HttpClient) Execute(req *request) (*response, error) {
 	resp := protocol.Response{}
 
 	fmt.Printf("xxxx raw request %s", string(req.rawRequest.Body()))
+	fmt.Printf("yyyy raw request %s", string(req.rawRequest.Header.String()))
 
 	err = c.doer.Do(req.ctx, req.rawRequest, &resp)
 
