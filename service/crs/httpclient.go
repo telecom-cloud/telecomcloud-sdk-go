@@ -17,6 +17,8 @@ package crs
 
 import (
 	"context"
+	"crypto/md5"
+	"encoding/hex"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
@@ -255,12 +257,13 @@ func (c *HttpClient) Execute(req *request) (*response, error) {
 
 // R get request
 func (c *HttpClient) R() *request {
-	if c.header == nil {
-		c.header = http.Header{}
+	header := http.Header{}
+	if c.header != nil {
+		header = c.header.Clone()
 	}
 	return &request{
 		queryParam:     url.Values{},
-		header:         c.header,
+		header:         header,
 		pathParam:      map[string]string{},
 		formParam:      map[string]string{},
 		fileParam:      map[string]string{},
@@ -434,7 +437,22 @@ func (r *request) SetRequestOption(option ...config.RequestOption) *request {
 func (r *request) Execute(method, url string) (*response, error) {
 	r.method = method
 	r.url = url
+	r.addTobSign()
 	return r.client.Execute(r)
+}
+
+func (r *request) addTobSign() {
+	info := r.header.Get("dy-tob-accountInfo")
+	if info != "" {
+		r.queryParam.Set("dyTobSign", MD5([]byte(info)))
+	}
+}
+
+func MD5(data []byte) string {
+	hash := md5.New()
+	hash.Write(data)
+	hashBytes := hash.Sum(nil)
+	return hex.EncodeToString(hashBytes)
 }
 
 func parseRequestURL(c *HttpClient, r *request) error {
