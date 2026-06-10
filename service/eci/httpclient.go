@@ -216,7 +216,7 @@ func (c *HttpClient) Execute(req *request) (*response, error) {
 
 	resp := protocol.Response{}
 
-	fmt.Printf("xxxx raw request %s", DumpRequest(req.rawRequest))
+	fmt.Printf("xxxx raw request %s", string(req.rawRequest.Body()))
 
 	err = c.doer.Do(req.ctx, req.rawRequest, &resp)
 
@@ -253,45 +253,6 @@ func (c *HttpClient) Execute(req *request) (*response, error) {
 	}
 
 	return response, err
-}
-
-func DumpRequest(req *protocol.Request) string {
-	if req == nil {
-		return "rawRequest = nil"
-	}
-	var sb strings.Builder
-	val := reflect.ValueOf(*req)
-	typ := val.Type()
-
-	sb.WriteString("===== protocol.Request Dump =====\n")
-	for i := 0; i < val.NumField(); i++ {
-		fieldType := typ.Field(i)
-		fieldVal := val.Field(i)
-
-		// 特殊类型美化输出
-		var printVal string
-		switch fieldVal.Kind() {
-		case reflect.Interface, reflect.Ptr:
-			if fieldVal.IsNil() {
-				printVal = "<nil>"
-			} else {
-				printVal = fmt.Sprintf("%v (type=%T)", fieldVal.Elem().Interface(), fieldVal.Elem().Interface())
-			}
-		case reflect.Slice:
-			if fieldVal.Len() == 0 {
-				printVal = "empty slice"
-			} else {
-				printVal = fmt.Sprintf("slice len=%d", fieldVal.Len())
-			}
-		case reflect.Bool:
-			printVal = fmt.Sprintf("%t", fieldVal.Bool())
-		default:
-			printVal = fmt.Sprintf("%v", fieldVal.Interface())
-		}
-
-		sb.WriteString(fmt.Sprintf("%-25s | %s\n", fieldType.Name, printVal))
-	}
-	return sb.String()
 }
 
 // R get request
