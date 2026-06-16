@@ -110,8 +110,13 @@ func (s *containerGroupClient) DeleteContainerGroup(ctx context.Context, req *co
 	openapiResp := &openapi.Response{}
 	openapiResp.ReturnObj = &resp
 
+	queryParams := map[string]interface{}{
+		"force": req.GetForce(),
+	}
+	OptimizeQueryParams(queryParams)
 	ret, err := s.client.R().
 		SetContext(ctx).
+		SetQueryParams(queryParams).
 		SetPathParams(map[string]string{
 			"containerGroupId": req.GetContainerGroupId(),
 		}).
