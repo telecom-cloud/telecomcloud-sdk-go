@@ -607,6 +607,10 @@ func defaultRequestBodyBind(c *HttpClient, r *request) (contentType string, body
 	if err != nil {
 		return
 	}
+	// ===================== 在这里加日志 =====================
+	fmt.Printf("[SEND REQ BODY] method=%s url=%s contentType=%s body=%s\n",
+		r.method, r.url, contentType, string(bodyBytes))
+	// =====================================================
 	return contentType, strings.NewReader(string(bodyBytes)), nil
 }
 
