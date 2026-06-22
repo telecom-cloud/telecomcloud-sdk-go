@@ -36,6 +36,8 @@ type ClusterClient interface {
 	ListClustersPage(context context.Context, req *cluster.ListClustersPageRequest, reqOpt ...config.RequestOption) (resp *cluster.ListClustersPageResponse, rawResponse *protocol.Response, err error)
 
 	ListClusterBindingNamespaces(context context.Context, req *cluster.ListClusterBindingNamespacesRequest, reqOpt ...config.RequestOption) (resp *cluster.ListClusterBindingNamespacesResponse, rawResponse *protocol.Response, err error)
+
+	GetCluster(context context.Context, req *cluster.GetClusterRequest, reqOpt ...config.RequestOption) (resp *cluster.GetClusterResponse, rawResponse *protocol.Response, err error)
 }
 
 type clusterClient struct {
@@ -105,6 +107,30 @@ func (s *clusterClient) ListClusterBindingNamespaces(ctx context.Context, req *c
 	return resp, rawResponse, nil
 }
 
+func (s *clusterClient) GetCluster(ctx context.Context, req *cluster.GetClusterRequest, reqOpt ...config.RequestOption) (resp *cluster.GetClusterResponse, rawResponse *protocol.Response, err error) {
+	openapiResp := &openapi.Response{}
+	openapiResp.ReturnObj = &resp
+
+	ret, err := s.client.R().
+		SetContext(ctx).
+		SetPathParams(map[string]string{
+			"clusterId": req.GetClusterId(),
+		}).
+		AddHeaders(map[string]string{
+			"regionId": req.GetRegionId(),
+		}).
+		SetBodyParam(req).
+		SetRequestOption(reqOpt...).
+		SetResult(openapiResp).
+		Execute(http.MethodGet, "/v2/cce/clusters/:clusterId")
+	if err != nil {
+		return nil, nil, err
+	}
+
+	rawResponse = ret.RawResponse
+	return resp, rawResponse, nil
+}
+
 var defaultClusterClient, _ = NewClusterClient(baseDomain)
 
 func ConfigDefaultClusterClient(ops ...Option) (err error) {
@@ -118,4 +144,8 @@ func ListClustersPage(context context.Context, req *cluster.ListClustersPageRequ
 
 func ListClusterBindingNamespaces(context context.Context, req *cluster.ListClusterBindingNamespacesRequest, reqOpt ...config.RequestOption) (resp *cluster.ListClusterBindingNamespacesResponse, rawResponse *protocol.Response, err error) {
 	return defaultClusterClient.ListClusterBindingNamespaces(context, req, reqOpt...)
+}
+
+func GetCluster(context context.Context, req *cluster.GetClusterRequest, reqOpt ...config.RequestOption) (resp *cluster.GetClusterResponse, rawResponse *protocol.Response, err error) {
+	return defaultClusterClient.GetCluster(context, req, reqOpt...)
 }
